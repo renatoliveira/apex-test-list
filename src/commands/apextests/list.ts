@@ -40,7 +40,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       .map((line) => line.trim());
   }
 
-  private static listTestsInDirectory(directory: string): string[] {
+  private static async listTestsInDirectory(directory: string): Promise<string[]> {
     // check if the provided directory exists
     if (!directory) {
       throw new Error('Invalid directory.');
@@ -57,19 +57,22 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     const files = readDir.filter((file) => file.endsWith('.cls') || file.endsWith('.trigger'));
     const testMethodsNames: string[] = [];
 
-    // read each file and check for the test methods at the top
-    files.map((file) => {
-      const data = fs.readFileSync(`${directory}/${file}`, 'utf8');
-
-      // try to find, with a RegEx, the test methods listed at the top of the
-      // file with @Tests or @TestSuites
-      const testMethods = data.match(/(@(Tests|TestSuites)).+/g);
-      // for each entry, parse the names
-      // const testMethodsNames = testMethods ? ApextestsList.parseTestsNames(testMethods.join(',')) : [];
-      testMethodsNames.push(...(testMethods ? ApextestsList.parseTestsNames(testMethods.join(',')) : []));
+    const readPromises = files.map(async (file) => {
+      try {
+        const data = await fs.promises.readFile(`${directory}/${file}`, 'utf-8');
+        // try to find, with a RegEx, the test methods listed at the top of the
+        // file with @Tests or @TestSuites
+        const testMethods = data.match(/(@(Tests|TestSuites)).+/g);
+        // for each entry, parse the names
+        testMethodsNames.push(...(testMethods ? ApextestsList.parseTestsNames(testMethods.join(',')) : []));
+      } catch (error) {
+        throw new Error('Invalid file.');
+      }
     });
 
-    return testMethodsNames;
+    await Promise.all(readPromises);
+
+    return testMethodsNames.sort();
   }
 
   private static formatList(format: string, tests: string[]): Promise<ApextestsListResult> {
@@ -102,7 +105,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     let result: Promise<ApextestsListResult> | null = null;
 
     if (directory) {
-      result = ApextestsList.formatList(format, ApextestsList.listTestsInDirectory(directory));
+      result = ApextestsList.formatList(format, await ApextestsList.listTestsInDirectory(directory));
     }
 
     if (!result) {
