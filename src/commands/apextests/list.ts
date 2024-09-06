@@ -38,8 +38,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       .split(',')
       .map((line) => line.replace(/(@Tests|@TestSuites)/, ''))
       .map((line) => line.replace(':', ''))
-      .map((line) => line.trim())
-      .filter((line) => line.trim().length > 0);
+      .map((line) => line.trim());
   }
 
   private static listTestsInDirectory(directory: string): string[] {
