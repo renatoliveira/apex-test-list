@@ -6,7 +6,9 @@ Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('apextestlist', 'apextests.list');
 
 export type ApextestsListResult = {
-  files: string[];
+  tests: string[];
+  command: string;
+  // TODO: in the future, return the test suites as well
 };
 
 export default class ApextestsList extends SfCommand<ApextestsListResult> {
@@ -21,12 +23,13 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       char: 'd',
       required: false,
     }),
-    manifest: Flags.string({
-      summary: messages.getMessage('flags.manifest.summary'),
-      description: messages.getMessage('flags.manifest.description'),
-      char: 'x',
+    format: Flags.string({
+      summary: messages.getMessage('flags.format.summary'),
+      description: messages.getMessage('flags.format.description'),
+      char: 'f',
       required: false,
     }),
+    // TODO: add manifest flag
   };
 
   private static parseTestsNames(data: string): string[] {
@@ -35,48 +38,81 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       .split(',')
       .map((line) => line.replace(/(@Tests|@TestSuites)/, ''))
       .map((line) => line.replace(':', ''))
+      .map((line) => line.trim())
       .filter((line) => line.trim().length > 0);
+  }
+
+  private static listTestsInDirectory(directory: string): string[] {
+    // check if the provided directory exists
+    if (!directory) {
+      throw new Error('Invalid directory.');
+    }
+
+    let readDir;
+
+    try {
+      readDir = fs.readdirSync(directory, { recursive: true }) as string[];
+    } catch (error) {
+      throw new Error('Invalid directory.');
+    }
+
+    const files = readDir.filter((file) => file.endsWith('.cls'));
+    const testMethodsNames: string[] = [];
+
+    // read each file and check for the test methods at the top
+    files.map((file) => {
+      const data = fs.readFileSync(`${directory}/${file}`, 'utf8');
+
+      // try to find, with a RegEx, the test methods listed at the top of the
+      // file with @Tests or @TestSuites
+      const testMethods = data.match(/(@(Tests|TestSuites)).+/g);
+      // for each entry, parse the names
+      // const testMethodsNames = testMethods ? ApextestsList.parseTestsNames(testMethods.join(',')) : [];
+      testMethodsNames.push(...(testMethods ? ApextestsList.parseTestsNames(testMethods.join(',')) : []));
+    });
+
+    return testMethodsNames;
+  }
+
+  private static async formatList(format: string, tests: string[]): Promise<ApextestsListResult> {
+    switch (format) {
+      case 'sf':
+        return Promise.resolve({
+          tests,
+          command: '--tests ' + tests.join(' '),
+        });
+      case 'csv':
+        return Promise.resolve({
+          tests,
+          command: tests.join(','),
+        });
+      default:
+        throw new Error('Invalid format.');
+    }
   }
 
   public async run(): Promise<ApextestsListResult> {
     const { flags } = await this.parse(ApextestsList);
 
     const directory = flags.directory ?? '.';
-    const manifest = flags.manifest;
+    const format = flags.format ?? 'sf';
 
-    if (directory && manifest) {
-      // throw an error because both flags can't be used together
-      throw new Error('Both directory and manifest flags cannot be used together');
+    if (!directory) {
+      throw new Error('Directory must be provided.');
     }
+
+    let result: Promise<ApextestsListResult> | null = null;
 
     if (directory) {
-      return this.listTestsInDirectory(directory);
+      result = ApextestsList.formatList(format, ApextestsList.listTestsInDirectory(directory));
     }
 
-    throw new Error('No directory or manifest provided');
-  }
-
-  private listTestsInDirectory(directory: string): Promise<ApextestsListResult> {
-    // check if the provided directory exists
-    if (directory) {
-      const readDir = fs.readdirSync(directory, { recursive: true }) as string[];
-      const files = readDir.filter((file) => file.endsWith('.cls'));
-
-      // read each file and check for the test methods at the top
-      files.map((file) => {
-        const data = fs.readFileSync(`${directory}/${file}`, 'utf8');
-
-        // try to find, with a RegEx, the test methods listed at the top of the
-        // file with @Tests or @TestSuites
-        const testMethods = data.match(/(@(Tests|TestSuites)).+/g);
-        // for each entry, parse the names
-        const testMethodsNames = testMethods ? ApextestsList.parseTestsNames(testMethods.join(',')) : [];
-        this.log(testMethodsNames.join(','));
-      });
+    if (!result) {
+      throw new Error('No directory or manifest provided');
     }
 
-    return Promise.resolve({
-      files: [],
-    });
+    this.log((await result).command);
+
+    return result;
   }
 }

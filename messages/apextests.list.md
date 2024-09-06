@@ -14,14 +14,15 @@ Directory name. Defaults to the current working directory.
 
 Usually, if you run this command at the root of your Salesforce DX project, it means that the directory points to the original "force-app" folder (even if you have renamed it to something else). If you wish to limit the usage to a specific module, specify the folder with this flag.
 
-# flags.manifest.summary
+# flags.format.summary
 
-Manifest file.
+Format of the output.
 
-# flags.manifest.description
+# flags.format.description
 
-Points to the manifest XML file of your deployment (the `package.xml` file).
+By default, the format being returned is a list in the format that can be merged with the test flags of the Salesforce CLI deploy and validate commands. Available formats are `sf` (default) and `csv`.
 
 # examples
 
-- <%= config.bin %> <%= command.id %>
+- <%= config.bin %> <%= command.id %> --format csv
+- <%= config.bin %> <%= command.id %> --format sf --directory force-app
