@@ -14,6 +14,14 @@ Directory name. Defaults to the current working directory.
 
 Usually, if you run this command at the root of your Salesforce DX project, it means that the directory points to the original "force-app" folder (even if you have renamed it to something else). If you wish to limit the usage to a specific module, specify the folder with this flag.
 
+# flags.manifest.summary
+
+Manifest file.
+
+# flags.manifest.description
+
+Points to the manifest XML file of your deployment (the `package.xml` file).
+
 # examples
 
 - <%= config.bin %> <%= command.id %>
