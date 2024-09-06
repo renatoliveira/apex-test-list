@@ -8,7 +8,34 @@ A plugin that generates a list of tests that your, ideally, automated process sh
 
 List all files specified in the classes of a certain directory (and subfolders) and have the result be in the format for the CLI.
 
+The classes should have a comment starting with `@Tests` somewhere. This is what the tool reads to return the tests. For example, the `Sample.cls` file in the `samples` folder contains a comment like this:
+
+```java
+// @Tests: SampleTest,SuperSampleTest
+public class Sample {
+  // ...
+}
+```
+
+In the context of this plugin, this annotation/comment on the class means that _the tests that should cover this test class are called `SampleTest` and `SuperSampleTest`_.
+
+> Note: The tool does not check if those classes exist within your project, so make sure to keep the annotations up-to-date.
+
+Then, assuming you want to run only the tests provided at the top level of your classes, use the command as follows:
+
 ```sh
-sf apextests list --directory samples --format sf
+sf apextests list --directory force-app --format sf
 $ --tests SampleTest SuperSampleTest Sample2Test SuperSample2Test
+```
+
+This commnad is originally designed to be used in the context of a CI/CD pipeline. So that when your pipeline has a commnad to validate or deploy code to a Salesforce org, it will dynamically build the list of classes, like so:
+
+```sh
+sf project deploy start $(sf apextests list)
+```
+
+This then becomes the full command to deploy and run only the tests that you - in theory - deem to be necessary:
+
+```sh
+sf project deploy start --tests SampleTest SuperSampleTest Sample2Test SuperSample2Test SampleTriggerTest
 ```
