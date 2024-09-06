@@ -3,6 +3,8 @@ import { expect } from 'chai';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import ApextestsList from '../../../src/commands/apextests/list.js';
 
+const TEST_LIST = ['SampleTest', 'SuperSampleTest', 'Sample2Test', 'SuperSample2Test'];
+
 describe('apextests list', () => {
   const $$ = new TestContext();
   let sfCommandStubs: ReturnType<typeof stubSfCommandUx>;
@@ -15,26 +17,26 @@ describe('apextests list', () => {
     $$.restore();
   });
 
-  it('runs hello', async () => {
+  it('runs list', async () => {
     await ApextestsList.run([]);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
       .join('\n');
-    expect(output).to.include('hello world');
+    expect(output).to.equal(`--tests ${TEST_LIST.join(' ')}`);
   });
 
-  it('runs hello with --json and no provided name', async () => {
+  it('runs list with --json', async () => {
     const result = await ApextestsList.run([]);
-    expect(result.path).to.equal('src/commands/apextests/list.ts');
+    expect(result.command).to.equal(`--tests ${TEST_LIST.join(' ')}`);
   });
 
-  it('runs hello world --name Astro', async () => {
-    await ApextestsList.run(['--name', 'Astro']);
+  it('runs list --format csv --directory samples', async () => {
+    await ApextestsList.run(['--format', 'csv', '--directory', 'samples']);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
       .join('\n');
-    expect(output).to.include('hello Astro');
+    expect(output).to.equal(TEST_LIST.join(','));
   });
 });
