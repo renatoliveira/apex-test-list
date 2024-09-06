@@ -15,7 +15,8 @@
     "husky": "^9.1.5",
     "oclif": "^4.14.29",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "wireit": "^0.14.9"
   },
   "engines": {
     "node": ">=18.0.0"
