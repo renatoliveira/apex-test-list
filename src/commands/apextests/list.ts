@@ -56,7 +56,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       throw new Error('Invalid directory.');
     }
 
-    const files = readDir.filter((file) => file.endsWith('.cls'));
+    const files = readDir.filter((file) => file.endsWith('.cls') || file.endsWith('.trigger'));
     const testMethodsNames: string[] = [];
 
     // read each file and check for the test methods at the top

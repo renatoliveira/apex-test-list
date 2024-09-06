@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import ApextestsList from '../../../src/commands/apextests/list.js';
 
-const TEST_LIST = ['SampleTest', 'SuperSampleTest', 'Sample2Test', 'SuperSample2Test'];
+const TEST_LIST = ['SampleTest', 'SuperSampleTest', 'Sample2Test', 'SuperSample2Test', 'SampleTriggerTest'];
 
 describe('apextests list', () => {
   const $$ = new TestContext();
