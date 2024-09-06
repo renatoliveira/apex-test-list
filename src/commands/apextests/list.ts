@@ -74,7 +74,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     return testMethodsNames;
   }
 
-  private static async formatList(format: string, tests: string[]): Promise<ApextestsListResult> {
+  private static formatList(format: string, tests: string[]): Promise<ApextestsListResult> {
     switch (format) {
       case 'sf':
         return Promise.resolve({
