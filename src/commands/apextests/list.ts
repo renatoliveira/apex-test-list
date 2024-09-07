@@ -38,7 +38,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     return data
       .split(',')
       .map((line) => line.replace(/(@Tests|@TestSuites):/, ''))
-      .map((line) => line.trim());
+      .map((line) => line.trim())
       .filter((line) => line);
   }
 
