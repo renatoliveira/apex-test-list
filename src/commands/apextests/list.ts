@@ -1,6 +1,8 @@
 import * as fs from 'node:fs';
+import { availableParallelism } from 'node:os';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
+import { queue } from 'async';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('apextestlist', 'apextests.list');
@@ -33,6 +35,12 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     // TODO: add manifest flag
   };
 
+  protected static getConcurrencyThreshold(): number {
+    const AVAILABLE_PARALLELISM = availableParallelism ? availableParallelism() : Infinity;
+
+    return Math.min(AVAILABLE_PARALLELISM, 6);
+  }
+
   private static parseTestsNames(testNames: string[]): string[] {
     if (!testNames || testNames.length === 0) {
       return [];
@@ -48,6 +56,8 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
   }
 
   private static async listTestsInDirectory(directory: string): Promise<string[]> {
+    const testMethodsNames: string[] = [];
+
     // check if the provided directory exists
     if (!directory) {
       throw new Error('Invalid directory.');
@@ -63,24 +73,26 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
 
     const localFiles = readDir.filter((file) => file.endsWith('.cls') || file.endsWith('.trigger'));
 
-    const testMethodsNames = await Promise.all(
-      localFiles.flatMap(async (filePath) => {
-        try {
-          const data = await fs.promises.readFile(`${directory}/${filePath}`, 'utf-8');
+    const handler = (fileName: string): void => {
+      const path = `${directory}/${fileName}`;
+      const data = fs.readFileSync(path, 'utf-8');
+      const testMethods = data.match(TEST_NAME_REGEX);
 
-          // try to find, with a RegEx, the test methods listed at the top of the
-          // file with @Tests or @TestSuites
-          const testMethods = data.match(TEST_NAME_REGEX);
+      testMethodsNames.push(...(testMethods ? ApextestsList.parseTestsNames(testMethods) : []));
+    };
 
-          // for each entry, parse the names
-          return testMethods ? ApextestsList.parseTestsNames(testMethods) : [];
-        } catch (error) {
-          throw new Error('Invalid file.');
-        }
-      })
-    );
+    const processor = queue((f: string, cb: (error?: Error | undefined) => void) => {
+      handler(f);
+      cb();
+    }, this.getConcurrencyThreshold());
 
-    return testMethodsNames.flat().sort();
+    await processor.push(localFiles);
+
+    if (processor.length() > 0) {
+      await processor.drain();
+    }
+
+    return testMethodsNames.sort();
   }
 
   private static formatList(format: string, tests: string[]): Promise<ApextestsListResult> {
