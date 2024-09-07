@@ -4,6 +4,7 @@ import { Messages } from '@salesforce/core';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('apextestlist', 'apextests.list');
+const TEST_NAME_REGEX = /(@(Tests|TestSuites)).+/g;
 
 export type ApextestsListResult = {
   tests: string[];
@@ -63,7 +64,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
         const data = await fs.promises.readFile(`${directory}/${file}`, 'utf-8');
         // try to find, with a RegEx, the test methods listed at the top of the
         // file with @Tests or @TestSuites
-        const testMethods = data.match(/(@(Tests|TestSuites)).+/g);
+        const testMethods = data.match(TEST_NAME_REGEX);
         // for each entry, parse the names
         testMethodsNames.push(...(testMethods ? ApextestsList.parseTestsNames(testMethods.join(',')) : []));
       } catch (error) {
