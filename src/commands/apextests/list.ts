@@ -33,9 +33,14 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     // TODO: add manifest flag
   };
 
-  private static parseTestsNames(data: string): string[] {
+  private static parseTestsNames(testNames: string[]): string[] {
+    if (!testNames || testNames.length === 0) {
+      return [];
+    }
+
     // remove the prefix @Tests or @TestSuites
-    return data
+    return testNames
+      .join(',')
       .split(',')
       .map((line) => line.replace(/(@Tests|@TestSuites):/, ''))
       .map((line) => line.trim())
@@ -66,7 +71,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
         // file with @Tests or @TestSuites
         const testMethods = data.match(TEST_NAME_REGEX);
         // for each entry, parse the names
-        testMethodsNames.push(...(testMethods ? ApextestsList.parseTestsNames(testMethods.join(',')) : []));
+        testMethodsNames.push(...(testMethods ? ApextestsList.parseTestsNames(testMethods) : []));
       } catch (error) {
         throw new Error('Invalid file.');
       }
