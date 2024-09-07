@@ -36,8 +36,9 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     // remove the prefix @Tests or @TestSuites
     return data
       .split(',')
-      .map((line) => line.replace(/(@Tests|@TestSuites)/, '').replace(':', ''))
+      .map((line) => line.replace(/(@Tests|@TestSuites):/, ''))
       .map((line) => line.trim());
+      .filter((line) => line);
   }
 
   private static async listTestsInDirectory(directory: string): Promise<string[]> {
