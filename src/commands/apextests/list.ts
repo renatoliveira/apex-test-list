@@ -61,25 +61,26 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       throw new Error('Invalid directory.');
     }
 
-    const files = readDir.filter((file) => file.endsWith('.cls') || file.endsWith('.trigger'));
-    const testMethodsNames: string[] = [];
+    const localFiles = readDir.filter((file) => file.endsWith('.cls') || file.endsWith('.trigger'));
 
-    const readPromises = files.map(async (file) => {
-      try {
-        const data = await fs.promises.readFile(`${directory}/${file}`, 'utf-8');
-        // try to find, with a RegEx, the test methods listed at the top of the
-        // file with @Tests or @TestSuites
-        const testMethods = data.match(TEST_NAME_REGEX);
-        // for each entry, parse the names
-        testMethodsNames.push(...(testMethods ? ApextestsList.parseTestsNames(testMethods) : []));
-      } catch (error) {
-        throw new Error('Invalid file.');
-      }
-    });
+    const testMethodsNames = await Promise.all(
+      localFiles.flatMap(async (filePath) => {
+        try {
+          const data = await fs.promises.readFile(`${directory}/${filePath}`, 'utf-8');
 
-    await Promise.all(readPromises);
+          // try to find, with a RegEx, the test methods listed at the top of the
+          // file with @Tests or @TestSuites
+          const testMethods = data.match(TEST_NAME_REGEX);
 
-    return testMethodsNames.sort();
+          // for each entry, parse the names
+          return testMethods ? ApextestsList.parseTestsNames(testMethods) : [];
+        } catch (error) {
+          throw new Error('Invalid file.');
+        }
+      })
+    );
+
+    return testMethodsNames.flat().sort();
   }
 
   private static formatList(format: string, tests: string[]): Promise<ApextestsListResult> {
