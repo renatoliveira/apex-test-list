@@ -6,13 +6,15 @@
     "@oclif/core": "4.0.21",
     "@salesforce/core": "^8.5.5",
     "@salesforce/sf-plugins-core": "^11.3.9",
-    "async": "^3.2.6"
+    "async": "^3.2.6",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
     "@oclif/plugin-command-snapshot": "^5.2.15",
     "@salesforce/cli-plugins-testkit": "^5.3.30",
     "@salesforce/dev-scripts": "^10.2.10",
     "@types/async": "^3.2.24",
+    "@types/xml2js": "^0.4.14",
     "eslint-plugin-sf-plugin": "^1.20.7",
     "husky": "^9.1.5",
     "oclif": "^4.14.31",

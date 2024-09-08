@@ -39,4 +39,13 @@ describe('apextests list', () => {
       .join('\n');
     expect(output).to.equal(TEST_LIST.join(','));
   });
+
+  it('runs list --format csv --directory samples --manifest samples/samplePackage.xml', async () => {
+    await ApextestsList.run(['--format', 'csv', '--directory', 'samples', '--manifest', 'samples/samplePackage.xml']);
+    const output = sfCommandStubs.log
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join('\n');
+    expect(output).to.equal('SampleTest,SuperSampleTest');
+  });
 });

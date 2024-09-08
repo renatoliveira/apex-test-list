@@ -42,4 +42,11 @@ describe('apextests list NUTs', () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(JSON.parse(output).result.command).to.equal(TEST_LIST.join(','));
   });
+
+  it('runs list --format csv --directory samples --manifest samples/samplePackage.xml', async () => {
+    const command = 'apextests list --format csv --directory samples --manifest samples/samplePackage.xml';
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+
+    expect(output).to.equal('SampleTest,SuperSampleTest\n');
+  });
 });
