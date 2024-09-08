@@ -4,18 +4,18 @@
   "version": "1.0.2",
   "dependencies": {
     "@oclif/core": "4.0.21",
-    "@salesforce/core": "^8.5.4",
-    "@salesforce/sf-plugins-core": "^11.3.7",
+    "@salesforce/core": "^8.5.5",
+    "@salesforce/sf-plugins-core": "^11.3.9",
     "async": "^3.2.6"
   },
   "devDependencies": {
-    "@oclif/plugin-command-snapshot": "^5.1.9",
+    "@oclif/plugin-command-snapshot": "^5.2.15",
     "@salesforce/cli-plugins-testkit": "^5.3.30",
     "@salesforce/dev-scripts": "^10.2.10",
     "@types/async": "^3.2.24",
-    "eslint-plugin-sf-plugin": "^1.20.6",
+    "eslint-plugin-sf-plugin": "^1.20.7",
     "husky": "^9.1.5",
-    "oclif": "^4.14.29",
+    "oclif": "^4.14.31",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
     "wireit": "^0.14.9"
