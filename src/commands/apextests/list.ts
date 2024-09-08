@@ -1,9 +1,12 @@
 import * as fs from 'node:fs';
+import { availableParallelism } from 'node:os';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
+import { queue } from 'async';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('apextestlist', 'apextests.list');
+const TEST_NAME_REGEX = /(@(Tests|TestSuites)).+/g;
 
 export type ApextestsListResult = {
   tests: string[];
@@ -32,17 +35,29 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     // TODO: add manifest flag
   };
 
-  private static parseTestsNames(data: string): string[] {
-    // remove the prefix @Tests or @TestSuites
-    return data
-      .split(',')
-      .map((line) => line.replace(/(@Tests|@TestSuites)/, ''))
-      .map((line) => line.replace(':', ''))
-      .map((line) => line.trim())
-      .filter((line) => line.trim().length > 0);
+  protected static getConcurrencyThreshold(): number {
+    const AVAILABLE_PARALLELISM = availableParallelism ? availableParallelism() : Infinity;
+
+    return Math.min(AVAILABLE_PARALLELISM, 6);
   }
 
-  private static listTestsInDirectory(directory: string): string[] {
+  private static parseTestsNames(testNames: string[] | null): string[] {
+    if (!testNames || testNames.length === 0) {
+      return [];
+    }
+
+    // remove the prefix @Tests or @TestSuites
+    return testNames
+      .join(',')
+      .split(',')
+      .map((line) => line.replace(/(@Tests|@TestSuites):/, ''))
+      .map((line) => line.trim())
+      .filter((line) => line);
+  }
+
+  private static async listTestsInDirectory(directory: string): Promise<string[]> {
+    const testMethodsNames: string[] = [];
+
     // check if the provided directory exists
     if (!directory) {
       throw new Error('Invalid directory.');
@@ -56,25 +71,31 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       throw new Error('Invalid directory.');
     }
 
-    const files = readDir.filter((file) => file.endsWith('.cls') || file.endsWith('.trigger'));
-    const testMethodsNames: string[] = [];
+    const localFiles = readDir.filter((file) => file.endsWith('.cls') || file.endsWith('.trigger'));
 
-    // read each file and check for the test methods at the top
-    files.map((file) => {
-      const data = fs.readFileSync(`${directory}/${file}`, 'utf8');
+    const handler = (fileName: string): void => {
+      const path = `${directory}/${fileName}`;
+      const data = fs.readFileSync(path, 'utf-8');
+      const testMethods = data.match(TEST_NAME_REGEX);
 
-      // try to find, with a RegEx, the test methods listed at the top of the
-      // file with @Tests or @TestSuites
-      const testMethods = data.match(/(@(Tests|TestSuites)).+/g);
-      // for each entry, parse the names
-      // const testMethodsNames = testMethods ? ApextestsList.parseTestsNames(testMethods.join(',')) : [];
-      testMethodsNames.push(...(testMethods ? ApextestsList.parseTestsNames(testMethods.join(',')) : []));
-    });
+      testMethodsNames.push(...ApextestsList.parseTestsNames(testMethods));
+    };
 
-    return testMethodsNames;
+    const processor = queue((f: string, cb: (error?: Error | undefined) => void) => {
+      handler(f);
+      cb();
+    }, this.getConcurrencyThreshold());
+
+    await processor.push(localFiles);
+
+    if (processor.length() > 0) {
+      await processor.drain();
+    }
+
+    return testMethodsNames.sort();
   }
 
-  private static async formatList(format: string, tests: string[]): Promise<ApextestsListResult> {
+  private static formatList(format: string, tests: string[]): Promise<ApextestsListResult> {
     switch (format) {
       case 'sf':
         return Promise.resolve({
@@ -104,7 +125,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     let result: Promise<ApextestsListResult> | null = null;
 
     if (directory) {
-      result = ApextestsList.formatList(format, ApextestsList.listTestsInDirectory(directory));
+      result = ApextestsList.formatList(format, await ApextestsList.listTestsInDirectory(directory));
     }
 
     if (!result) {
