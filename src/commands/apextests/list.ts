@@ -41,7 +41,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     return Math.min(AVAILABLE_PARALLELISM, 6);
   }
 
-  private static parseTestsNames(testNames: string[]): string[] {
+  private static parseTestsNames(testNames: string[] | null): string[] {
     if (!testNames || testNames.length === 0) {
       return [];
     }
@@ -78,7 +78,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       const data = fs.readFileSync(path, 'utf-8');
       const testMethods = data.match(TEST_NAME_REGEX);
 
-      testMethodsNames.push(...(testMethods ? ApextestsList.parseTestsNames(testMethods) : []));
+      testMethodsNames.push(...ApextestsList.parseTestsNames(testMethods));
     };
 
     const processor = queue((f: string, cb: (error?: Error | undefined) => void) => {
