@@ -22,7 +22,7 @@ describe('apextests list', () => {
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
-      .join('\n');
+      .join(' ');
     expect(output).to.equal(`--tests ${TEST_LIST.join(' ')}`);
   });
 
@@ -36,7 +36,7 @@ describe('apextests list', () => {
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
-      .join('\n');
+      .join(' ');
     expect(output).to.equal(TEST_LIST.join(','));
   });
 
@@ -45,7 +45,7 @@ describe('apextests list', () => {
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
-      .join('\n');
+      .join(' ');
     expect(output).to.equal('SampleTest,SuperSampleTest');
   });
 
@@ -61,7 +61,7 @@ describe('apextests list', () => {
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
-      .join('\n');
+      .join(' ');
     expect(output).to.equal('SampleTest,SampleTriggerTest,SuperSampleTest');
   });
 });
