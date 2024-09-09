@@ -1,3 +1,4 @@
+import * as path from 'node:path';
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 
@@ -17,14 +18,14 @@ describe('apextests list NUTs', () => {
   it('should display the help information', () => {
     const command = 'apextests list --help';
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
-    expect(output).to.include('List');
+    expect(output.replace('\n', '')).to.include('List');
   });
 
   it('runs list', async () => {
     const command = 'apextests list';
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
-    expect(output).to.equal(`--tests ${TEST_LIST.join(' ')}\n`);
+    expect(output.replace('\n', '')).to.equal(`--tests ${TEST_LIST.join(' ')}`);
   });
 
   it('runs list with --json', async () => {
@@ -41,5 +42,25 @@ describe('apextests list NUTs', () => {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(JSON.parse(output).result.command).to.equal(TEST_LIST.join(','));
+  });
+
+  it('runs list --format csv --directory samples --manifest samples/samplePackage.xml', async () => {
+    const command = `apextests list --format csv --directory samples --manifest ${path.join(
+      'samples',
+      'samplePackage.xml'
+    )}`;
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+
+    expect(output.replace('\n', '')).to.equal('SampleTest,SuperSampleTest');
+  });
+
+  it('runs list --format csv --directory samples --manifest samples/samplePackageWithTrigger.xml', async () => {
+    const command = `apextests list --format csv --directory samples --manifest ${path.join(
+      'samples',
+      'samplePackageWithTrigger.xml'
+    )}`;
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+
+    expect(output.replace('\n', '')).to.equal('SampleTest,SampleTriggerTest,SuperSampleTest');
   });
 });

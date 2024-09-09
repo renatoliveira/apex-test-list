@@ -3,6 +3,7 @@ import { availableParallelism } from 'node:os';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { queue } from 'async';
+import { Parser } from 'xml2js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('apextestlist', 'apextests.list');
@@ -32,7 +33,12 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       char: 'f',
       required: false,
     }),
-    // TODO: add manifest flag
+    manifest: Flags.string({
+      summary: messages.getMessage('flags.manifest.summary'),
+      description: messages.getMessage('flags.manifest.description'),
+      char: 'x',
+      required: false,
+    }),
   };
 
   protected static getConcurrencyThreshold(): number {
@@ -55,7 +61,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       .filter((line) => line);
   }
 
-  private static async listTestsInDirectory(directory: string): Promise<string[]> {
+  private static async searchTestClasses(directory: string, names: string[] | null): Promise<string[]> {
     const testMethodsNames: string[] = [];
 
     // check if the provided directory exists
@@ -71,7 +77,22 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       throw new Error('Invalid directory.');
     }
 
-    const localFiles = readDir.filter((file) => file.endsWith('.cls') || file.endsWith('.trigger'));
+    const localFiles = readDir.filter((file) => {
+      if (!file.endsWith('.cls') && !file.endsWith('.trigger')) {
+        return;
+      }
+
+      const fileFullName: string[] | undefined = file.split('/').pop()?.split('.');
+
+      if (!names) {
+        return fileFullName;
+      }
+
+      if (fileFullName && fileFullName.length > 0) {
+        const formattedName = `${fileFullName[1] === 'cls' ? 'ApexClass' : 'ApexTrigger'}:${fileFullName[0]}`;
+        return names.includes(formattedName);
+      }
+    });
 
     const handler = (fileName: string): void => {
       const path = `${directory}/${fileName}`;
@@ -112,20 +133,54 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     }
   }
 
+  private static async extractClassNamesFromManifestFile(manifestFile: string): Promise<string[]> {
+    const result: string[] = [];
+
+    if (!manifestFile || !fs.existsSync(manifestFile)) {
+      return result;
+    }
+
+    const xmlParser: Parser = new Parser();
+    await xmlParser
+      .parseStringPromise(fs.readFileSync(manifestFile, 'utf-8'))
+      .then((parsed: { Package: { types: Array<{ name: string; members: string[] }> } }) => {
+        parsed.Package.types.forEach((type: { name: string; members: string[] }) => {
+          if (type.name.includes('ApexClass') || type.name.includes('ApexTrigger')) {
+            type.members.forEach((member) => {
+              result.push(`${type.name}:${member}`);
+            });
+          }
+        });
+      })
+      .catch((error) => {
+        throw error;
+      });
+
+    return result;
+  }
+
   public async run(): Promise<ApextestsListResult> {
     const { flags } = await this.parse(ApextestsList);
 
     const directory = flags.directory ?? '.';
     const format = flags.format ?? 'sf';
+    const manifest = flags.manifest ?? undefined;
 
     if (!directory) {
       throw new Error('Directory must be provided.');
     }
 
     let result: Promise<ApextestsListResult> | null = null;
+    let testClassesNames: string[] | null = null;
+
+    if (manifest) {
+      // If a manifest file was provided, we read the name of the test classes
+      // from it and then we try to find those in the provided directory.
+      testClassesNames = await ApextestsList.extractClassNamesFromManifestFile(manifest);
+    }
 
     if (directory) {
-      result = ApextestsList.formatList(format, await ApextestsList.listTestsInDirectory(directory));
+      result = ApextestsList.formatList(format, await ApextestsList.searchTestClasses(directory, testClassesNames));
     }
 
     if (!result) {

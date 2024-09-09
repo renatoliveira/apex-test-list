@@ -22,7 +22,7 @@ describe('apextests list', () => {
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
-      .join('\n');
+      .join(' ');
     expect(output).to.equal(`--tests ${TEST_LIST.join(' ')}`);
   });
 
@@ -36,7 +36,32 @@ describe('apextests list', () => {
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
-      .join('\n');
+      .join(' ');
     expect(output).to.equal(TEST_LIST.join(','));
+  });
+
+  it('runs list --format csv --directory samples --manifest samples/samplePackage.xml', async () => {
+    await ApextestsList.run(['--format', 'csv', '--directory', 'samples', '--manifest', 'samples/samplePackage.xml']);
+    const output = sfCommandStubs.log
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join(' ');
+    expect(output).to.equal('SampleTest,SuperSampleTest');
+  });
+
+  it('runs list --format csv --directory samples --manifest samples/samplePackageWithTrigger.xml', async () => {
+    await ApextestsList.run([
+      '--format',
+      'csv',
+      '--directory',
+      'samples',
+      '--manifest',
+      'samples/samplePackageWithTrigger.xml',
+    ]);
+    const output = sfCommandStubs.log
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join(' ');
+    expect(output).to.equal('SampleTest,SampleTriggerTest,SuperSampleTest');
   });
 });
