@@ -1,13 +1,27 @@
+import { rm, writeFile } from 'node:fs/promises'
 import { TestContext } from '@salesforce/core/testSetup';
 import { expect } from 'chai';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import ApextestsList from '../../../src/commands/apextests/list.js';
 
-const TEST_LIST = ['Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSample2Test', 'SuperSampleTest'].sort();
+import { SFDX_PROJECT_FILE_NAME } from '../../../src/helpers/constants.js';
+
+const TEST_LIST = ['Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSample2Test', 'SuperSampleTest'].sort((a, b) => a.localeCompare(b));
 
 describe('apextests list', () => {
   const $$ = new TestContext();
   let sfCommandStubs: ReturnType<typeof stubSfCommandUx>;
+  const configFile = {
+    packageDirectories: [{ path: 'samples', default: true }],
+    namespace: '',
+    sfdcLoginUrl: 'https://login.salesforce.com',
+    sourceApiVersion: '58.0',
+  };
+  const configJsonString = JSON.stringify(configFile, null, 2);
+
+  before(async () => {
+    await writeFile(SFDX_PROJECT_FILE_NAME, configJsonString);
+  });
 
   beforeEach(() => {
     sfCommandStubs = stubSfCommandUx($$.SANDBOX);
@@ -15,6 +29,11 @@ describe('apextests list', () => {
 
   afterEach(() => {
     $$.restore();
+  });
+
+
+  after(async () => {
+    await rm(SFDX_PROJECT_FILE_NAME);
   });
 
   it('runs list', async () => {
@@ -31,8 +50,8 @@ describe('apextests list', () => {
     expect(result.command).to.equal(`--tests ${TEST_LIST.join(' ')}`);
   });
 
-  it('runs list --format csv --directory samples', async () => {
-    await ApextestsList.run(['--format', 'csv', '--directory', 'samples']);
+  it('runs list --format csv', async () => {
+    await ApextestsList.run(['--format', 'csv']);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
@@ -40,8 +59,8 @@ describe('apextests list', () => {
     expect(output).to.equal(TEST_LIST.join(','));
   });
 
-  it('runs list --format csv --directory samples --manifest samples/samplePackage.xml', async () => {
-    await ApextestsList.run(['--format', 'csv', '--directory', 'samples', '--manifest', 'samples/samplePackage.xml']);
+  it('runs list --format csv --manifest samples/samplePackage.xml', async () => {
+    await ApextestsList.run(['--format', 'csv', '--manifest', 'samples/samplePackage.xml']);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
@@ -49,12 +68,10 @@ describe('apextests list', () => {
     expect(output).to.equal('SampleTest,SuperSampleTest');
   });
 
-  it('runs list --format csv --directory samples --manifest samples/samplePackageWithTrigger.xml', async () => {
+  it('runs list --format csv --manifest samples/samplePackageWithTrigger.xml', async () => {
     await ApextestsList.run([
       '--format',
       'csv',
-      '--directory',
-      'samples',
       '--manifest',
       'samples/samplePackageWithTrigger.xml',
     ]);

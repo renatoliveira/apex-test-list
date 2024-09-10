@@ -1,9 +1,14 @@
+'use strict';
+/* eslint-disable no-await-in-loop */
+
 import * as fs from 'node:fs';
 import { availableParallelism } from 'node:os';
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { queue } from 'async';
 import { Parser } from 'xml2js';
+
+import { getPackageDirectories } from '../../helpers/getPackageDirectories.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('apextestlist', 'apextests.list');
@@ -21,12 +26,6 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
   public static readonly examples = messages.getMessages('examples');
 
   public static readonly flags = {
-    directory: Flags.string({
-      summary: messages.getMessage('flags.directory.summary'),
-      description: messages.getMessage('flags.directory.description'),
-      char: 'd',
-      required: false,
-    }),
     format: Flags.string({
       summary: messages.getMessage('flags.format.summary'),
       description: messages.getMessage('flags.format.description'),
@@ -63,12 +62,6 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
 
   private static async searchTestClasses(directory: string, names: string[] | null): Promise<string[]> {
     const testMethodsNames: string[] = [];
-
-    // check if the provided directory exists
-    if (!directory) {
-      throw new Error('Invalid directory.');
-    }
-
     let readDir;
 
     try {
@@ -79,7 +72,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
 
     const localFiles = readDir.filter((file) => {
       if (!file.endsWith('.cls') && !file.endsWith('.trigger')) {
-        return;
+        return false;
       }
 
       const fileFullName: string[] | undefined = file.split('/').pop()?.split('.');
@@ -156,35 +149,41 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
         throw error;
       });
 
-    return result;
+    return result.sort((a, b) => a.localeCompare(b));
   }
 
   public async run(): Promise<ApextestsListResult> {
     const { flags } = await this.parse(ApextestsList);
 
-    const directory = flags.directory ?? '.';
     const format = flags.format ?? 'sf';
     const manifest = flags.manifest ?? undefined;
-
-    if (!directory) {
-      throw new Error('Directory must be provided.');
-    }
 
     let result: Promise<ApextestsListResult> | null = null;
     let testClassesNames: string[] | null = null;
 
+    // Get package directories
+    const packageDirectories = await getPackageDirectories();
+
     if (manifest) {
-      // If a manifest file was provided, we read the name of the test classes
-      // from it and then we try to find those in the provided directory.
       testClassesNames = await ApextestsList.extractClassNamesFromManifestFile(manifest);
     }
 
-    if (directory) {
-      result = ApextestsList.formatList(format, await ApextestsList.searchTestClasses(directory, testClassesNames));
+    const allTestMethods: string[] = [];
+
+    // Loop through each directory and search for test classes
+    for (const directory of packageDirectories) {
+      const testMethodsInDir = await ApextestsList.searchTestClasses(directory, testClassesNames);
+      allTestMethods.push(...testMethodsInDir);
+    }
+
+    allTestMethods.sort((a, b) => a.localeCompare(b));
+
+    if (allTestMethods.length > 0) {
+      result = ApextestsList.formatList(format, allTestMethods);
     }
 
     if (!result) {
-      throw new Error('No directory or manifest provided');
+      throw new Error('No test methods found');
     }
 
     this.log((await result).command);
