@@ -1,11 +1,26 @@
+import { rm, writeFile } from 'node:fs/promises'
 import * as path from 'node:path';
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 
-const TEST_LIST = ['Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSample2Test', 'SuperSampleTest'].sort();
+import { SFDX_PROJECT_FILE_NAME } from '../../../src/helpers/constants.js';
+
+const TEST_LIST = ['Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSample2Test', 'SuperSampleTest'].sort((a, b) => a.localeCompare(b));
 
 describe('apextests list NUTs', () => {
   let session: TestSession;
+
+  const configFile = {
+    packageDirectories: [{ path: 'samples', default: true }],
+    namespace: '',
+    sfdcLoginUrl: 'https://login.salesforce.com',
+    sourceApiVersion: '58.0',
+  };
+  const configJsonString = JSON.stringify(configFile, null, 2);
+
+  before(async () => {
+    await writeFile(SFDX_PROJECT_FILE_NAME, configJsonString);
+  });
 
   before(async () => {
     session = await TestSession.create({ devhubAuthStrategy: 'NONE' });
@@ -13,6 +28,7 @@ describe('apextests list NUTs', () => {
 
   after(async () => {
     await session?.clean();
+    await rm(SFDX_PROJECT_FILE_NAME);
   });
 
   it('should display the help information', () => {
@@ -36,16 +52,16 @@ describe('apextests list NUTs', () => {
     expect(JSON.parse(output).result.command).to.equal(`--tests ${TEST_LIST.join(' ')}`);
   });
 
-  it('runs list --format csv --directory samples', async () => {
-    const command = `apextests list ${['--format', 'csv', '--directory', 'samples'].join(' ')} --json`;
+  it('runs list --format csv', async () => {
+    const command = `apextests list ${['--format', 'csv'].join(' ')} --json`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(JSON.parse(output).result.command).to.equal(TEST_LIST.join(','));
   });
 
-  it('runs list --format csv --directory samples --manifest samples/samplePackage.xml', async () => {
-    const command = `apextests list --format csv --directory samples --manifest ${path.join(
+  it('runs list --format csv --manifest samples/samplePackage.xml', async () => {
+    const command = `apextests list --format csv --manifest ${path.join(
       'samples',
       'samplePackage.xml'
     )}`;
@@ -54,8 +70,8 @@ describe('apextests list NUTs', () => {
     expect(output.replace('\n', '')).to.equal('SampleTest,SuperSampleTest');
   });
 
-  it('runs list --format csv --directory samples --manifest samples/samplePackageWithTrigger.xml', async () => {
-    const command = `apextests list --format csv --directory samples --manifest ${path.join(
+  it('runs list --format csv --manifest samples/samplePackageWithTrigger.xml', async () => {
+    const command = `apextests list --format csv --manifest ${path.join(
       'samples',
       'samplePackageWithTrigger.xml'
     )}`;
