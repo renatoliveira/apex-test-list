@@ -9,6 +9,7 @@ import { queue } from 'async';
 import { Parser } from 'xml2js';
 
 import { getPackageDirectories } from '../../helpers/getPackageDirectories.js';
+import { validateTests } from '../../helpers/validateTests.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('apextestlist', 'apextests.list');
@@ -176,10 +177,12 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       allTestMethods.push(...testMethodsInDir);
     }
 
-    allTestMethods.sort((a, b) => a.localeCompare(b));
+    // Validate the test methods after all are gathered
+    const { validatedTests, warnings } = await validateTests(allTestMethods, packageDirectories);
+    validatedTests.sort((a, b) => a.localeCompare(b));
 
-    if (allTestMethods.length > 0) {
-      result = ApextestsList.formatList(format, allTestMethods);
+    if (validatedTests.length > 0) {
+      result = ApextestsList.formatList(format, validatedTests);
     }
 
     if (!result) {
@@ -187,6 +190,12 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     }
 
     this.log((await result).command);
+
+    if (warnings.length > 0) {
+      warnings.forEach((warning) => {
+        this.warn(warning);
+      });
+    }
 
     return result;
   }
