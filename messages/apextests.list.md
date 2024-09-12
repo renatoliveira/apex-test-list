@@ -22,8 +22,17 @@ Manifest XML file.
 
 When you specify a manifest file, the plugin will not search directories for all classes with annotations, but instead will read the manifest file and search for those classes within your package directories.
 
+# flags.ignore-missing-tests.summary
+
+Ignore missing test methods.
+
+# flags.ignore-missing-tests.description
+
+If provided, ignore test methods that are not found in any of the package directories.
+
 # examples
 
 - <%= config.bin %> <%= command.id %> --format csv
 - <%= config.bin %> <%= command.id %> --format sf
 - <%= config.bin %> <%= command.id %> --format sf --manifest package.xml
+- <%= config.bin %> <%= command.id %> --format sf --manifest package.xml --ignore-missing-tests

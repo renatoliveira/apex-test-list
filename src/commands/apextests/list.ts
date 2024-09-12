@@ -39,6 +39,12 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       char: 'x',
       required: false,
     }),
+    'ignore-missing-tests': Flags.boolean({
+      summary: messages.getMessage('flags.ignore-missing-tests.summary'),
+      description: messages.getMessage('flags.ignore-missing-tests.description'),
+      required: false,
+      default: false,
+    }),
   };
 
   protected static getConcurrencyThreshold(): number {
@@ -158,6 +164,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
 
     const format = flags.format ?? 'sf';
     const manifest = flags.manifest ?? undefined;
+    const ignoreMissingTests = flags['ignore-missing-tests'] ?? false;
 
     let result: Promise<ApextestsListResult> | null = null;
     let testClassesNames: string[] | null = null;
@@ -176,27 +183,31 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       const testMethodsInDir = await ApextestsList.searchTestClasses(directory, testClassesNames);
       allTestMethods.push(...testMethodsInDir);
     }
+    let finalTestMethods = allTestMethods; // default to allTestMethods
 
-    // Validate the test methods after all are gathered
-    const { validatedTests, warnings } = await validateTests(allTestMethods, packageDirectories);
-    validatedTests.sort((a, b) => a.localeCompare(b));
+    // If ignore-missing-tests is true, validate the test methods
+    if (ignoreMissingTests) {
+      const { validatedTests, warnings } = await validateTests(allTestMethods, packageDirectories);
 
-    if (validatedTests.length > 0) {
-      result = ApextestsList.formatList(format, validatedTests);
+      if (validatedTests.length > 0) {
+        finalTestMethods = validatedTests;
+      }
+        // Log any warnings
+      if (warnings.length > 0) {
+        warnings.forEach((warning) => {
+          this.warn(warning);
+        });
+      }
     }
+    finalTestMethods.sort((a, b) => a.localeCompare(b));
 
-    if (!result) {
+    if (finalTestMethods.length > 0) {
+      result = ApextestsList.formatList(format, finalTestMethods);
+    } else {
       throw new Error('No test methods found');
     }
 
     this.log((await result).command);
-
-    if (warnings.length > 0) {
-      warnings.forEach((warning) => {
-        this.warn(warning);
-      });
-    }
-
     return result;
   }
 }

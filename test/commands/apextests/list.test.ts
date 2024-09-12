@@ -37,7 +37,7 @@ describe('apextests list', () => {
   });
 
   it('runs list', async () => {
-    await ApextestsList.run([]);
+    await ApextestsList.run(['--ignore-missing-tests']);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
@@ -51,12 +51,12 @@ describe('apextests list', () => {
   });
 
   it('runs list with --json', async () => {
-    const result = await ApextestsList.run([]);
+    const result = await ApextestsList.run(['--ignore-missing-tests']);
     expect(result.command).to.equal(`--tests ${TEST_LIST.join(' ')}`);
   });
 
   it('runs list --format csv', async () => {
-    await ApextestsList.run(['--format', 'csv']);
+    await ApextestsList.run(['--format', 'csv', '--ignore-missing-tests']);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
