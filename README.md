@@ -19,7 +19,7 @@ public class Sample {
 
 In the context of this plugin, this annotation/comment on the class means that _the tests that should cover this test class are called `SampleTest` and `SuperSampleTest`_.
 
-> Note: By default, this tool with not check if those classes exist within your project. If you want to check that test methods are found in your package directories, provide the optional `--ignore-missing-tests` flag. When the flag is provided, a warning will be printed for each test class it is unable to find in any of your package directories and will not add those missing tests to the final output.
+> Note: By default, this tool with not check if those classes exist within your project. If you want to check that test methods are found in your package directories, provide the optional `--ignore-missing-tests` Boolean flag. When the flag is provided, a warning will be printed for each test class it is unable to find in any of your package directories and will not add those missing tests to the final output.
 
 Then, assuming you want to run only the tests provided at the top level of your classes, use the command as follows:
 
