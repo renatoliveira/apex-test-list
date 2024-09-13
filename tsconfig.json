@@ -2,7 +2,7 @@
   "extends": "@salesforce/dev-config/tsconfig-strict-esm",
   "compilerOptions": {
     "outDir": "lib",
-    "module": "ESNext",
+    "module": "Node16",
     "rootDir": "src"
   },
   "include": ["./src/**/*.ts"]
