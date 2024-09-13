@@ -43,6 +43,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       summary: messages.getMessage('flags.ignore-missing-tests.summary'),
       description: messages.getMessage('flags.ignore-missing-tests.description'),
       required: false,
+      char: 's',
       default: false,
     }),
   };
