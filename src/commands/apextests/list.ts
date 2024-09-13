@@ -192,10 +192,10 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       if (validatedTests.length > 0) {
         finalTestMethods = validatedTests;
       } else {
-        throw new Error('No test methods declared in your annotations were found in your package directories.')
+        throw new Error('No test methods declared in your annotations were found in your package directories.');
       }
 
-        // Log any warnings
+      // Log any warnings
       if (warnings.length > 0) {
         warnings.forEach((warning) => {
           this.warn(warning);

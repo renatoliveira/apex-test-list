@@ -1,11 +1,13 @@
-import { rm, writeFile } from 'node:fs/promises'
+import { rm, writeFile } from 'node:fs/promises';
 import * as path from 'node:path';
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 
 import { SFDX_PROJECT_FILE_NAME } from '../../../src/helpers/constants.js';
 
-const TEST_LIST = ['Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSample2Test', 'SuperSampleTest'].sort((a, b) => a.localeCompare(b));
+const TEST_LIST = ['Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSample2Test', 'SuperSampleTest'].sort(
+  (a, b) => a.localeCompare(b)
+);
 
 describe('apextests list NUTs', () => {
   let session: TestSession;
@@ -61,20 +63,14 @@ describe('apextests list NUTs', () => {
   });
 
   it('runs list --format csv --manifest samples/samplePackage.xml', async () => {
-    const command = `apextests list --format csv --manifest ${path.join(
-      'samples',
-      'samplePackage.xml'
-    )}`;
+    const command = `apextests list --format csv --manifest ${path.join('samples', 'samplePackage.xml')}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     expect(output.replace('\n', '')).to.equal('SampleTest,SuperSampleTest');
   });
 
   it('runs list --format csv --manifest samples/samplePackageWithTrigger.xml', async () => {
-    const command = `apextests list --format csv --manifest ${path.join(
-      'samples',
-      'samplePackageWithTrigger.xml'
-    )}`;
+    const command = `apextests list --format csv --manifest ${path.join('samples', 'samplePackageWithTrigger.xml')}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     expect(output.replace('\n', '')).to.equal('SampleTest,SampleTriggerTest,SuperSampleTest');
