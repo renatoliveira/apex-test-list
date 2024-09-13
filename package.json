@@ -20,7 +20,7 @@
     "husky": "^9.1.6",
     "oclif": "^4.14.32",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.2",
+    "typescript": "5.5.4",
     "wireit": "^0.14.9"
   },
   "engines": {
