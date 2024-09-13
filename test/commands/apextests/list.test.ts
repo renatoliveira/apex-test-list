@@ -37,26 +37,36 @@ describe('apextests list', () => {
   });
 
   it('runs list', async () => {
-    await ApextestsList.run([]);
+    await ApextestsList.run(['--ignore-missing-tests']);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
       .join(' ');
     expect(output).to.equal(`--tests ${TEST_LIST.join(' ')}`);
+    const warnings = sfCommandStubs.warn
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join('\n');
+    expect(warnings).to.include('The test method NotYourLuckyDayTest.cls was not found in any package directory.');
   });
 
   it('runs list with --json', async () => {
-    const result = await ApextestsList.run([]);
+    const result = await ApextestsList.run(['--ignore-missing-tests']);
     expect(result.command).to.equal(`--tests ${TEST_LIST.join(' ')}`);
   });
 
   it('runs list --format csv', async () => {
-    await ApextestsList.run(['--format', 'csv']);
+    await ApextestsList.run(['--format', 'csv', '--ignore-missing-tests']);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
       .join(' ');
     expect(output).to.equal(TEST_LIST.join(','));
+    const warnings = sfCommandStubs.warn
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join('\n');
+    expect(warnings).to.include('The test method NotYourLuckyDayTest.cls was not found in any package directory.');
   });
 
   it('runs list --format csv --manifest samples/samplePackage.xml', async () => {
@@ -66,6 +76,11 @@ describe('apextests list', () => {
       .flatMap((c) => c.args)
       .join(' ');
     expect(output).to.equal('SampleTest,SuperSampleTest');
+    const warnings = sfCommandStubs.warn
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join('\n');
+    expect(warnings).to.include('');
   });
 
   it('runs list --format csv --manifest samples/samplePackageWithTrigger.xml', async () => {
@@ -80,5 +95,10 @@ describe('apextests list', () => {
       .flatMap((c) => c.args)
       .join(' ');
     expect(output).to.equal('SampleTest,SampleTriggerTest,SuperSampleTest');
+    const warnings = sfCommandStubs.warn
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join('\n');
+    expect(warnings).to.include('');
   });
 });

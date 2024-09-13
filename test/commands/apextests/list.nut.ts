@@ -38,14 +38,14 @@ describe('apextests list NUTs', () => {
   });
 
   it('runs list', async () => {
-    const command = 'apextests list';
+    const command = 'apextests list --ignore-missing-tests';
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     expect(output.replace('\n', '')).to.equal(`--tests ${TEST_LIST.join(' ')}`);
   });
 
   it('runs list with --json', async () => {
-    const command = 'apextests list --json';
+    const command = 'apextests list --json --ignore-missing-tests';
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -53,7 +53,7 @@ describe('apextests list NUTs', () => {
   });
 
   it('runs list --format csv', async () => {
-    const command = `apextests list ${['--format', 'csv'].join(' ')} --json`;
+    const command = `apextests list ${['--format', 'csv', '--ignore-missing-tests'].join(' ')} --json`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access

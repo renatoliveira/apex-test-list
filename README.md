@@ -6,7 +6,7 @@ A plugin that generates a list of tests that your, ideally, automated process sh
 
 ## Usage
 
-List all files specified in the classes of a certain directory (and subfolders) and have the result be in the format for the CLI.
+List all files specified in the classes in your package directories and have the result be in the format for the CLI.
 
 The classes should have a comment starting with `@Tests` somewhere. This is what the tool reads to return the tests. For example, the `Sample.cls` file in the `samples` folder contains a comment like this:
 
@@ -19,12 +19,12 @@ public class Sample {
 
 In the context of this plugin, this annotation/comment on the class means that _the tests that should cover this test class are called `SampleTest` and `SuperSampleTest`_.
 
-> Note: The tool does not check if those classes exist within your project, so make sure to keep the annotations up-to-date.
+> Note: By default, this tool does not check if those classes exist within your project, so make sure to keep the annotations up-to-date. If you want to check that test annotations are found in your package directories, provide the optional `--ignore-missing-tests` Boolean flag. When the flag is provided, a warning will be printed for each test annotation it is unable to find in any of your package directories and will not add those missing annotations to the final output.
 
 Then, assuming you want to run only the tests provided at the top level of your classes, use the command as follows:
 
 ```sh
-sf apextests list --directory force-app --format sf
+sf apextests list --format sf
 $ --tests SampleTest SuperSampleTest Sample2Test SuperSample2Test
 ```
 
