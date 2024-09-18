@@ -204,5 +204,5 @@
   "exports": "./lib/index.js",
   "type": "module",
   "author": "Renato Oliveira",
-  "packageManager": "yarn@4.4.1"
+  "packageManager": "yarn@1.22.22"
 }
