@@ -4,6 +4,14 @@
 
 A plugin that generates a list of tests that your, ideally, automated process should run, so you can save time by not running all tests in your Salesforce org and also save time by not specifying them manually.
 
+## Install
+
+Simply issue a install command with `sf`, as in:
+
+```bash
+sf plugins install apextestlist
+```
+
 ## Usage
 
 List all files specified in the classes in your package directories and have the result be in the format for the CLI.
