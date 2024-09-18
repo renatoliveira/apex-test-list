@@ -50,3 +50,4 @@ node_modules
 .sfdx
 stderr*.txt
 stdout*.txt
+.yarn/install-state.gz

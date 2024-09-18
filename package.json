@@ -11,6 +11,8 @@
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
     "@oclif/plugin-command-snapshot": "^5.2.15",
     "@salesforce/cli-plugins-testkit": "^5.3.30",
     "@salesforce/dev-scripts": "^10.2.10",
@@ -192,8 +194,15 @@
       "output": []
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/renatoliveira/apex-test-list"
+  },
+  "bugs": {
+    "url": "https://github.com/renatoliveira/apex-test-list"
+  },
   "exports": "./lib/index.js",
   "type": "module",
   "author": "Renato Oliveira",
-  "packageManager": "yarn@4.4.1"
+  "packageManager": "yarn@1.22.22"
 }
