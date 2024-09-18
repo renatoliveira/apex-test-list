@@ -1,4 +1,4 @@
-import { rm, writeFile } from 'node:fs/promises'
+import { rm, writeFile } from 'node:fs/promises';
 import { TestContext } from '@salesforce/core/testSetup';
 import { expect } from 'chai';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
@@ -6,7 +6,9 @@ import ApextestsList from '../../../src/commands/apextests/list.js';
 
 import { SFDX_PROJECT_FILE_NAME } from '../../../src/helpers/constants.js';
 
-const TEST_LIST = ['Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSample2Test', 'SuperSampleTest'].sort((a, b) => a.localeCompare(b));
+const TEST_LIST = ['Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSample2Test', 'SuperSampleTest'].sort(
+  (a, b) => a.localeCompare(b),
+);
 
 describe('apextests list', () => {
   const $$ = new TestContext();
@@ -30,7 +32,6 @@ describe('apextests list', () => {
   afterEach(() => {
     $$.restore();
   });
-
 
   after(async () => {
     await rm(SFDX_PROJECT_FILE_NAME);
@@ -84,12 +85,7 @@ describe('apextests list', () => {
   });
 
   it('runs list --format csv --manifest samples/samplePackageWithTrigger.xml', async () => {
-    await ApextestsList.run([
-      '--format',
-      'csv',
-      '--manifest',
-      'samples/samplePackageWithTrigger.xml',
-    ]);
+    await ApextestsList.run(['--format', 'csv', '--manifest', 'samples/samplePackageWithTrigger.xml']);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
