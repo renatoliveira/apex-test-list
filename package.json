@@ -192,6 +192,13 @@
       "output": []
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/renatoliveira/apex-test-list"
+  },
+  "bugs": {
+    "url": "https://github.com/renatoliveira/apex-test-list"
+  },
   "exports": "./lib/index.js",
   "type": "module",
   "author": "Renato Oliveira",
