@@ -6,7 +6,7 @@ import { join } from 'node:path';
 
 export async function validateTests(
   unvalidatedTests: string[],
-  packageDirectories: string[]
+  packageDirectories: string[],
 ): Promise<{ validatedTests: string[]; warnings: string[] }> {
   const warnings: string[] = [];
   const validatedTests: string[] = [];
@@ -23,10 +23,7 @@ export async function validateTests(
   return { validatedTests, warnings };
 }
 
-export async function findFilePath(
-  fileName: string,
-  packageDirectories: string[]
-): Promise<string | undefined> {
+export async function findFilePath(fileName: string, packageDirectories: string[]): Promise<string | undefined> {
   let relativeFilePath: string | undefined;
   for (const directory of packageDirectories) {
     relativeFilePath = await searchRecursively(fileName, directory);
