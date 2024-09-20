@@ -184,11 +184,15 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       const testMethodsInDir = await ApextestsList.searchTestClasses(directory, testClassesNames);
       allTestMethods.push(...testMethodsInDir);
     }
-    let finalTestMethods = allTestMethods; // default to allTestMethods
+
+    // Ensure all test methods are unique by using a Set
+    let finalTestMethods = Array.from(
+      new Set(allTestMethods.map((test) => test.trim()))
+    );
 
     // If ignore-missing-tests is true, validate the test methods
     if (ignoreMissingTests) {
-      const { validatedTests, warnings } = await validateTests(allTestMethods, packageDirectories);
+      const { validatedTests, warnings } = await validateTests(finalTestMethods, packageDirectories);
 
       if (validatedTests.length > 0) {
         finalTestMethods = validatedTests;
