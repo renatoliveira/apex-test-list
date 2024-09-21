@@ -47,3 +47,38 @@ This then becomes the full command to deploy and run only the tests that you - i
 ```sh
 sf project deploy start --tests SampleTest SuperSampleTest Sample2Test SuperSample2Test SampleTriggerTest
 ```
+
+```
+USAGE
+  $ sf apextests list -f <value> -x <value> -s [--json]
+
+FLAGS
+  -f, --format=<value> By default, the format being returned is a list in the format that can be merged with the test flags of the Salesforce CLI deploy and validate commands.
+                       Available formats are `sf` (default) and `csv`.
+  -x, --manifest=<value> Manifest XML file (package.xml).
+  -s, --ignore-missing-tests  [default: false] If this Boolean flag is provided, ignore test methods that are not found in any of your local package directories.
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Lists tests in a package.xml file or from your package directories.
+
+EXAMPLES
+  List all test annotations found in all of your package directories in the Salesforce CLI format:
+
+    $ sf apextests list --format sf
+
+  List all test annotations found in all of your package directories in CSV format:
+
+    $ sf apextests list --format csv
+
+  List test annotations found only in the Apex classes/triggers listed in a manifest file:
+
+    $ sf apextests list --format sf --manifest package.xml
+
+  List test annotations only if they have been found in any of your local package directories:
+
+    $ sf apextests list --format sf --ignore-missing-tests
+
+```
