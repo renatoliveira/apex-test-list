@@ -186,9 +186,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     }
 
     // Ensure all test methods are unique by using a Set
-    let finalTestMethods = Array.from(
-      new Set(allTestMethods.map((test) => test.trim()))
-    );
+    let finalTestMethods = Array.from(new Set(allTestMethods.map((test) => test.trim())));
 
     // If ignore-missing-tests is true, validate the test methods
     if (ignoreMissingTests) {

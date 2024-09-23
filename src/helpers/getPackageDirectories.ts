@@ -33,11 +33,11 @@ export async function getPackageDirectories(): Promise<string[]> {
 async function searchForSubFolders(dxDirectory: string, subDirectoryNames: string[]): Promise<string[]> {
   const foundPaths: string[] = [];
   const files = await readdir(dxDirectory);
-  
+
   for (const file of files) {
     const filePath = join(dxDirectory, file);
     const stats = await stat(filePath);
-    
+
     // Check if current directory is one of the desired sub-folders
     if (stats.isDirectory() && subDirectoryNames.includes(file)) {
       foundPaths.push(filePath);
