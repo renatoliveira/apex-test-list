@@ -5,9 +5,14 @@ import { expect } from 'chai';
 
 import { SFDX_PROJECT_FILE_NAME } from '../../../src/helpers/constants.js';
 
-const TEST_LIST = ['Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSample2Test', 'SuperSampleTest'].sort(
-  (a, b) => a.localeCompare(b)
-);
+const TEST_LIST = [
+  'Sample2Test',
+  'SampleTest',
+  'SampleTriggerTest',
+  'SuperSample2Test',
+  'SuperSampleTest',
+  'UnlistedTest',
+].sort((a, b) => a.localeCompare(b));
 
 describe('apextests list NUTs', () => {
   let session: TestSession;
@@ -66,13 +71,19 @@ describe('apextests list NUTs', () => {
     const command = `apextests list --format csv --manifest ${path.join('samples', 'samplePackage.xml')}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
-    expect(output.replace('\n', '')).to.equal('SampleTest,SuperSampleTest');
+    expect(output.replace('\n', '')).to.equal(
+      ['SampleTest', 'SuperSampleTest', 'UnlistedTest'].sort((a, b) => a.localeCompare(b)).join(','),
+    );
   });
 
   it('runs list --format csv --manifest samples/samplePackageWithTrigger.xml', async () => {
     const command = `apextests list --format csv --manifest ${path.join('samples', 'samplePackageWithTrigger.xml')}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
-    expect(output.replace('\n', '')).to.equal('SampleTest,SampleTriggerTest,SuperSampleTest');
+    expect(output.replace('\n', '')).to.equal(
+      ['SampleTest', 'SampleTriggerTest', 'SuperSampleTest', 'UnlistedTest']
+        .sort((a, b) => a.localeCompare(b))
+        .join(','),
+    );
   });
 });
