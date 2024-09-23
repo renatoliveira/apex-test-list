@@ -9,10 +9,15 @@ import { SFDX_PROJECT_FILE_NAME } from './constants.js';
 import { getRepoRoot } from './getRepoRoot.js';
 import { SfdxProject } from './types.js';
 
+const SEARCHABLE_METADATA_FOLDERS = ['classes', 'triggers', 'testSuites'];
+
 export async function getPackageDirectories(): Promise<string[]> {
   const repoRoot = await getRepoRoot();
+
   process.chdir(repoRoot);
+
   const dxConfigPath = resolve(repoRoot, SFDX_PROJECT_FILE_NAME);
+
   if (!existsSync(dxConfigPath)) {
     throw Error(`Salesforce DX Config File does not exist in this path: ${dxConfigPath}`);
   }
@@ -21,12 +26,15 @@ export async function getPackageDirectories(): Promise<string[]> {
   const sfdxProject: SfdxProject = JSON.parse(sfdxProjectRaw) as SfdxProject;
   const packageDirectories = sfdxProject.packageDirectories.map((directory) => resolve(repoRoot, directory.path));
   const metadataPaths: string[] = [];
+
   for (const directory of packageDirectories) {
-    const classesPath = await searchForSubFolders(directory, ['classes', 'triggers']);
-    if (classesPath.length > 0) {
-      metadataPaths.push(...classesPath);
+    const mdPath = await searchForSubFolders(directory, SEARCHABLE_METADATA_FOLDERS);
+
+    if (mdPath.length > 0) {
+      metadataPaths.push(...mdPath);
     }
   }
+
   return metadataPaths;
 }
 
@@ -48,5 +56,6 @@ async function searchForSubFolders(dxDirectory: string, subDirectoryNames: strin
       foundPaths.push(...result);
     }
   }
+
   return foundPaths;
 }
