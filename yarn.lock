@@ -1242,9 +1242,9 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@oclif/core@4.0.22", "@oclif/core@^4", "@oclif/core@^4.0.19":
-  version "4.0.22"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.0.22.tgz#acb233c0c18ff4f365caca15e29e2807a4325709"
+"@oclif/core@4.0.23", "@oclif/core@^4", "@oclif/core@^4.0.19":
+  version "4.0.23"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.0.23.tgz#8772cfd57f850e2e17b703166b44da092a7986a0"
   dependencies:
     ansi-escapes "^4.3.2"
     ansis "^3.3.2"
@@ -1258,6 +1258,7 @@
     is-wsl "^2.2.0"
     lilconfig "^3.1.2"
     minimatch "^9.0.5"
+    semver "^7.6.3"
     string-width "^4.2.3"
     supports-color "^8"
     widest-line "^3.1.0"
