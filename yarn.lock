@@ -1264,9 +1264,9 @@
     wordwrap "^1.0.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/plugin-command-snapshot@^5.2.15":
-  version "5.2.15"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-5.2.15.tgz#039e2457638d0d630a6006d67de329add6519f5f"
+"@oclif/plugin-command-snapshot@^5.2.18":
+  version "5.2.18"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-5.2.18.tgz#8253978249bea7b4d2f5d1069896538630f89426"
   dependencies:
     "@oclif/core" "^4"
     ansis "^3.3.2"
