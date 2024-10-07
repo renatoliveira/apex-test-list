@@ -6,9 +6,14 @@ import ApextestsList from '../../../src/commands/apextests/list.js';
 
 import { SFDX_PROJECT_FILE_NAME } from '../../../src/helpers/constants.js';
 
-const TEST_LIST = ['Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSample2Test', 'SuperSampleTest'].sort(
-  (a, b) => a.localeCompare(b),
-);
+const TEST_LIST = [
+  'Sample2Test',
+  'SampleTest',
+  'SampleTriggerTest',
+  'SuperSample2Test',
+  'SuperSampleTest',
+  'UnlistedTest',
+].sort((a, b) => a.localeCompare(b));
 
 describe('apextests list', () => {
   const $$ = new TestContext();
@@ -17,7 +22,7 @@ describe('apextests list', () => {
     packageDirectories: [{ path: 'samples', default: true }],
     namespace: '',
     sfdcLoginUrl: 'https://login.salesforce.com',
-    sourceApiVersion: '58.0',
+    sourceApiVersion: '62.0',
   };
   const configJsonString = JSON.stringify(configFile, null, 2);
 
@@ -53,7 +58,7 @@ describe('apextests list', () => {
 
   it('runs list with --json', async () => {
     const result = await ApextestsList.run(['--ignore-missing-tests']);
-    expect(result.command).to.equal(`--tests ${TEST_LIST.join(' ')}`);
+    expect(result.command).to.equal(`--tests ${TEST_LIST.sort((a, b) => a.localeCompare(b)).join(' ')}`);
   });
 
   it('runs list --format csv', async () => {
@@ -62,7 +67,7 @@ describe('apextests list', () => {
       .getCalls()
       .flatMap((c) => c.args)
       .join(' ');
-    expect(output).to.equal(TEST_LIST.join(','));
+    expect(output).to.equal(TEST_LIST.sort((a, b) => a.localeCompare(b)).join(','));
     const warnings = sfCommandStubs.warn
       .getCalls()
       .flatMap((c) => c.args)
@@ -76,7 +81,9 @@ describe('apextests list', () => {
       .getCalls()
       .flatMap((c) => c.args)
       .join(' ');
-    expect(output).to.equal('SampleTest,SuperSampleTest');
+    expect(output).to.equal(
+      ['UnlistedTest', 'SampleTest', 'SuperSampleTest'].sort((a, b) => a.localeCompare(b)).join(),
+    );
     const warnings = sfCommandStubs.warn
       .getCalls()
       .flatMap((c) => c.args)
@@ -90,7 +97,9 @@ describe('apextests list', () => {
       .getCalls()
       .flatMap((c) => c.args)
       .join(' ');
-    expect(output).to.equal('SampleTest,SampleTriggerTest,SuperSampleTest');
+    expect(output).to.equal(
+      ['UnlistedTest', 'SampleTest', 'SampleTriggerTest', 'SuperSampleTest'].sort((a, b) => a.localeCompare(b)).join(),
+    );
     const warnings = sfCommandStubs.warn
       .getCalls()
       .flatMap((c) => c.args)
