@@ -63,7 +63,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     return testNames
       .join(',')
       .split(',')
-      .map((line) => line.replace(/(@Tests|@TestSuites):/, ''))
+      .map((line) => line.replace(/(@tests|@testsuites):/i, ''))
       .map((line) => line.trim())
       .filter((line) => line);
   }
