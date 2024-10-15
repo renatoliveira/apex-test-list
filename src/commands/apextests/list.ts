@@ -13,7 +13,7 @@ import { validateTests } from '../../helpers/validateTests.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('apextestlist', 'apextests.list');
-const TEST_NAME_REGEX = /(@(Tests|TestSuites)).+/g;
+const TEST_NAME_REGEX = /(@(tests|testsuites)).+/gi;
 
 export type ApextestsListResult = {
   tests: string[];
@@ -63,7 +63,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     return testNames
       .join(',')
       .split(',')
-      .map((line) => line.replace(/(@Tests|@TestSuites):/, ''))
+      .map((line) => line.replace(/(@tests|@testsuites):/i, ''))
       .map((line) => line.trim())
       .filter((line) => line);
   }
@@ -186,9 +186,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     }
 
     // Ensure all test methods are unique by using a Set
-    let finalTestMethods = Array.from(
-      new Set(allTestMethods.map((test) => test.trim()))
-    );
+    let finalTestMethods = Array.from(new Set(allTestMethods.map((test) => test.trim())));
 
     // If ignore-missing-tests is true, validate the test methods
     if (ignoreMissingTests) {
