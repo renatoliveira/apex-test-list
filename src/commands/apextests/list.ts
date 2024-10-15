@@ -13,7 +13,7 @@ import { validateTests } from '../../helpers/validateTests.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('apextestlist', 'apextests.list');
-const TEST_NAME_REGEX = /(@(Tests|TestSuites)).+/g;
+const TEST_NAME_REGEX = /(@(tests|testsuites)).+/gi;
 
 export type ApextestsListResult = {
   tests: string[];
