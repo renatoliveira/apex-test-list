@@ -1,11 +1,23 @@
 import { expect } from 'chai';
-import { searchDirectoryForTestNamesInTestSuites } from '../../src/helpers/readers.js';
+import { searchDirectoryForTestClasses, searchDirectoryForTestNamesInTestSuites } from '../../src/helpers/readers.js';
 
-describe('should search the directory for the test names', () => {
+describe('tests of the searchDirectoryForTestNamesInTestSuites fn', () => {
   it('should read the sample suite from the file', async () => {
     const suitePath = './samples/testSuites';
     const result = await searchDirectoryForTestNamesInTestSuites(suitePath);
 
     expect(result).to.deep.equal(['UnlistedTest']);
+  });
+});
+
+describe('tests of the searchDirectoryForTestClasses fn', () => {
+  it('should read the sample suite from the file', async () => {
+    const classesPath = './samples/classes';
+    const result = await searchDirectoryForTestClasses(classesPath, ['ApexClass:Sample']);
+
+    expect(result).to.deep.equal({
+      classes: ['SampleTest', 'SuperSampleTest'],
+      testSuites: ['SampleSuite'],
+    });
   });
 });
