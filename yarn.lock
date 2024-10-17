@@ -1242,9 +1242,9 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@oclif/core@4.0.22", "@oclif/core@^4", "@oclif/core@^4.0.19":
-  version "4.0.22"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.0.22.tgz#acb233c0c18ff4f365caca15e29e2807a4325709"
+"@oclif/core@4.0.27", "@oclif/core@^4", "@oclif/core@^4.0.19":
+  version "4.0.27"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.0.27.tgz#686079df278e681e3097cea301d5558fdb490e88"
   dependencies:
     ansi-escapes "^4.3.2"
     ansis "^3.3.2"
@@ -1255,18 +1255,19 @@
     get-package-type "^0.1.0"
     globby "^11.1.0"
     indent-string "^4.0.0"
-    is-wsl "^2.2.0"
+    is-wsl "^3"
     lilconfig "^3.1.2"
     minimatch "^9.0.5"
+    semver "^7.6.3"
     string-width "^4.2.3"
     supports-color "^8"
     widest-line "^3.1.0"
     wordwrap "^1.0.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/plugin-command-snapshot@^5.2.15":
-  version "5.2.15"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-5.2.15.tgz#039e2457638d0d630a6006d67de329add6519f5f"
+"@oclif/plugin-command-snapshot@^5.2.18":
+  version "5.2.18"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-5.2.18.tgz#8253978249bea7b4d2f5d1069896538630f89426"
   dependencies:
     "@oclif/core" "^4"
     ansis "^3.3.2"
@@ -1330,11 +1331,11 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
 
-"@salesforce/cli-plugins-testkit@^5.3.30":
-  version "5.3.32"
-  resolved "https://registry.yarnpkg.com/@salesforce/cli-plugins-testkit/-/cli-plugins-testkit-5.3.32.tgz#30018a25d68b21ad2cb4b91c82be1bcf9690629b"
+"@salesforce/cli-plugins-testkit@^5.3.34":
+  version "5.3.34"
+  resolved "https://registry.yarnpkg.com/@salesforce/cli-plugins-testkit/-/cli-plugins-testkit-5.3.34.tgz#456503a30dade3459e1736a77a362fce2b41947b"
   dependencies:
-    "@salesforce/core" "^8.5.7"
+    "@salesforce/core" "^8.6.2"
     "@salesforce/kit" "^3.2.3"
     "@salesforce/ts-types" "^2.0.11"
     "@types/shelljs" "^0.8.15"
@@ -1345,9 +1346,9 @@
     strip-ansi "6.0.1"
     ts-retry-promise "^0.8.1"
 
-"@salesforce/core@^8.5.1", "@salesforce/core@^8.5.4", "@salesforce/core@^8.5.7":
-  version "8.5.7"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.5.7.tgz#18c98ba383f7030f7e5420677bbd108d1d93dcc3"
+"@salesforce/core@^8.5.1", "@salesforce/core@^8.6.1", "@salesforce/core@^8.6.2":
+  version "8.6.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.6.2.tgz#50120d923504ceb04604b7f03e359386845a9f9d"
   dependencies:
     "@jsforce/jsforce-node" "^3.4.1"
     "@salesforce/kit" "^3.2.2"
@@ -2044,8 +2045,8 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.5.tgz#ec10755e871497bcd83efe927e43ec46e8c0747e"
 
 "@types/mocha@^10", "@types/mocha@^10.0.7":
-  version "10.0.8"
-  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-10.0.8.tgz#a7eff5816e070c3b4d803f1d3cd780c4e42934a1"
+  version "10.0.9"
+  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-10.0.9.tgz#101e9da88d2c02e5ac8952982c23b224524d662a"
 
 "@types/mute-stream@^0.0.4":
   version "0.0.4"
@@ -2053,9 +2054,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@^22.5.4", "@types/node@^22.5.5":
-  version "22.5.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.5.5.tgz#52f939dd0f65fc552a4ad0b392f3c466cc5d7a44"
+"@types/node@*", "@types/node@^22.5.5", "@types/node@^22.7.5":
+  version "22.7.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.7.5.tgz#cfde981727a7ab3611a481510b473ae54442b92b"
   dependencies:
     undici-types "~6.19.2"
 
@@ -3411,11 +3412,11 @@ eslint-plugin-jsdoc@^46.10.1:
     semver "^7.5.4"
     spdx-expression-parse "^4.0.0"
 
-eslint-plugin-sf-plugin@^1.20.7:
-  version "1.20.7"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-sf-plugin/-/eslint-plugin-sf-plugin-1.20.7.tgz#f22dfe52f6731e68e6ff54debccc938e7802645c"
+eslint-plugin-sf-plugin@^1.20.9:
+  version "1.20.9"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-sf-plugin/-/eslint-plugin-sf-plugin-1.20.9.tgz#87d17902f696ac242a1b7c6ccbb43f271d883e7e"
   dependencies:
-    "@salesforce/core" "^8.5.4"
+    "@salesforce/core" "^8.6.2"
     "@typescript-eslint/utils" "^7.18.0"
 
 eslint-plugin-unicorn@^50.0.1:
@@ -4311,9 +4312,9 @@ is-date-object@^1.0.1:
   dependencies:
     has-tostringtag "^1.0.0"
 
-is-docker@^2.0.0:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/is-docker/-/is-docker-2.2.1.tgz#33eeabe23cfe86f14bde4408a02c0cfb853acdaa"
+is-docker@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/is-docker/-/is-docker-3.0.0.tgz#90093aa3106277d8a77a5910dbae71747e15a200"
 
 is-extglob@^2.1.1:
   version "2.1.1"
@@ -4334,6 +4335,12 @@ is-glob@^4.0.0, is-glob@^4.0.1, is-glob@^4.0.3, is-glob@~4.0.1:
   resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-4.0.3.tgz#64f61e42cbbb2eec2071a9dac0b28ba1e65d5084"
   dependencies:
     is-extglob "^2.1.1"
+
+is-inside-container@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/is-inside-container/-/is-inside-container-1.0.0.tgz#e81fba699662eb31dbdaf26766a61d4814717ea4"
+  dependencies:
+    is-docker "^3.0.0"
 
 is-negative-zero@^2.0.3:
   version "2.0.3"
@@ -4438,11 +4445,11 @@ is-windows@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/is-windows/-/is-windows-1.0.2.tgz#d1850eb9791ecd18e6182ce12a30f396634bb19d"
 
-is-wsl@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/is-wsl/-/is-wsl-2.2.0.tgz#74a4c76e77ca9fd3f932f290c17ea326cd157271"
+is-wsl@^3:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/is-wsl/-/is-wsl-3.1.0.tgz#e1c657e39c10090afcbedec61720f6b924c3cbd2"
   dependencies:
-    is-docker "^2.0.0"
+    is-inside-container "^1.0.0"
 
 isarray@0.0.1:
   version "0.0.1"
