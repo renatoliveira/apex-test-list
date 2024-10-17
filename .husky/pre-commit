@@ -1,1 +1,2 @@
+prettier --write src/
 yarn lint && yarn pretty-quick --staged
