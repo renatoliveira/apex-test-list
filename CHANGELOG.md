@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.3](https://github.com/renatoliveira/apex-test-list/compare/v1.4.2...v1.4.3) (2024-10-19)
+
+
+### Bug Fixes
+
+* fixes the case sensitivity issue that was accidentaly added in 1.5.0 ([e6b2de5](https://github.com/renatoliveira/apex-test-list/commit/e6b2de5eff226a4a7695281aad85a44f3fa77fde))
+
 ## [1.4.2](https://github.com/renatoliveira/apex-test-list/compare/v1.4.1...v1.4.2) (2024-10-15)
 
 ### Bug Fixes
