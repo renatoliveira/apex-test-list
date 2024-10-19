@@ -25,6 +25,17 @@ public class Sample {
 }
 ```
 
+Optionally, you may add also test suites to the annotation:
+
+```java
+// @TestSuites: SampleSuite
+public class Sample {
+  // ...
+}
+```
+
+And you can add a mix of both too, if needed.
+
 In the context of this plugin, this annotation/comment on the class means that _the tests that should cover this test class are called `SampleTest` and `SuperSampleTest`_.
 
 > Note: By default, this tool does not check if those classes exist within your project, so make sure to keep the annotations up-to-date. If you want to check that test annotations are found in your package directories, provide the optional `--ignore-missing-tests` Boolean flag. When the flag is provided, a warning will be printed for each test annotation it is unable to find in any of your package directories and will not add those missing annotations to the final output.
