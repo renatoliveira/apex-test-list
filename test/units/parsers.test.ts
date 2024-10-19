@@ -22,8 +22,8 @@ describe('tests of the parseTestsNames fn', () => {
 describe('tests of the parseTestSuitesNames fn', () => {
   it('should parse test suites names', () => {
     const result: string[] = parseTestSuitesNames([
-      '@TestSuites:SampleSuite,AnotherSuite',
-      '@TestSuites:UnlistedSuite',
+      '@TESTSUITES:SampleSuite,AnotherSuite',
+      '@testsuites:UnlistedSuite',
     ]);
 
     expect(result).to.deep.equal(['SampleSuite', 'AnotherSuite', 'UnlistedSuite']);

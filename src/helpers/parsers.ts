@@ -56,7 +56,7 @@ export function parseTestsNames(testNames: string[] | null): string[] {
   return testNames
     .join(',')
     .split(',')
-    .map((line) => line.replace(/(@Tests):/, ''))
+    .map((line) => line.replace(/(@tests):/i, ''))
     .map((line) => line.trim())
     .filter((line) => line);
 }
@@ -70,7 +70,7 @@ export function parseTestSuitesNames(testSuitesNames: string[] | null): string[]
   return testSuitesNames
     .join(',')
     .split(',')
-    .map((line) => line.replace(/(@TestSuites):/, ''))
+    .map((line) => line.replace(/(@testsuites):/i, ''))
     .map((line) => line.trim())
     .filter((line) => line);
 }
