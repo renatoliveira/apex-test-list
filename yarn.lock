@@ -1260,7 +1260,7 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@oclif/core@4.0.27", "@oclif/core@^4", "@oclif/core@^4.0.19":
+"@oclif/core@4.0.27":
   version "4.0.27"
   resolved "https://registry.npmjs.org/@oclif/core/-/core-4.0.27.tgz"
   dependencies:
@@ -1283,7 +1283,7 @@
     wordwrap "^1.0.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/core@^4.0.28":
+"@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.0.28":
   version "4.0.29"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.0.29.tgz#55f7a6b85e3e67dd1ce9fcef421dc2555e5ddf53"
   dependencies:
@@ -1459,15 +1459,15 @@
   version "1.9.0"
   resolved "https://registry.npmjs.org/@salesforce/schemas/-/schemas-1.9.0.tgz"
 
-"@salesforce/sf-plugins-core@^11.3.10":
-  version "11.3.10"
-  resolved "https://registry.npmjs.org/@salesforce/sf-plugins-core/-/sf-plugins-core-11.3.10.tgz"
+"@salesforce/sf-plugins-core@^11.3.12":
+  version "11.3.12"
+  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-11.3.12.tgz#18b3a553688428bcffea9d36abc72847497f06ae"
   dependencies:
     "@inquirer/confirm" "^3.1.22"
     "@inquirer/password" "^2.2.0"
-    "@oclif/core" "^4.0.19"
+    "@oclif/core" "^4.0.27"
     "@salesforce/core" "^8.5.1"
-    "@salesforce/kit" "^3.2.2"
+    "@salesforce/kit" "^3.2.3"
     "@salesforce/ts-types" "^2.0.12"
     ansis "^3.3.2"
     cli-progress "^3.12.0"
