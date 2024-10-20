@@ -9,6 +9,7 @@ import { SearchResult } from './types.js';
 
 const TEST_NAME_REGEX = /(@Tests).+/g;
 const TEST_SUITE_NAME_REGEX = /(@testsuites).+/gi;
+const TEST_CLASS_ANNOTATION_REGEX = /@istest\n(private|public|global)/gi;
 
 export function getConcurrencyThreshold(): number {
   const AVAILABLE_PARALLELISM: number = availableParallelism ? availableParallelism() : Infinity;
@@ -17,8 +18,9 @@ export function getConcurrencyThreshold(): number {
 }
 
 /**
- * Given a certain directory, search its contents for files that end with '.testSuite-meta.xml'
- * and extract the class names mentioned in the test suites.
+ * Given a certain directory, search its contents for files that end with
+ * '.testSuite-meta.xml' and extract the class names mentioned in the test
+ * suites.
  *
  * @param directory directory within the project to search for files
  * @returns a Promise<string> with a list of test names
@@ -94,7 +96,7 @@ export async function searchDirectoryForTestClasses(directory: string, names: st
     const fileFullName: string[] | undefined = file.split('/').pop()?.split('.');
 
     if (!names) {
-      return fileFullName;
+      return true;
     }
 
     if (fileFullName && fileFullName.length > 0) {
@@ -110,9 +112,18 @@ export async function searchDirectoryForTestClasses(directory: string, names: st
     const data = readFileSync(path, 'utf-8');
     const matches = data.match(TEST_NAME_REGEX);
 
-    parseTestsNames(matches).forEach((testMethod) => {
-      testClassesNames.add(testMethod);
-    });
+    if (matches && matches.length > 0) {
+      parseTestsNames(matches).forEach((testMethod) => {
+        testClassesNames.add(testMethod);
+      });
+    }
+
+    // check if the class is itself a test class, if it is, add it to the list
+    const testClassAnnotationMatches = data.match(TEST_CLASS_ANNOTATION_REGEX);
+
+    if (testClassAnnotationMatches && testClassAnnotationMatches.length > 0) {
+      testClassesNames.add(fileName.split('.').shift() as string);
+    }
   };
 
   const testSuiteNameHandler = (fileName: string): void => {
