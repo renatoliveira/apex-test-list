@@ -7,7 +7,7 @@ import { queue } from 'async';
 import { parseTestsNames, parseTestSuiteFile, parseTestSuitesNames } from './parsers.js';
 import { SearchResult } from './types.js';
 
-const TEST_NAME_REGEX = /(@Tests).+/g;
+const TEST_NAME_REGEX = /(@tests).+/gi;
 const TEST_SUITE_NAME_REGEX = /(@testsuites).+/gi;
 const TEST_CLASS_ANNOTATION_REGEX = /@istest\n(private|public|global)/gi;
 
