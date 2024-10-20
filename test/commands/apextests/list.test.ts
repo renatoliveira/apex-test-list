@@ -13,6 +13,7 @@ const TEST_LIST = [
   'SuperSample2Test',
   'SuperSampleTest',
   'UnlistedTest',
+  'UnlistedTest2',
 ].sort((a, b) => a.localeCompare(b));
 
 describe('apextests list', () => {

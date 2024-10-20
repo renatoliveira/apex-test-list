@@ -107,6 +107,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
         });
       }
     }
+
     finalTestMethods.sort((a, b) => a.localeCompare(b));
 
     if (finalTestMethods.length > 0) {
