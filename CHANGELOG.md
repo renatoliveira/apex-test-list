@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/renatoliveira/apex-test-list/compare/v1.5.1...v1.6.0) (2024-10-20)
+
+
+### Features
+
+* adds detection of test classes by checking for the "is test" annotation ([3a86d02](https://github.com/renatoliveira/apex-test-list/commit/3a86d02380f8d263ed0983449000a93b28b4ed16))
+
 ## [1.5.1](https://github.com/renatoliveira/apex-test-list/compare/v1.4.2...v1.5.1) (2024-10-19)
 
 ### Bug Fixes
