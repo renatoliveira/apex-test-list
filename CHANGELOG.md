@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.2](https://github.com/renatoliveira/apex-test-list/compare/v1.6.1...v1.6.2) (2024-10-20)
+
+
+### Bug Fixes
+
+* include colon in the regex ([7488096](https://github.com/renatoliveira/apex-test-list/commit/7488096707a56eac751fdea1482cc31af976e450))
+
 ## [1.6.1](https://github.com/renatoliveira/apex-test-list/compare/v1.6.0...v1.6.1) (2024-10-20)
 
 
