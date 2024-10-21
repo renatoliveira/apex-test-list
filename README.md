@@ -16,7 +16,9 @@ sf plugins install apextestlist
 
 List all files specified in the classes in your package directories and have the result be in the format for the CLI.
 
-The classes should have a comment starting with `@Tests` somewhere. This is what the tool reads to return the tests. For example, the `Sample.cls` file in the `samples` folder contains a comment like this:
+The classes should have a comment starting with the `@Tests:` prefix somewhere. This is what the tool reads to return the tests. You can separate multiple tests by commas, spaces, or both. This tool will parse both and remove extra spaces it may find.
+
+For example, the `Sample.cls` file in the `samples` folder contains a comment like this:
 
 ```java
 // @Tests: SampleTest,SuperSampleTest
@@ -25,16 +27,16 @@ public class Sample {
 }
 ```
 
-Optionally, you may add also test suites to the annotation:
+Optionally, you may add also test suites with the `@TestSuites:` prefix to the annotation. Like with tests, multiple test suites can be separated by any combination of commas or spaces.
 
 ```java
-// @TestSuites: SampleSuite
+// @TestSuites: SampleSuite SampleSuite2
 public class Sample {
   // ...
 }
 ```
 
-And you can add a mix of both too, if needed.
+And you can add a mix of both too, if needed. Both test annotation prefixes are case-insensitive, but the tests themselves should match the cases as they appear in Salesforce.
 
 In the context of this plugin, this annotation/comment on the class means that _the tests that should cover this test class are called `SampleTest` and `SuperSampleTest`_.
 
