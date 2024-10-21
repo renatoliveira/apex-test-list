@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.3](https://github.com/renatoliveira/apex-test-list/compare/v1.6.2...v1.6.3) (2024-10-21)
+
+
+### Bug Fixes
+
+* ignore cases in prefixes and allow spaces as separators ([ac2c7ed](https://github.com/renatoliveira/apex-test-list/commit/ac2c7ed717f3d7314b03c2cb31827e1028164ac1))
+
 ## [1.6.2](https://github.com/renatoliveira/apex-test-list/compare/v1.6.1...v1.6.2) (2024-10-20)
 
 
