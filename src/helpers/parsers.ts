@@ -76,11 +76,11 @@ export function parseTestsNames(testNames: string[] | null): string[] {
 
   // remove the prefix @Tests
   return testNames
-    .join(',')
-    .split(',')
-    .map((line) => line.replace(/(@tests):/i, ''))
-    .map((line) => line.trim())
-    .filter((line) => line);
+    .join(' ')
+    .replace(/(@tests\s*:\s*)/gi, '')
+    .replace(/[,\s]+/g, ' ')
+    .trim()
+    .split(' ');
 }
 
 /**
@@ -96,9 +96,9 @@ export function parseTestSuitesNames(testSuitesNames: string[] | null): string[]
 
   // remove the prefix @testsuites
   return testSuitesNames
-    .join(',')
-    .split(',')
-    .map((line) => line.replace(/(@testsuites):/i, ''))
-    .map((line) => line.trim())
-    .filter((line) => line);
+    .join(' ')
+    .replace(/(@testsuites\s*:\s*)/gi, '')
+    .replace(/[,\s]+/g, ' ')
+    .trim()
+    .split(' ');
 }
