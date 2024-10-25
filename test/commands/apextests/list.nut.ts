@@ -5,7 +5,20 @@ import { expect } from 'chai';
 
 import { SFDX_PROJECT_FILE_NAME } from '../../../src/helpers/constants.js';
 
+// only tests which exist in the samples directory
+const VALIDATED_TEST_LIST = [
+  'Sample2Test',
+  'SampleTest',
+  'SampleTriggerTest',
+  'SuperSample2Test',
+  'SuperSampleTest',
+  'UnlistedTest',
+  'UnlistedTest2',
+].sort((a, b) => a.localeCompare(b));
+
+// all tests provided in the sample annotations
 const TEST_LIST = [
+  'NotYourLuckyDayTest',
   'Sample2Test',
   'SampleTest',
   'SampleTriggerTest',
@@ -46,14 +59,14 @@ describe('apextests list NUTs', () => {
   });
 
   it('runs list', async () => {
-    const command = 'apextests list --ignore-missing-tests';
+    const command = 'apextests list';
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     expect(output.replace('\n', '')).to.equal(`--tests ${TEST_LIST.join(' ')}`);
   });
 
   it('runs list with --json', async () => {
-    const command = 'apextests list --json --ignore-missing-tests';
+    const command = 'apextests list --json';
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -61,11 +74,34 @@ describe('apextests list NUTs', () => {
   });
 
   it('runs list --format csv', async () => {
-    const command = `apextests list ${['--format', 'csv', '--ignore-missing-tests'].join(' ')} --json`;
+    const command = `apextests list ${['--format', 'csv'].join(' ')} --json`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(JSON.parse(output).result.command).to.equal(TEST_LIST.join(','));
+  });
+
+  it('runs list and validates tests exist', async () => {
+    const command = 'apextests list --ignore-missing-tests';
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+
+    expect(output.replace('\n', '')).to.equal(`--tests ${VALIDATED_TEST_LIST.join(' ')}`);
+  });
+
+  it('runs list with --json and validates tests exist', async () => {
+    const command = 'apextests list --json --ignore-missing-tests';
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    expect(JSON.parse(output).result.command).to.equal(`--tests ${VALIDATED_TEST_LIST.join(' ')}`);
+  });
+
+  it('runs list --format csv and validates tests exist', async () => {
+    const command = `apextests list ${['--format', 'csv', '--ignore-missing-tests'].join(' ')} --json`;
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    expect(JSON.parse(output).result.command).to.equal(VALIDATED_TEST_LIST.join(','));
   });
 
   it('runs list --format csv --manifest samples/samplePackage.xml', async () => {
