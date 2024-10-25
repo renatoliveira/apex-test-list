@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.4](https://github.com/renatoliveira/apex-test-list/compare/v1.6.3...v1.6.4) (2024-10-25)
+
+
+### Bug Fixes
+
+* stop the regex match at the end of the line ([914cfc7](https://github.com/renatoliveira/apex-test-list/commit/914cfc77084aa1c76078bbc350051ea0446ea941))
+
 ## [1.6.3](https://github.com/renatoliveira/apex-test-list/compare/v1.6.2...v1.6.3) (2024-10-21)
 
 
