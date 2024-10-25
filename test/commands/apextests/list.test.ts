@@ -19,6 +19,7 @@ const VALIDATED_TEST_LIST = [
 
 // all tests provided in the sample annotations
 const TEST_LIST = [
+  'FridayTest',
   'NotYourLuckyDayTest',
   'Sample2Test',
   'SampleTest',
