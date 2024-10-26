@@ -110,12 +110,14 @@ export async function searchDirectoryForTestClasses(directory: string, names: st
   const testClassNameHandler = (fileName: string): void => {
     const path = `${directory}/${fileName}`;
     const data = readFileSync(path, 'utf-8');
-    const matches = data.match(TEST_NAME_REGEX);
+    const matches = data.matchAll(TEST_NAME_REGEX);
 
-    if (matches && matches.length > 0) {
-      parseTestsNames(matches).forEach((testMethod) => {
-        testClassesNames.add(testMethod);
-      });
+    for (const match of matches) {
+      if (match && match.length > 0) {
+        parseTestsNames(match).forEach((testMethod) => {
+          testClassesNames.add(testMethod);
+        });
+      }
     }
 
     // check if the class is itself a test class, if it is, add it to the list
@@ -129,11 +131,13 @@ export async function searchDirectoryForTestClasses(directory: string, names: st
   const testSuiteNameHandler = (fileName: string): void => {
     const path = `${directory}/${fileName}`;
     const data = readFileSync(path, 'utf-8');
-    const matches = data.match(TEST_SUITE_NAME_REGEX);
+    const matches = data.matchAll(TEST_SUITE_NAME_REGEX);
 
-    parseTestSuitesNames(matches).forEach((testMethod) => {
-      testSuitesNames.add(testMethod);
-    });
+    for (const match of matches) {
+      parseTestSuitesNames(match).forEach((testMethod) => {
+        testSuitesNames.add(testMethod);
+      });
+    }
   };
 
   // initialize the processor with the names of files we want to process
