@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/renatoliveira/apex-test-list/compare/v1.6.5...v1.7.0) (2024-10-26)
+
+
+### Features
+
+* allow multiple annotation matches in a single file ([c32300a](https://github.com/renatoliveira/apex-test-list/commit/c32300a756731bf54afab0282a4fe011e658376c))
+
 ## [1.6.5](https://github.com/renatoliveira/apex-test-list/compare/v1.6.4...v1.6.5) (2024-10-26)
 
 
