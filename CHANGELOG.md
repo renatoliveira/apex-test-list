@@ -5,6 +5,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.5](https://github.com/renatoliveira/apex-test-list/compare/v1.6.4...v1.6.5) (2024-10-26)
+
+
+### Bug Fixes
+
+* **deps:** bump @oclif/core from 4.0.27 to 4.0.30 ([343f381](https://github.com/renatoliveira/apex-test-list/commit/343f381c908fa9ba89eca70f0add8844c8fdd98f))
+* **deps:** bump @salesforce/sf-plugins-core from 11.3.10 to 11.3.12 ([33687cc](https://github.com/renatoliveira/apex-test-list/commit/33687cc48201312e0154f88beee6a515f196c647))
+
 ## [1.6.4](https://github.com/renatoliveira/apex-test-list/compare/v1.6.3...v1.6.4) (2024-10-25)
 
 
