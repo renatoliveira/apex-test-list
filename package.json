@@ -7,7 +7,6 @@
     "@salesforce/core": "^8.6.1",
     "@salesforce/sf-plugins-core": "^11.3.12",
     "async": "^3.2.6",
-    "isomorphic-git": "^1.27.1",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
@@ -38,7 +37,8 @@
     "/lib",
     "/messages",
     "/oclif.manifest.json",
-    "/oclif.lock"
+    "/oclif.lock",
+    "/CHANGELOG.md"
   ],
   "keywords": [
     "force",

@@ -4,6 +4,8 @@
 
 A plugin that generates a list of tests that your, ideally, automated process should run, so you can save time by not running all tests in your Salesforce org and also save time by not specifying them manually.
 
+This plugin is intended to be ran in any version control repository that follows the Salesforce DX project structure (`sfdx-project.json` file).
+
 ## Install
 
 Simply issue a install command with `sf`, as in:
