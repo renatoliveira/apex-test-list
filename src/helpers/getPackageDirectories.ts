@@ -1,28 +1,23 @@
 'use strict';
 /* eslint-disable no-await-in-loop */
 
-import { existsSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { readFile, readdir, stat } from 'node:fs/promises';
 
-import { SFDX_PROJECT_FILE_NAME } from './constants.js';
 import { getRepoRoot } from './getRepoRoot.js';
 import { SfdxProject } from './types.js';
 
 const SEARCHABLE_METADATA_FOLDERS = ['classes', 'triggers', 'testSuites'];
 
 export async function getPackageDirectories(): Promise<string[]> {
-  const repoRoot = await getRepoRoot();
+  const { repoRoot, dxConfigFilePath } = await getRepoRoot();
 
-  process.chdir(repoRoot);
-
-  const dxConfigPath = resolve(repoRoot, SFDX_PROJECT_FILE_NAME);
-
-  if (!existsSync(dxConfigPath)) {
-    throw Error(`Salesforce DX Config File does not exist in this path: ${dxConfigPath}`);
+  if (!repoRoot || !dxConfigFilePath) {
+    throw new Error('Failed to retrieve repository root or sfdx-project.json path.');
   }
 
-  const sfdxProjectRaw: string = await readFile(dxConfigPath, 'utf-8');
+  process.chdir(repoRoot);
+  const sfdxProjectRaw: string = await readFile(dxConfigFilePath, 'utf-8');
   const sfdxProject: SfdxProject = JSON.parse(sfdxProjectRaw) as SfdxProject;
   const packageDirectories = sfdxProject.packageDirectories.map((directory) => resolve(repoRoot, directory.path));
   const metadataPaths: string[] = [];
