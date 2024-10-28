@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/renatoliveira/apex-test-list/compare/v1.7.0...v1.8.0) (2024-10-28)
+
+
+### Features
+
+* remove dependency on git repos ([8e073bf](https://github.com/renatoliveira/apex-test-list/commit/8e073bfa742b2b863de064c51591b26d8d9de6d5))
+
 ## [1.7.0](https://github.com/renatoliveira/apex-test-list/compare/v1.6.5...v1.7.0) (2024-10-26)
 
 
