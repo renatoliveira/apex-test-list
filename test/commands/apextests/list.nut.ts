@@ -20,6 +20,7 @@ const VALIDATED_TEST_LIST = [
 const TEST_LIST = [
   'FridayTest',
   'NotYourLuckyDayTest',
+  'NS.UnlistedTest',
   'Sample2Test',
   'SampleTest',
   'SampleTriggerTest',
@@ -110,7 +111,9 @@ describe('apextests list NUTs', () => {
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     expect(output.replace('\n', '')).to.equal(
-      ['SampleTest', 'SuperSampleTest', 'UnlistedTest'].sort((a, b) => a.localeCompare(b)).join(','),
+      ['NS.UnlistedTest', 'Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSampleTest', 'UnlistedTest']
+        .sort((a, b) => a.localeCompare(b))
+        .join(','),
     );
   });
 
@@ -119,7 +122,7 @@ describe('apextests list NUTs', () => {
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     expect(output.replace('\n', '')).to.equal(
-      ['SampleTest', 'SampleTriggerTest', 'SuperSampleTest', 'UnlistedTest']
+      ['NS.UnlistedTest', 'Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSampleTest', 'UnlistedTest']
         .sort((a, b) => a.localeCompare(b))
         .join(','),
     );

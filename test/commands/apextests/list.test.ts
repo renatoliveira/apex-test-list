@@ -21,6 +21,7 @@ const VALIDATED_TEST_LIST = [
 const TEST_LIST = [
   'FridayTest',
   'NotYourLuckyDayTest',
+  'NS.UnlistedTest',
   'Sample2Test',
   'SampleTest',
   'SampleTriggerTest',
@@ -120,7 +121,7 @@ describe('apextests list', () => {
       .flatMap((c) => c.args)
       .join(' ');
     expect(output).to.equal(
-      ['Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSampleTest', 'UnlistedTest']
+      ['NS.UnlistedTest', 'Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSampleTest', 'UnlistedTest']
         .sort((a, b) => a.localeCompare(b))
         .join(),
     );
@@ -138,7 +139,7 @@ describe('apextests list', () => {
       .flatMap((c) => c.args)
       .join(' ');
     expect(output).to.equal(
-      ['Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSampleTest', 'UnlistedTest']
+      ['NS.UnlistedTest', 'Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSampleTest', 'UnlistedTest']
         .sort((a, b) => a.localeCompare(b))
         .join(),
     );
