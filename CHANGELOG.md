@@ -5,6 +5,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/renatoliveira/apex-test-list/compare/v1.8.0...v1.9.0) (2024-10-30)
+
+
+### Features
+
+* adds support for tests in namespaces within test suites ([49ca3d6](https://github.com/renatoliveira/apex-test-list/commit/49ca3d66e1ab38dbf0123b7e3215f1dd4df556ef))
+* adds wildcard support for tests in test suites ([4463655](https://github.com/renatoliveira/apex-test-list/commit/4463655950bb3273f75ec0aabb7e481f172dba6f))
+
 ## [1.8.0](https://github.com/renatoliveira/apex-test-list/compare/v1.7.0...v1.8.0) (2024-10-28)
 
 
