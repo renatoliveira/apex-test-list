@@ -7,8 +7,8 @@ import { queue } from 'async';
 import { parseTestsNames, parseTestSuiteFile, parseTestSuitesNames } from './parsers.js';
 import { SearchResult } from './types.js';
 
-const TEST_NAME_REGEX = /@tests\s*:\s*([^/\n]+)/gi; 
-const TEST_SUITE_NAME_REGEX = /@testsuites\s*:\s*([^/\n]+)/gi; 
+const TEST_NAME_REGEX = /@tests\s*:\s*([^/\n]+)/gi;
+const TEST_SUITE_NAME_REGEX = /@testsuites\s*:\s*([^/\n]+)/gi;
 const TEST_CLASS_ANNOTATION_REGEX = /@istest\n(private|public|global)/gi;
 
 export function getConcurrencyThreshold(): number {
@@ -25,7 +25,10 @@ export function getConcurrencyThreshold(): number {
  * @param directory directory within the project to search for files
  * @returns a Promise<string> with a list of test names
  */
-export async function searchDirectoryForTestNamesInTestSuites(directory: string): Promise<string[]> {
+export async function searchDirectoryForTestNamesInTestSuites(
+  directory: string,
+  packageDirectories: string[],
+): Promise<string[]> {
   const testClassesNames: Set<string> = new Set<string>();
   let readDir;
 
@@ -37,6 +40,8 @@ export async function searchDirectoryForTestNamesInTestSuites(directory: string)
 
   // Gets the list of test suites
   const suiteFiles = readDir.filter((file) => file.endsWith('.testSuite-meta.xml'));
+  const wildcards: Set<string> = new Set<string>();
+  let requiresWildcardSearch = false;
 
   // Function that handles the parsing of test suites and helps to build the
   // list of test classes for the next steps
@@ -46,7 +51,12 @@ export async function searchDirectoryForTestNamesInTestSuites(directory: string)
     const classes = parseTestSuiteFile(data);
 
     // TODO: Support for wildcards
-    for (const test of classes.filter((name) => !name.includes('*'))) {
+    for (const test of classes) {
+      if (test.includes('*')) {
+        requiresWildcardSearch = true;
+        wildcards.add(test);
+        continue;
+      }
       testClassesNames.add(test);
     }
   };
@@ -65,7 +75,31 @@ export async function searchDirectoryForTestNamesInTestSuites(directory: string)
     await testSuiteNameProcessor.drain();
   }
 
+  if (requiresWildcardSearch && packageDirectories) {
+    for (const pkgDir of packageDirectories) {
+      // eslint-disable-next-line no-await-in-loop
+      const searchResult = await searchDirectoryForTestClasses(pkgDir, null);
+      const testClassesInDir = searchResult.classes;
+
+      for (const test of testClassesInDir) {
+        // if the test class name matches the wildcard, add it to the list
+        for (const wildcard of wildcards) {
+          if (!matchWildcard(wildcard, test)) {
+            continue;
+          }
+
+          testClassesNames.add(test);
+        }
+      }
+    }
+  }
+
   return Array.from(testClassesNames).sort();
+}
+
+export function matchWildcard(wildcard: string, test: string): boolean {
+  const regex = new RegExp(`^${wildcard.replace('*', '.*')}$`);
+  return regex.test(test);
 }
 
 /**

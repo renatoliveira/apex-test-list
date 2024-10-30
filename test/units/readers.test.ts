@@ -1,17 +1,21 @@
 import { expect } from 'chai';
-import { searchDirectoryForTestClasses, searchDirectoryForTestNamesInTestSuites } from '../../src/helpers/readers.js';
+import {
+  matchWildcard,
+  searchDirectoryForTestClasses,
+  searchDirectoryForTestNamesInTestSuites,
+} from '../../src/helpers/readers.js';
 
 describe('tests of the searchDirectoryForTestNamesInTestSuites fn', () => {
   it('should read the sample suite from the file', async () => {
     const suitePath = './samples/testSuites';
-    const result = await searchDirectoryForTestNamesInTestSuites(suitePath);
+    const result = await searchDirectoryForTestNamesInTestSuites(suitePath, ['./samples/classes']);
 
-    expect(result).to.deep.equal(['UnlistedTest']);
+    expect(result).to.deep.equal(['UnlistedTest', 'Sample2Test', 'SampleTest'].sort());
   });
 });
 
 describe('tests of the searchDirectoryForTestClasses fn', () => {
-  it('should read the sample suite from the file', async () => {
+  it('should read the Sample.cls class in the classes directory and return its tests and test suites', async () => {
     const classesPath = './samples/classes';
     const result = await searchDirectoryForTestClasses(classesPath, ['ApexClass:Sample']);
 
@@ -19,5 +23,24 @@ describe('tests of the searchDirectoryForTestClasses fn', () => {
       classes: ['SampleTest', 'SuperSampleTest'],
       testSuites: ['SampleSuite'],
     });
+  });
+});
+
+describe('test suite wildcards', () => {
+  it('should match the wildcard with the test class name', () => {
+    expect(matchWildcard('*Test', 'SampleTest')).to.be.true;
+    expect(matchWildcard('Other*Test', 'SampleSomethingTest')).to.be.false;
+    expect(matchWildcard('Sample*', 'SampleTest')).to.be.true;
+    expect(matchWildcard('Sample*Test', 'SampleSomethingTest')).to.be.true;
+    expect(matchWildcard('Sample*Test', 'SampleTest')).to.be.true;
+    expect(matchWildcard('Sample*Test', 'SuperSampleTest')).to.be.false;
+  });
+
+  it('should read the SampleSuite test suite file and list the test classes with wildcards', async () => {
+    const suitePath = './samples/testSuites';
+    const result = await searchDirectoryForTestNamesInTestSuites(suitePath, ['./samples/classes']);
+    const tests = ['UnlistedTest', 'Sample2Test', 'SampleTest'].sort();
+
+    expect(result).to.deep.equal(tests);
   });
 });
