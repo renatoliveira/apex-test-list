@@ -82,7 +82,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     if (testSuitesNames.length > 0) {
       // read the testSuite directory again to get the classes listed on them
       for (const directory of packageDirectories.filter((dir) => dir.includes('testSuites'))) {
-        const testNames: string[] = await searchDirectoryForTestNamesInTestSuites(directory);
+        const testNames: string[] = await searchDirectoryForTestNamesInTestSuites(directory, packageDirectories);
         allTestClasses.push(...testNames);
       }
     }

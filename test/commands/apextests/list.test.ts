@@ -21,6 +21,7 @@ const VALIDATED_TEST_LIST = [
 const TEST_LIST = [
   'FridayTest',
   'NotYourLuckyDayTest',
+  'NS.UnlistedTest',
   'Sample2Test',
   'SampleTest',
   'SampleTriggerTest',
@@ -120,7 +121,9 @@ describe('apextests list', () => {
       .flatMap((c) => c.args)
       .join(' ');
     expect(output).to.equal(
-      ['UnlistedTest', 'SampleTest', 'SuperSampleTest'].sort((a, b) => a.localeCompare(b)).join(),
+      ['NS.UnlistedTest', 'Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSampleTest', 'UnlistedTest']
+        .sort((a, b) => a.localeCompare(b))
+        .join(),
     );
     const warnings = sfCommandStubs.warn
       .getCalls()
@@ -136,7 +139,9 @@ describe('apextests list', () => {
       .flatMap((c) => c.args)
       .join(' ');
     expect(output).to.equal(
-      ['UnlistedTest', 'SampleTest', 'SampleTriggerTest', 'SuperSampleTest'].sort((a, b) => a.localeCompare(b)).join(),
+      ['NS.UnlistedTest', 'Sample2Test', 'SampleTest', 'SampleTriggerTest', 'SuperSampleTest', 'UnlistedTest']
+        .sort((a, b) => a.localeCompare(b))
+        .join(),
     );
     const warnings = sfCommandStubs.warn
       .getCalls()
