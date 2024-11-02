@@ -1347,11 +1347,11 @@
   version "1.1.0"
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
 
-"@salesforce/cli-plugins-testkit@^5.3.35":
-  version "5.3.35"
-  resolved "https://registry.yarnpkg.com/@salesforce/cli-plugins-testkit/-/cli-plugins-testkit-5.3.35.tgz#a670de684e7edec3fa1a233031dfd351411050c6"
+"@salesforce/cli-plugins-testkit@^5.3.36":
+  version "5.3.36"
+  resolved "https://registry.yarnpkg.com/@salesforce/cli-plugins-testkit/-/cli-plugins-testkit-5.3.36.tgz#210acc4ee742e1f952e346e791590b14a2a9526c"
   dependencies:
-    "@salesforce/core" "^8.6.3"
+    "@salesforce/core" "^8.6.4"
     "@salesforce/kit" "^3.2.3"
     "@salesforce/ts-types" "^2.0.11"
     "@types/shelljs" "^0.8.15"
@@ -1362,9 +1362,9 @@
     strip-ansi "6.0.1"
     ts-retry-promise "^0.8.1"
 
-"@salesforce/core@^8.5.1", "@salesforce/core@^8.6.1", "@salesforce/core@^8.6.2", "@salesforce/core@^8.6.3":
-  version "8.6.3"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.6.3.tgz#1a4d50eaa2b731c1e480986cef96b414ccafd347"
+"@salesforce/core@^8.5.1", "@salesforce/core@^8.6.1", "@salesforce/core@^8.6.2", "@salesforce/core@^8.6.4":
+  version "8.6.4"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.6.4.tgz#39a8234c816ff644e11bcef9517411495ec6039a"
   dependencies:
     "@jsforce/jsforce-node" "^3.6.1"
     "@salesforce/kit" "^3.2.2"
@@ -6159,7 +6159,15 @@ srcset@^5.0.0:
   version "5.0.1"
   resolved "https://registry.npmjs.org/srcset/-/srcset-5.0.1.tgz"
 
-"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0":
+  version "4.2.3"
+  resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
+
+string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"
   dependencies:
@@ -6227,7 +6235,13 @@ stringify-entities@^4.0.0:
     character-entities-html4 "^2.0.0"
     character-entities-legacy "^3.0.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@6.0.1, strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz"
+  dependencies:
+    ansi-regex "^5.0.1"
+
+strip-ansi@6.0.1, strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz"
   dependencies:
@@ -6759,7 +6773,7 @@ workerpool@^6.5.1:
   version "6.5.1"
   resolved "https://registry.npmjs.org/workerpool/-/workerpool-6.5.1.tgz"
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
   version "7.0.0"
   resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz"
   dependencies:
@@ -6770,6 +6784,14 @@ workerpool@^6.5.1:
 wrap-ansi@^6.2.0:
   version "6.2.0"
   resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-6.2.0.tgz"
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz"
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"
