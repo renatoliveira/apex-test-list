@@ -13,7 +13,7 @@
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
     "@oclif/plugin-command-snapshot": "^5.2.22",
-    "@salesforce/cli-plugins-testkit": "^5.3.36",
+    "@salesforce/cli-plugins-testkit": "^5.3.38",
     "@salesforce/dev-scripts": "^10.2.10",
     "@types/async": "^3.2.24",
     "@types/mocha": "^10",
