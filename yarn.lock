@@ -1375,9 +1375,9 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@oclif/core@4.0.31", "@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.0.31":
-  version "4.0.31"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.0.31.tgz#3f7ac806f27de6a87a7ee7caab8826687ce50412"
+"@oclif/core@4.0.32", "@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.0.31":
+  version "4.0.32"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.0.32.tgz#0e8078c53b079549d685798893b9f9534ca69bf6"
   dependencies:
     ansi-escapes "^4.3.2"
     ansis "^3.3.2"
