@@ -5,6 +5,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.2](https://github.com/renatoliveira/apex-test-list/compare/v1.9.1...v1.9.2) (2024-11-17)
+
+
+### Bug Fixes
+
+* **deps:** bump @oclif/core from 4.0.31 to 4.0.32 ([4512f80](https://github.com/renatoliveira/apex-test-list/commit/4512f80b67a4f7cead2ef7f8775222e3a1dab3b9))
+* **deps:** bump @salesforce/core from 8.6.4 to 8.8.0 ([f81fb1e](https://github.com/renatoliveira/apex-test-list/commit/f81fb1ee4da2bd3d4b77f826200de99964538d74))
+
 ## [1.9.1](https://github.com/renatoliveira/apex-test-list/compare/v1.9.0...v1.9.1) (2024-11-09)
 
 
