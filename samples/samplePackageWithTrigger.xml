@@ -7,11 +7,11 @@ the test annotated on it as well.
   <types>
     <members>Sample</members>
     <members>SampleTest</members>
-    <name>ApexClass</name>
+    <name>apexclass</name>
   </types>
   <types>
     <members>Sample</members>
-    <name>ApexTrigger</name>
+    <name>apextrigger</name>
   </types>
   <version>62.0</version>
 </Package>
