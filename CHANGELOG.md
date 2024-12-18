@@ -5,6 +5,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.3](https://github.com/renatoliveira/apex-test-list/compare/v1.9.2...v1.9.3) (2024-12-18)
+
+
+### Bug Fixes
+
+* **deps:** bump @oclif/core from 4.0.32 to 4.0.37 ([1699bf6](https://github.com/renatoliveira/apex-test-list/commit/1699bf60baf36daaf65ec56910811620d693800b))
+* ignore cases on type names in manifest files ([be2906d](https://github.com/renatoliveira/apex-test-list/commit/be2906de8dc3d347ee144b87a70d43d3333dc549))
+
 ## [1.9.2](https://github.com/renatoliveira/apex-test-list/compare/v1.9.1...v1.9.2) (2024-11-17)
 
 
