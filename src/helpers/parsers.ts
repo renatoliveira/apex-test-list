@@ -23,13 +23,21 @@ export async function extractTypeNamesFromManifestFile(manifestFile: string): Pr
     .parseStringPromise(readFileSync(manifestFile, 'utf-8'))
     .then((parsed: { Package: { types: Array<{ name: string; members: string[] }> } }) => {
       parsed.Package.types.forEach((type: { name: string; members: string[] }) => {
-        if (
-          type.name.includes('ApexClass') ||
-          type.name.includes('ApexTrigger') ||
-          type.name.includes('ApexTestSuite')
-        ) {
+        const typeName = String(type.name);
+        const typeNameLower = typeName.toLowerCase();
+
+        let normalizedTypeName = '';
+        if (typeNameLower === 'apexclass') {
+          normalizedTypeName = 'ApexClass';
+        } else if (typeNameLower === 'apextrigger') {
+          normalizedTypeName = 'ApexTrigger';
+        } else if (typeNameLower === 'apextestsuite') {
+          normalizedTypeName = 'ApexTestSuite';
+        }
+
+        if (normalizedTypeName) {
           type.members.forEach((member) => {
-            result.push(`${type.name}:${member}`);
+            result.push(`${normalizedTypeName}:${member}`);
           });
         }
       });
