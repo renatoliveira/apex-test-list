@@ -4328,8 +4328,8 @@ husky@^7.0.4:
   resolved "https://registry.npmjs.org/husky/-/husky-7.0.4.tgz"
 
 husky@^9.1.6:
-  version "9.1.6"
-  resolved "https://registry.npmjs.org/husky/-/husky-9.1.6.tgz"
+  version "9.1.7"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-9.1.7.tgz#d46a38035d101b46a70456a850ff4201344c0b2d"
 
 iconv-lite@^0.4.24:
   version "0.4.24"
