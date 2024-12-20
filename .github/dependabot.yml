@@ -5,7 +5,7 @@ updates:
     schedule:
       interval: 'weekly'
       day: 'saturday'
-    versioning-strategy: 'increase'
+    versioning-strategy: 'widen'
     labels:
       - 'dependencies'
     open-pull-requests-limit: 5
