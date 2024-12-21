@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.5](https://github.com/renatoliveira/apex-test-list/compare/v1.9.4...v1.9.5) (2024-12-21)
+
+
+### Bug Fixes
+
+* **deps:** bump @oclif/core from 4.1.1 to 4.2.0 ([e27d43e](https://github.com/renatoliveira/apex-test-list/commit/e27d43eb0abb8d5cb0cd9ed1330983f90368e8d4))
+
 ## [1.9.4](https://github.com/renatoliveira/apex-test-list/compare/v1.9.3...v1.9.4) (2024-12-20)
 
 
