@@ -1379,7 +1379,7 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@oclif/core@4.2.0", "@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.0.37":
+"@oclif/core@4.2.0", "@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.2.0.tgz#ab78b247dfd66322d9c9376ebaf3764e3c82fefe"
   dependencies:
@@ -1416,13 +1416,13 @@
     semver "^7.6.3"
     ts-json-schema-generator "^1.5.1"
 
-"@oclif/plugin-help@^6.2.17":
-  version "6.2.19"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-help/-/plugin-help-6.2.19.tgz#24ae926f2944628dd62a6bbfc495f85fc8e43b13"
+"@oclif/plugin-help@^6.2.20":
+  version "6.2.20"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-help/-/plugin-help-6.2.20.tgz#05de43a710f038419d3ded11a59e8481408a9e9e"
   dependencies:
     "@oclif/core" "^4"
 
-"@oclif/plugin-not-found@^3.2.30":
+"@oclif/plugin-not-found@^3.2.31":
   version "3.2.31"
   resolved "https://registry.yarnpkg.com/@oclif/plugin-not-found/-/plugin-not-found-3.2.31.tgz#a8147ff0138523ab7e86eb098006a6831d6093f1"
   dependencies:
@@ -1431,16 +1431,16 @@
     ansis "^3.3.1"
     fast-levenshtein "^3.0.0"
 
-"@oclif/plugin-warn-if-update-available@^3.1.21":
-  version "3.1.23"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-warn-if-update-available/-/plugin-warn-if-update-available-3.1.23.tgz#443b8d1d6f9303fadad1241815167f4e0c706ff9"
+"@oclif/plugin-warn-if-update-available@^3.1.28":
+  version "3.1.28"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-warn-if-update-available/-/plugin-warn-if-update-available-3.1.28.tgz#61fc80da9ea819606711962d74686978f7c6039b"
   dependencies:
     "@oclif/core" "^4"
-    ansis "^3.3.1"
-    debug "^4.3.5"
+    ansis "^3.4.0"
+    debug "^4.4.0"
     http-call "^5.2.2"
     lodash "^4.17.21"
-    registry-auth-token "^5.0.2"
+    registry-auth-token "^5.0.3"
 
 "@pkgjs/parseargs@^0.11.0":
   version "0.11.0"
@@ -2481,6 +2481,10 @@ ansi-styles@^6.1.0, ansi-styles@^6.2.1:
 ansis@^3.3.1, ansis@^3.3.2:
   version "3.3.2"
   resolved "https://registry.npmjs.org/ansis/-/ansis-3.3.2.tgz"
+
+ansis@^3.4.0:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/ansis/-/ansis-3.5.2.tgz#d7a1f95a23f6becc5ee16fab85cda41c898fad96"
 
 anymatch@~3.1.2:
   version "3.1.3"
@@ -5435,18 +5439,18 @@ object.values@^1.2.0:
     es-object-atoms "^1.0.0"
 
 oclif@^4.15.26:
-  version "4.17.0"
-  resolved "https://registry.yarnpkg.com/oclif/-/oclif-4.17.0.tgz#da0fc5571d91ce69eef12d6ec06a747a38cf955f"
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/oclif/-/oclif-4.17.4.tgz#d435f6c95f6b6b19fb5cb0f35544f8b4f0e6a458"
   dependencies:
     "@aws-sdk/client-cloudfront" "^3.699.0"
     "@aws-sdk/client-s3" "^3.712.0"
     "@inquirer/confirm" "^3.1.22"
     "@inquirer/input" "^2.2.4"
     "@inquirer/select" "^2.5.0"
-    "@oclif/core" "^4.0.37"
-    "@oclif/plugin-help" "^6.2.17"
-    "@oclif/plugin-not-found" "^3.2.30"
-    "@oclif/plugin-warn-if-update-available" "^3.1.21"
+    "@oclif/core" "^4.2.0"
+    "@oclif/plugin-help" "^6.2.20"
+    "@oclif/plugin-not-found" "^3.2.31"
+    "@oclif/plugin-warn-if-update-available" "^3.1.28"
     async-retry "^1.3.3"
     chalk "^4"
     change-case "^4"
@@ -5925,9 +5929,9 @@ regexp.prototype.flags@^1.5.2:
     es-errors "^1.3.0"
     set-function-name "^2.0.1"
 
-registry-auth-token@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.npmjs.org/registry-auth-token/-/registry-auth-token-5.0.2.tgz"
+registry-auth-token@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/registry-auth-token/-/registry-auth-token-5.0.3.tgz#417d758c8164569de8cf5cabff16cc937902dcc6"
   dependencies:
     "@pnpm/npm-conf" "^2.1.0"
 
