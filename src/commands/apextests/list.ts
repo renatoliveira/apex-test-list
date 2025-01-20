@@ -46,6 +46,13 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       char: 's',
       default: false,
     }),
+    'ignore-package-directory': Flags.directory({
+      summary: messages.getMessage('flags.ignore-package-directory.summary'),
+      description: messages.getMessage('flags.ignore-package-directory.description'),
+      char: 'd',
+      required: false,
+      multiple: true,
+    }),
   };
 
   public async run(): Promise<ApextestsListResult> {
@@ -54,13 +61,14 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     const format = flags.format ?? 'sf';
     const manifest = flags.manifest ?? undefined;
     const ignoreMissingTests = flags['ignore-missing-tests'] ?? false;
+    const ignoreDirs = flags['ignore-package-directory'] ?? [];
 
     let result: Promise<ApextestsListResult> | null = null;
     let testClassesNames: string[] | null = null;
     const testSuitesNames: string[] = [];
 
     // Get package directories full paths
-    const packageDirectories = await getPackageDirectories();
+    const packageDirectories = await getPackageDirectories(ignoreDirs);
 
     if (manifest) {
       const manifesMetadata = await extractTypeNamesFromManifestFile(manifest);

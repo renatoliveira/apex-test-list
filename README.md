@@ -65,13 +65,16 @@ sf project deploy start --tests SampleTest SuperSampleTest Sample2Test SuperSamp
 
 ```
 USAGE
-  $ sf apextests list -f <value> -x <value> -s [--json]
+  $ sf apextests list -f <value> -x <value> -s -d <value> [--json]
 
 FLAGS
-  -f, --format=<value> By default, the format being returned is a list in the format that can be merged with the test flags of the Salesforce CLI deploy and validate commands.
-                       Available formats are `sf` (default) and `csv`.
-  -x, --manifest=<value> Manifest XML file (package.xml).
-  -s, --ignore-missing-tests  [default: false] If this Boolean flag is provided, ignore test methods that are not found in any of your local package directories.
+  -f, --format=<value>            By default, the format being returned is a list in the format that can be merged with the test flags of the Salesforce CLI deploy and validate commands.
+                                  Available formats are `sf` (default) and `csv`.
+  -x, --manifest=<value>          Manifest XML file (package.xml).
+  -s, --ignore-missing-tests      [default: false] If this Boolean flag is provided, ignore test methods that are not found in any of your local package directories.
+  -d, --ignore-package-directory  Ignore a package directory when looking for test annotations.
+                                  Should match how they are declared in the "sfdx-project.json".
+                                  Can be declared multiple times.
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -95,5 +98,9 @@ EXAMPLES
   List test annotations only if they have been found in any of your local package directories:
 
     $ sf apextests list --format sf --ignore-missing-tests
+
+  List all test annotations except for those found in the "force-app" directory.
+
+    $ sf apextests list -d "force-app"
 
 ```

@@ -30,9 +30,18 @@ Ignore missing test methods.
 
 If provided, ignore test methods that are not found in any of the package directories.
 
+# flags.ignore-package-directory.summary
+
+Ignore a package directory.
+
+# flags.ignore-package-directory.description
+
+If provided, do not search the package directory for test annotations.
+
 # examples
 
 - <%= config.bin %> <%= command.id %> --format csv
 - <%= config.bin %> <%= command.id %> --format sf
 - <%= config.bin %> <%= command.id %> --format sf --manifest package.xml
 - <%= config.bin %> <%= command.id %> --format sf --manifest package.xml --ignore-missing-tests
+- <%= config.bin %> <%= command.id %> --format sf --manifest package.xml -d "force-app"
