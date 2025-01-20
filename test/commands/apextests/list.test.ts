@@ -1,4 +1,4 @@
-import { rm, writeFile } from 'node:fs/promises';
+import { rm, writeFile, mkdir, rmdir } from 'node:fs/promises';
 import { TestContext } from '@salesforce/core/testSetup';
 import { expect } from 'chai';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
@@ -35,15 +35,17 @@ describe('apextests list', () => {
   const $$ = new TestContext();
   let sfCommandStubs: ReturnType<typeof stubSfCommandUx>;
   const configFile = {
-    packageDirectories: [{ path: 'samples', default: true }],
+    packageDirectories: [{ path: 'samples', default: true }, {path: 'ignore'}],
     namespace: '',
     sfdcLoginUrl: 'https://login.salesforce.com',
     sourceApiVersion: '62.0',
   };
   const configJsonString = JSON.stringify(configFile, null, 2);
+  const ignoreDir = 'ignore';
 
   before(async () => {
     await writeFile(SFDX_PROJECT_FILE_NAME, configJsonString);
+    await mkdir(ignoreDir);
   });
 
   beforeEach(() => {
@@ -56,6 +58,7 @@ describe('apextests list', () => {
 
   after(async () => {
     await rm(SFDX_PROJECT_FILE_NAME);
+    await rmdir(ignoreDir);
   });
 
   it('runs list', async () => {
@@ -68,12 +71,12 @@ describe('apextests list', () => {
   });
 
   it('runs list with --json', async () => {
-    const result = await ApextestsList.run([]);
+    const result = await ApextestsList.run(['-d', ignoreDir]);
     expect(result.command).to.equal(`--tests ${TEST_LIST.sort((a, b) => a.localeCompare(b)).join(' ')}`);
   });
 
   it('runs list --format csv', async () => {
-    await ApextestsList.run(['--format', 'csv']);
+    await ApextestsList.run(['--format', 'csv', '-d', ignoreDir]);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
@@ -82,7 +85,7 @@ describe('apextests list', () => {
   });
 
   it('runs list and validates tests exist', async () => {
-    await ApextestsList.run(['--ignore-missing-tests']);
+    await ApextestsList.run(['--ignore-missing-tests', '-d', ignoreDir]);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
@@ -96,12 +99,12 @@ describe('apextests list', () => {
   });
 
   it('runs list with --json and validates tests exist', async () => {
-    const result = await ApextestsList.run(['--ignore-missing-tests']);
+    const result = await ApextestsList.run(['--ignore-missing-tests', '-d', ignoreDir]);
     expect(result.command).to.equal(`--tests ${VALIDATED_TEST_LIST.sort((a, b) => a.localeCompare(b)).join(' ')}`);
   });
 
   it('runs list --format csv and validates tests exist', async () => {
-    await ApextestsList.run(['--format', 'csv', '--ignore-missing-tests']);
+    await ApextestsList.run(['--format', 'csv', '--ignore-missing-tests', '-d', ignoreDir]);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
@@ -115,7 +118,7 @@ describe('apextests list', () => {
   });
 
   it('runs list --format csv --manifest samples/samplePackage.xml', async () => {
-    await ApextestsList.run(['--format', 'csv', '--manifest', 'samples/samplePackage.xml']);
+    await ApextestsList.run(['--format', 'csv', '--manifest', 'samples/samplePackage.xml', '-d', ignoreDir]);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)
@@ -133,7 +136,7 @@ describe('apextests list', () => {
   });
 
   it('runs list --format csv --manifest samples/samplePackageWithTrigger.xml', async () => {
-    await ApextestsList.run(['--format', 'csv', '--manifest', 'samples/samplePackageWithTrigger.xml']);
+    await ApextestsList.run(['--format', 'csv', '--manifest', 'samples/samplePackageWithTrigger.xml', '-d', ignoreDir]);
     const output = sfCommandStubs.log
       .getCalls()
       .flatMap((c) => c.args)

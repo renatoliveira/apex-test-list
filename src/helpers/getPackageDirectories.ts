@@ -1,15 +1,13 @@
 'use strict';
-/* eslint-disable no-await-in-loop */
 
-import { resolve, join } from 'node:path';
+import { resolve, join, basename } from 'node:path';
 import { readFile, readdir, stat } from 'node:fs/promises';
 
 import { getRepoRoot } from './getRepoRoot.js';
 import { SfdxProject } from './types.js';
+import { SEARCHABLE_METADATA_FOLDERS } from './constants.js';
 
-const SEARCHABLE_METADATA_FOLDERS = ['classes', 'triggers', 'testSuites'];
-
-export async function getPackageDirectories(): Promise<string[]> {
+export async function getPackageDirectories(ignoreDirs: string[]): Promise<string[]> {
   const { repoRoot, dxConfigFilePath } = await getRepoRoot();
 
   if (!repoRoot || !dxConfigFilePath) {
@@ -19,16 +17,15 @@ export async function getPackageDirectories(): Promise<string[]> {
   process.chdir(repoRoot);
   const sfdxProjectRaw: string = await readFile(dxConfigFilePath, 'utf-8');
   const sfdxProject: SfdxProject = JSON.parse(sfdxProjectRaw) as SfdxProject;
-  const packageDirectories = sfdxProject.packageDirectories.map((directory) => resolve(repoRoot, directory.path));
-  const metadataPaths: string[] = [];
+  const packageDirectories = sfdxProject.packageDirectories
+  .map((directory) => resolve(repoRoot, directory.path))
+  .filter((directory) => !ignoreDirs.includes(basename(directory)));
 
-  for (const directory of packageDirectories) {
-    const mdPath = await searchForSubFolders(directory, SEARCHABLE_METADATA_FOLDERS);
-
-    if (mdPath.length > 0) {
-      metadataPaths.push(...mdPath);
-    }
-  }
+  const metadataPaths = (
+    await Promise.all(
+      packageDirectories.map((directory) => searchForSubFolders(directory, SEARCHABLE_METADATA_FOLDERS))
+    )
+  ).flat();
 
   return metadataPaths;
 }
@@ -37,19 +34,22 @@ async function searchForSubFolders(dxDirectory: string, subDirectoryNames: strin
   const foundPaths: string[] = [];
   const files = await readdir(dxDirectory);
 
-  for (const file of files) {
-    const filePath = join(dxDirectory, file);
-    const stats = await stat(filePath);
+  const subfolderChecks = await Promise.all(
+    files.map(async (file) => {
+      const filePath = join(dxDirectory, file);
+      const stats = await stat(filePath);
 
-    // Check if current directory is one of the desired sub-folders
-    if (stats.isDirectory() && subDirectoryNames.includes(file)) {
-      foundPaths.push(filePath);
-    }
-    // Recursively search sub-directories that aren't the target folders
-    else if (stats.isDirectory()) {
-      const result = await searchForSubFolders(filePath, subDirectoryNames);
-      foundPaths.push(...result);
-    }
+      if (stats.isDirectory() && subDirectoryNames.includes(file)) {
+        return [filePath];
+      } else if (stats.isDirectory()) {
+        return searchForSubFolders(filePath, subDirectoryNames);
+      }
+      return [];
+    })
+  );
+
+  for (const paths of subfolderChecks) {
+    foundPaths.push(...paths);
   }
 
   return foundPaths;
