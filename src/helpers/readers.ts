@@ -9,7 +9,7 @@ import { SearchResult } from './types.js';
 
 const TEST_NAME_REGEX = /@tests\s*:\s*([^/\n]+)/gi;
 const TEST_SUITE_NAME_REGEX = /@testsuites\s*:\s*([^/\n]+)/gi;
-const TEST_CLASS_ANNOTATION_REGEX = /@istest\n(private|public|global)/gi;
+const TEST_CLASS_ANNOTATION_REGEX = /@istest\n\s*(private|public|global)/gi;
 
 export function getConcurrencyThreshold(): number {
   const AVAILABLE_PARALLELISM: number = availableParallelism ? availableParallelism() : Infinity;
