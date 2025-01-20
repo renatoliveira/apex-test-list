@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/renatoliveira/apex-test-list/compare/v1.9.5...v1.10.0) (2025-01-20)
+
+
+### Features
+
+* ignore package directories ([4909eb7](https://github.com/renatoliveira/apex-test-list/commit/4909eb7f6cb497a3fdb1b0f78d747dff9f2c703e))
+
 ## [1.9.5](https://github.com/renatoliveira/apex-test-list/compare/v1.9.4...v1.9.5) (2024-12-21)
 
 
