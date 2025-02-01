@@ -1379,12 +1379,12 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@oclif/core@4.2.3", "@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.0.37":
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.2.3.tgz#b81399b7cf4758b5fe59777e060fb84c7c7e6153"
+"@oclif/core@4.2.5", "@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.0.37":
+  version "4.2.5"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.2.5.tgz#6b51e1db17272204b2431fee3eba93a21d59ebbe"
   dependencies:
     ansi-escapes "^4.3.2"
-    ansis "^3.8.1"
+    ansis "^3.9.0"
     clean-stack "^3.0.1"
     cli-spinners "^2.9.2"
     debug "^4.4.0"
@@ -2478,9 +2478,9 @@ ansi-styles@^6.1.0, ansi-styles@^6.2.1:
   version "6.2.1"
   resolved "https://registry.npmjs.org/ansi-styles/-/ansi-styles-6.2.1.tgz"
 
-ansis@^3.3.1, ansis@^3.3.2, ansis@^3.8.1:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/ansis/-/ansis-3.9.0.tgz#d195c93c31a333916142ff8f0be4d7e3872f262e"
+ansis@^3.3.1, ansis@^3.3.2, ansis@^3.8.1, ansis@^3.9.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/ansis/-/ansis-3.10.0.tgz#6886afb0f729b1fa865df6b710b97a9915b7d0d4"
 
 anymatch@~3.1.2:
   version "3.1.3"
