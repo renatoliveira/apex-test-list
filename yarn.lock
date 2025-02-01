@@ -6909,8 +6909,8 @@ widest-line@^3.1.0:
     string-width "^4.0.0"
 
 wireit@^0.14.5, wireit@^0.14.9:
-  version "0.14.9"
-  resolved "https://registry.npmjs.org/wireit/-/wireit-0.14.9.tgz"
+  version "0.14.10"
+  resolved "https://registry.yarnpkg.com/wireit/-/wireit-0.14.10.tgz#aa613d790dec08aa0738c354bab946394ddb305b"
   dependencies:
     brace-expansion "^4.0.0"
     chokidar "^3.5.3"
