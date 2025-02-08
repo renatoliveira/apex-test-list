@@ -1403,17 +1403,17 @@
     wrap-ansi "^7.0.0"
 
 "@oclif/plugin-command-snapshot@^5.2.23":
-  version "5.2.26"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-5.2.26.tgz#22da051ecabc0f0acbbfd43a0e33e32bdebdb9b1"
+  version "5.2.31"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-5.2.31.tgz#383ec893c40b16366e2e7c60e73a302115b17b46"
   dependencies:
     "@oclif/core" "^4"
-    ansis "^3.8.1"
+    ansis "^3.10.0"
     globby "^14.0.2"
     just-diff "^5.2.0"
     lodash.difference "^4.5.0"
     lodash.get "^4.4.2"
     lodash.sortby "^4.7.0"
-    semver "^7.6.3"
+    semver "^7.7.0"
     ts-json-schema-generator "^1.5.1"
 
 "@oclif/plugin-help@^6.2.17":
@@ -2478,9 +2478,9 @@ ansi-styles@^6.1.0, ansi-styles@^6.2.1:
   version "6.2.1"
   resolved "https://registry.npmjs.org/ansi-styles/-/ansi-styles-6.2.1.tgz"
 
-ansis@^3.3.1, ansis@^3.3.2, ansis@^3.8.1:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/ansis/-/ansis-3.9.0.tgz#d195c93c31a333916142ff8f0be4d7e3872f262e"
+ansis@^3.10.0, ansis@^3.3.1, ansis@^3.3.2, ansis@^3.8.1:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/ansis/-/ansis-3.10.0.tgz#6886afb0f729b1fa865df6b710b97a9915b7d0d4"
 
 anymatch@~3.1.2:
   version "3.1.3"
@@ -6066,9 +6066,9 @@ semver@^6.0.0, semver@^6.3.1:
   version "6.3.1"
   resolved "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz"
 
-semver@^7.3.4, semver@^7.3.5, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0, semver@^7.6.3:
-  version "7.6.3"
-  resolved "https://registry.npmjs.org/semver/-/semver-7.6.3.tgz"
+semver@^7.3.4, semver@^7.3.5, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0, semver@^7.6.3, semver@^7.7.0:
+  version "7.7.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.1.tgz#abd5098d82b18c6c81f6074ff2647fd3e7220c9f"
 
 sentence-case@^3.0.4:
   version "3.0.4"
