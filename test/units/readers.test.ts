@@ -10,7 +10,7 @@ describe('tests of the searchDirectoryForTestNamesInTestSuites fn', () => {
     const suitePath = './samples/testSuites';
     const result = await searchDirectoryForTestNamesInTestSuites(suitePath, ['./samples/classes']);
 
-    expect(result).to.deep.equal(['UnlistedTest', 'NS.UnlistedTest', 'Sample2Test', 'SampleTest'].sort());
+    expect(result).to.deep.equal(['UnlistedTest', 'NS.UnlistedTest', 'Sample2Test', 'SampleTriggerTest', 'SampleTest'].sort());
   });
 });
 
@@ -39,7 +39,7 @@ describe('test suite wildcards', () => {
   it('should read the SampleSuite test suite file and list the test classes with wildcards', async () => {
     const suitePath = './samples/testSuites';
     const result = await searchDirectoryForTestNamesInTestSuites(suitePath, ['./samples/classes']);
-    const tests = ['NS.UnlistedTest', 'UnlistedTest', 'Sample2Test', 'SampleTest'].sort();
+    const tests = ['NS.UnlistedTest', 'UnlistedTest', 'Sample2Test', 'SampleTriggerTest', 'SampleTest'].sort();
 
     expect(result).to.deep.equal(tests);
   });

@@ -40,6 +40,8 @@ public class Sample {
 
 And you can add a mix of both too, if needed. Both test annotation prefixes are case-insensitive, but the tests themselves should match the cases as they appear in Salesforce.
 
+The tool also searches for the `@isTest` [annotation](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_annotation_isTest.htm) present in all unit tests. If the tool finds the `@isTest` annotation, it will add that unit test to the output in addition.
+
 In the context of this plugin, this annotation/comment on the class means that _the tests that should cover this test class are called `SampleTest` and `SuperSampleTest`_.
 
 > Note: By default, this tool does not check if those classes exist within your project, so make sure to keep the annotations up-to-date. If you want to check that test annotations are found in your package directories, provide the optional `--ignore-missing-tests` Boolean flag. When the flag is provided, a warning will be printed for each test annotation it is unable to find in any of your package directories and will not add those missing annotations to the final output.
