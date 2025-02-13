@@ -5,6 +5,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.1](https://github.com/renatoliveira/apex-test-list/compare/v1.10.0...v1.10.1) (2025-02-13)
+
+
+### Bug Fixes
+
+* **deps:** bump @oclif/core from 4.2.0 to 4.2.3 ([12f686b](https://github.com/renatoliveira/apex-test-list/commit/12f686b278bf64e77af80bedf503a593f2834129))
+* **deps:** bump @oclif/core from 4.2.3 to 4.2.6 ([cb9d665](https://github.com/renatoliveira/apex-test-list/commit/cb9d665497240c0db648ff1a2111a3e5a758cf45))
+* remove newline parsing from test class regex ([233c051](https://github.com/renatoliveira/apex-test-list/commit/233c051ea569362585cc4ca39b0d0c55b50b415e))
+
 ## [1.10.0](https://github.com/renatoliveira/apex-test-list/compare/v1.9.5...v1.10.0) (2025-01-20)
 
 
