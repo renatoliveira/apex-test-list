@@ -19,4 +19,5 @@ jobs:
     with:
       tag: ${{ inputs.tag || 'latest' }}
       githubTag: ${{ inputs.githubTag }}
-    secrets: inherit
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
