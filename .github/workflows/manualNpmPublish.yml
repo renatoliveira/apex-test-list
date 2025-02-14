@@ -1,0 +1,22 @@
+name: manualNpmPublish
+
+on:
+  workflow_dispatch:
+    inputs:
+      githubTag:
+        description: github tag that needs to publish
+        type: string
+        required: true
+      tag:
+        description: npm tag that needs to publish
+        type: string
+        required: false 
+        default: latest   
+
+jobs:
+  npm:
+    uses: salesforcecli/github-workflows/.github/workflows/npmPublish.yml@main
+    with:
+      tag: ${{ inputs.tag || 'latest' }}
+      githubTag: ${{ inputs.githubTag }}
+    secrets: inherit
