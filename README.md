@@ -4,6 +4,20 @@
 
 A plugin that generates a list of tests that your automated process should run, so you can save time by not running all tests in your Salesforce org and avoid specifying them manually.
 
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+
+- [Install](#install)
+- [Usage](#usage)
+  - [1. `@Tests:` (Custom Comment Annotation)](#1-tests-custom-comment-annotation)
+  - [2. `@TestSuites:` (Custom Comment Annotation)](#2-testsuites-custom-comment-annotation)
+  - [3. `@isTest` (Apex Annotation)](#3-istest-apex-annotation)
+- [Running the Tool](#running-the-tool)
+  - [Handling Missing Tests](#handling-missing-tests)
+- [Command Reference](#command-reference)
+</details>
+
 ## Install
 
 Simply install the plugin using `sf`:
