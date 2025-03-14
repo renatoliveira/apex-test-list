@@ -152,4 +152,4 @@ If you encounter any issues or would like to suggest features, please create an 
 
 ## License
 
-This project is licensed under the BSD-3 license. Please see the [LICENSE](https://github.com/renatoliveira/apex-test-list/main/LICENSE) file for details.
+This project is licensed under the BSD-3 license. Please see the [LICENSE](https://github.com/renatoliveira/apex-test-list/blob/master/LICENSE) file for details.
