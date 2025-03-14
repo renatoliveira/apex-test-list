@@ -16,6 +16,8 @@ A plugin that generates a list of tests that your automated process should run, 
 - [Running the Tool](#running-the-tool)
   - [Handling Missing Tests](#handling-missing-tests)
 - [Command Reference](#command-reference)
+- [Issues](#issues)
+- [License](#license)
 </details>
 
 ## Install
@@ -143,3 +145,11 @@ EXAMPLES
 
     $ sf apextests list -d "force-app"
 ```
+
+## Issues
+
+If you encounter any issues or would like to suggest features, please create an [issue](https://github.com/renatoliveira/apex-test-list/issues).
+
+## License
+
+This project is licensed under the BSD-3 license. Please see the [LICENSE](https://github.com/renatoliveira/apex-test-list/main/LICENSE.md) file for details.
