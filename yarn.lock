@@ -1355,17 +1355,17 @@
     wrap-ansi "^7.0.0"
 
 "@oclif/plugin-command-snapshot@^5.2.23":
-  version "5.2.31"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-5.2.31.tgz#383ec893c40b16366e2e7c60e73a302115b17b46"
+  version "5.2.37"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-5.2.37.tgz#7ad347cbaa1b4afba60b19588cb4987b78d72993"
   dependencies:
     "@oclif/core" "^4"
-    ansis "^3.10.0"
-    globby "^14.0.2"
+    ansis "^3.17.0"
+    globby "^14.1.0"
     just-diff "^5.2.0"
     lodash.difference "^4.5.0"
     lodash.get "^4.4.2"
     lodash.sortby "^4.7.0"
-    semver "^7.7.0"
+    semver "^7.7.1"
     ts-json-schema-generator "^1.5.1"
 
 "@oclif/plugin-help@^6.2.23":
@@ -2430,9 +2430,9 @@ ansi-styles@^6.1.0, ansi-styles@^6.2.1:
   version "6.2.1"
   resolved "https://registry.npmjs.org/ansi-styles/-/ansi-styles-6.2.1.tgz"
 
-ansis@^3.10.0, ansis@^3.3.2:
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/ansis/-/ansis-3.10.0.tgz#6886afb0f729b1fa865df6b710b97a9915b7d0d4"
+ansis@^3.10.0, ansis@^3.17.0, ansis@^3.3.2:
+  version "3.17.0"
+  resolved "https://registry.yarnpkg.com/ansis/-/ansis-3.17.0.tgz#fa8d9c2a93fe7d1177e0c17f9eeb562a58a832d7"
 
 anymatch@~3.1.2:
   version "3.1.3"
@@ -3665,7 +3665,7 @@ fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz"
 
-fast-glob@^3.2.11, fast-glob@^3.2.9, fast-glob@^3.3.2:
+fast-glob@^3.2.11, fast-glob@^3.2.9:
   version "3.3.2"
   resolved "https://registry.npmjs.org/fast-glob/-/fast-glob-3.3.2.tgz"
   dependencies:
@@ -3674,6 +3674,16 @@ fast-glob@^3.2.11, fast-glob@^3.2.9, fast-glob@^3.3.2:
     glob-parent "^5.1.2"
     merge2 "^1.3.0"
     micromatch "^4.0.4"
+
+fast-glob@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.3.3.tgz#d06d585ce8dba90a16b0505c543c3ccfb3aeb818"
+  dependencies:
+    "@nodelib/fs.stat" "^2.0.2"
+    "@nodelib/fs.walk" "^1.2.3"
+    glob-parent "^5.1.2"
+    merge2 "^1.3.0"
+    micromatch "^4.0.8"
 
 fast-json-stable-stringify@^2.0.0:
   version "2.1.0"
@@ -4057,16 +4067,16 @@ globby@^11.1.0:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
-globby@^14.0.2:
-  version "14.0.2"
-  resolved "https://registry.npmjs.org/globby/-/globby-14.0.2.tgz"
+globby@^14.1.0:
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/globby/-/globby-14.1.0.tgz#138b78e77cf5a8d794e327b15dce80bf1fb0a73e"
   dependencies:
     "@sindresorhus/merge-streams" "^2.1.0"
-    fast-glob "^3.3.2"
-    ignore "^5.2.4"
-    path-type "^5.0.0"
+    fast-glob "^3.3.3"
+    ignore "^7.0.3"
+    path-type "^6.0.0"
     slash "^5.1.0"
-    unicorn-magic "^0.1.0"
+    unicorn-magic "^0.3.0"
 
 gopd@^1.0.1:
   version "1.0.1"
@@ -4290,6 +4300,10 @@ ieee754@^1.2.1:
 ignore@^5.2.0, ignore@^5.2.4, ignore@^5.3.0:
   version "5.3.2"
   resolved "https://registry.npmjs.org/ignore/-/ignore-5.3.2.tgz"
+
+ignore@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/ignore/-/ignore-7.0.3.tgz#397ef9315dfe0595671eefe8b633fec6943ab733"
 
 immediate@~3.0.5:
   version "3.0.6"
@@ -5090,7 +5104,7 @@ micromark-util-types@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/micromark-util-types/-/micromark-util-types-2.0.0.tgz"
 
-micromatch@^4.0.2, micromatch@^4.0.4:
+micromatch@^4.0.2, micromatch@^4.0.4, micromatch@^4.0.8:
   version "4.0.8"
   resolved "https://registry.npmjs.org/micromatch/-/micromatch-4.0.8.tgz"
   dependencies:
@@ -5597,9 +5611,9 @@ path-type@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz"
 
-path-type@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.npmjs.org/path-type/-/path-type-5.0.0.tgz"
+path-type@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/path-type/-/path-type-6.0.0.tgz#2f1bb6791a91ce99194caede5d6c5920ed81eb51"
 
 pathval@^1.1.1:
   version "1.1.1"
@@ -6016,7 +6030,7 @@ semver@^6.0.0, semver@^6.3.1:
   version "6.3.1"
   resolved "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz"
 
-semver@^7.3.4, semver@^7.3.5, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0, semver@^7.6.3, semver@^7.7.0:
+semver@^7.3.4, semver@^7.3.5, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0, semver@^7.6.3, semver@^7.7.0, semver@^7.7.1:
   version "7.7.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.1.tgz#abd5098d82b18c6c81f6074ff2647fd3e7220c9f"
 
@@ -6694,6 +6708,10 @@ undici-types@~6.20.0:
 unicorn-magic@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/unicorn-magic/-/unicorn-magic-0.1.0.tgz"
+
+unicorn-magic@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/unicorn-magic/-/unicorn-magic-0.3.0.tgz#4efd45c85a69e0dd576d25532fbfa22aa5c8a104"
 
 unist-util-is@^6.0.0:
   version "6.0.0"
