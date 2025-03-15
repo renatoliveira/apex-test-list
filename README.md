@@ -2,34 +2,52 @@
 
 [![NPM](https://img.shields.io/npm/v/apextestlist.svg?label=apextestlist)](https://www.npmjs.com/package/apextestlist) [![Downloads/week](https://img.shields.io/npm/dw/apextestlist.svg)](https://npmjs.org/package/apextestlist) [![License](https://img.shields.io/badge/License-BSD%203--Clause-brightgreen.svg)](https://raw.githubusercontent.com/salesforcecli/apextestlist/main/LICENSE.txt)
 
-A plugin that generates a list of tests that your, ideally, automated process should run, so you can save time by not running all tests in your Salesforce org and also save time by not specifying them manually.
+A plugin that generates a list of tests that your automated process should run, so you can save time by not running all tests in your Salesforce org and avoid specifying them manually.
 
-This plugin is intended to be ran in any version control repository that follows the Salesforce DX project structure (`sfdx-project.json` file).
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+
+- [Install](#install)
+- [Usage](#usage)
+  - [1. `@Tests:` (Custom Comment Annotation)](#1-tests-custom-comment-annotation)
+  - [2. `@TestSuites:` (Custom Comment Annotation)](#2-testsuites-custom-comment-annotation)
+  - [3. `@isTest` (Apex Annotation)](#3-istest-apex-annotation)
+- [Running the Tool](#running-the-tool)
+  - [Handling Missing Tests](#handling-missing-tests)
+- [Command Reference](#command-reference)
+- [Issues](#issues)
+- [License](#license)
+</details>
 
 ## Install
 
-Simply issue a install command with `sf`, as in:
+Simply install the plugin using `sf`:
 
-```bash
+```sh
 sf plugins install apextestlist
 ```
 
 ## Usage
 
-List all files specified in the classes in your package directories and have the result be in the format for the CLI.
+This tool identifies Apex tests using three annotations:
 
-The classes should have a comment starting with the `@Tests:` prefix somewhere. This is what the tool reads to return the tests. You can separate multiple tests by commas, spaces, or both. This tool will parse both and remove extra spaces it may find.
+### 1. `@Tests:` (Custom Comment Annotation)
 
-For example, the `Sample.cls` file in the `samples` folder contains a comment like this:
+Classes can specify which tests should be run using a comment with the `@Tests:` prefix. Multiple tests can be separated by commas, spaces, or both.
 
 ```java
-// @Tests: SampleTest,SuperSampleTest
+// @Tests: SampleTest, SuperSampleTest
 public class Sample {
   // ...
 }
 ```
 
-Optionally, you may add also test suites with the `@TestSuites:` prefix to the annotation. Like with tests, multiple test suites can be separated by any combination of commas or spaces.
+This means that `SampleTest` and `SuperSampleTest` should be executed when `Sample.cls` is modified.
+
+### 2. `@TestSuites:` (Custom Comment Annotation)
+
+Test suites can be specified using the `@TestSuites:` prefix. Multiple suites can be separated by commas or spaces.
 
 ```java
 // @TestSuites: SampleSuite SampleSuite2
@@ -38,71 +56,100 @@ public class Sample {
 }
 ```
 
-And you can add a mix of both too, if needed. Both test annotation prefixes are case-insensitive, but the tests themselves should match the cases as they appear in Salesforce.
+This tells the tool to include all tests contained in `SampleSuite` and `SampleSuite2`.
 
-The tool also searches for the `@isTest` [annotation](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_annotation_isTest.htm) present in all unit tests. If the tool finds the `@isTest` annotation, it will add that unit test to the output in addition.
+### 3. `@isTest` (Apex Annotation)
 
-In the context of this plugin, this annotation/comment on the class means that _the tests that should cover this test class are called `SampleTest` and `SuperSampleTest`_.
+The tool also detects all Apex classes marked with the [`@isTest`](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_annotation_isTest.htm) annotation. Any class or method marked with this annotation is assumed to be a test.
 
-> Note: By default, this tool does not check if those classes exist within your project, so make sure to keep the annotations up-to-date. If you want to check that test annotations are found in your package directories, provide the optional `--ignore-missing-tests` Boolean flag. When the flag is provided, a warning will be printed for each test annotation it is unable to find in any of your package directories and will not add those missing annotations to the final output.
+```java
+@isTest
+private class SampleTest {
+  // This test will be included automatically
+}
+```
 
-Then, assuming you want to run only the tests provided at the top level of your classes, use the command as follows:
+## Running the Tool
+
+To generate a test list, run the command in any Salesforce DX project:
 
 ```sh
 sf apextests list --format sf
-$ --tests SampleTest SuperSampleTest Sample2Test SuperSample2Test
 ```
 
-This commnad is originally designed to be used in the context of a CI/CD pipeline. So that when your pipeline has a commnad to validate or deploy code to a Salesforce org, it will dynamically build the list of classes, like so:
+Example output:
+
+```sh
+--tests SampleTest SuperSampleTest Sample2Test SuperSample2Test
+```
+
+This command is useful in CI/CD pipelines, dynamically generating the test list for deployments:
 
 ```sh
 sf project deploy start $(sf apextests list)
 ```
 
-This then becomes the full command to deploy and run only the tests that you - in theory - deem to be necessary:
+The final deployment command would look like:
 
 ```sh
 sf project deploy start --tests SampleTest SuperSampleTest Sample2Test SuperSample2Test SampleTriggerTest
 ```
+
+### Handling Missing Tests
+
+By default, this tool does **not** verify if the tests specified in `@Tests:` or `@TestSuites:` exist in the project. To enable warnings for missing tests, use:
+
+```sh
+sf apextests list --ignore-missing-tests
+```
+
+This will print warnings for missing tests and exclude them from the output.
+
+## Command Reference
 
 ```
 USAGE
   $ sf apextests list -f <value> -x <value> -s -d <value> [--json]
 
 FLAGS
-  -f, --format=<value>            By default, the format being returned is a list in the format that can be merged with the test flags of the Salesforce CLI deploy and validate commands.
-                                  Available formats are `sf` (default) and `csv`.
-  -x, --manifest=<value>          Manifest XML file (package.xml).
-  -s, --ignore-missing-tests      [default: false] If this Boolean flag is provided, ignore test methods that are not found in any of your local package directories.
+  -f, --format=<value>            Output format. Available options:
+                                    - `sf` (default): CLI-friendly test list
+                                    - `csv`: Comma-separated values
+  -x, --manifest=<value>          Manifest XML file (package.xml) to filter test annotations.
+  -s, --ignore-missing-tests      [default: false] Ignore test methods that are not found in any local package directories.
   -d, --ignore-package-directory  Ignore a package directory when looking for test annotations.
-                                  Should match how they are declared in the "sfdx-project.json".
+                                  Should match how they are declared in "sfdx-project.json".
                                   Can be declared multiple times.
 
 GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  Lists tests in a package.xml file or from your package directories.
+  --json  Format output as JSON.
 
 EXAMPLES
-  List all test annotations found in all of your package directories in the Salesforce CLI format:
+  List all test annotations found in package directories in Salesforce CLI format:
 
     $ sf apextests list --format sf
 
-  List all test annotations found in all of your package directories in CSV format:
+  List all test annotations in CSV format:
 
     $ sf apextests list --format csv
 
-  List test annotations found only in the Apex classes/triggers listed in a manifest file:
+  List test annotations only for Apex classes/triggers in a manifest file:
 
     $ sf apextests list --format sf --manifest package.xml
 
-  List test annotations only if they have been found in any of your local package directories:
+  List test annotations only if they exist in the package directories:
 
     $ sf apextests list --format sf --ignore-missing-tests
 
-  List all test annotations except for those found in the "force-app" directory.
+  Exclude annotations found in the "force-app" directory:
 
     $ sf apextests list -d "force-app"
-
 ```
+
+## Issues
+
+If you encounter any issues or would like to suggest features, please create an [issue](https://github.com/renatoliveira/apex-test-list/issues).
+
+## License
+
+This project is licensed under the BSD-3 license. Please see the [LICENSE](https://github.com/renatoliveira/apex-test-list/blob/master/LICENSE) file for details.
