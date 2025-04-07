@@ -38,6 +38,14 @@ Ignore a package directory.
 
 If provided, do not search the package directory for test annotations.
 
+# flags.no-warnings.summary
+
+Do not print warnings for each Apex file missing annotations.
+
+# flags.no-warnings.description
+
+Do not print warnings for each Apex file missing annotations.
+
 # examples
 
 - <%= config.bin %> <%= command.id %> --format csv

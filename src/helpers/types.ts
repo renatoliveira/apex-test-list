@@ -7,4 +7,5 @@ export type SfdxProject = {
 export type SearchResult = {
   classes: string[];
   testSuites: string[];
+  warnings: string[];
 };

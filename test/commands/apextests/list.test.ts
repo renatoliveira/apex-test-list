@@ -95,7 +95,7 @@ describe('apextests list', () => {
       .getCalls()
       .flatMap((c) => c.args)
       .join('\n');
-    expect(warnings).to.include('The test method NotYourLuckyDayTest.cls was not found in any package directory.');
+    expect(warnings).to.include('The test method NotYourLuckyDayTest.cls was not found in any package directory');
   });
 
   it('runs list with --json and validates tests exist', async () => {
@@ -114,7 +114,7 @@ describe('apextests list', () => {
       .getCalls()
       .flatMap((c) => c.args)
       .join('\n');
-    expect(warnings).to.include('The test method NotYourLuckyDayTest.cls was not found in any package directory.');
+    expect(warnings).to.include('The test method NotYourLuckyDayTest.cls was not found in any package directory');
   });
 
   it('runs list --format csv --manifest samples/samplePackage.xml', async () => {
@@ -151,5 +151,31 @@ describe('apextests list', () => {
       .flatMap((c) => c.args)
       .join('\n');
     expect(warnings).to.include('');
+  });
+  it('runs list --manifest samples/noAnnotationPackage.xml', async () => {
+    await ApextestsList.run(['--manifest', 'samples/noAnnotationPackage.xml']);
+    const output = sfCommandStubs.log
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join(' ');
+    expect(output).to.equal('');
+    const warnings = sfCommandStubs.warn
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join('\n');
+    expect(warnings).to.include('File "NoAnnotations.cls" does not contain @tests, @testsuites, or @istest annotations');
+  });
+  it('runs list --manifest samples/noAnnotationPackage.xml --no-warnings', async () => {
+    await ApextestsList.run(['--manifest', 'samples/noAnnotationPackage.xml', '--no-warnings']);
+    const output = sfCommandStubs.log
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join(' ');
+    expect(output).to.equal('');
+    const warnings = sfCommandStubs.warn
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join('\n');
+    expect(warnings).to.include('No test methods found');
   });
 });
