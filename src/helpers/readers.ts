@@ -113,8 +113,9 @@ export function matchWildcard(wildcard: string, test: string): boolean {
 export async function searchDirectoryForTestClasses(directory: string, names: string[] | null): Promise<SearchResult> {
   const testClassesNames: Set<string> = new Set<string>();
   const testSuitesNames: Set<string> = new Set<string>();
-  let readDir;
+  const warnings: string[] = [];
 
+  let readDir;
   try {
     readDir = readdirSync(directory, { recursive: true }) as string[];
   } catch (error) {
@@ -128,7 +129,6 @@ export async function searchDirectoryForTestClasses(directory: string, names: st
     }
 
     const fileFullName: string[] | undefined = file.split('/').pop()?.split('.');
-
     if (!names) {
       return true;
     }
@@ -139,56 +139,54 @@ export async function searchDirectoryForTestClasses(directory: string, names: st
     }
   });
 
-  // Function that handles the parsing of test classes and helps to build the
-  // list of test classes
   const testClassNameHandler = (fileName: string): void => {
     const path = `${directory}/${fileName}`;
     const data = readFileSync(path, 'utf-8');
-    const matches = data.matchAll(TEST_NAME_REGEX);
 
-    for (const match of matches) {
-      if (match && match.length > 0) {
-        parseTestsNames(match).forEach((testMethod) => {
-          testClassesNames.add(testMethod);
-        });
+    const testNameMatches = Array.from(data.matchAll(TEST_NAME_REGEX));
+    const testSuiteMatches = Array.from(data.matchAll(TEST_SUITE_NAME_REGEX));
+    const testClassAnnotationMatches = data.match(TEST_CLASS_ANNOTATION_REGEX);
+
+    let hasAnnotation = false;
+
+    if (testNameMatches.length > 0) {
+      hasAnnotation = true;
+      for (const match of testNameMatches) {
+        parseTestsNames(match).forEach((testMethod) => testClassesNames.add(testMethod));
       }
     }
 
-    // check if the class is itself a test class, if it is, add it to the list
-    const testClassAnnotationMatches = data.match(TEST_CLASS_ANNOTATION_REGEX);
+    if (testSuiteMatches.length > 0) {
+      hasAnnotation = true;
+      for (const match of testSuiteMatches) {
+        parseTestSuitesNames(match).forEach((testMethod) => testSuitesNames.add(testMethod));
+      }
+    }
 
     if (testClassAnnotationMatches && testClassAnnotationMatches.length > 0) {
+      hasAnnotation = true;
       testClassesNames.add(fileName.split('.').shift() as string);
     }
-  };
 
-  const testSuiteNameHandler = (fileName: string): void => {
-    const path = `${directory}/${fileName}`;
-    const data = readFileSync(path, 'utf-8');
-    const matches = data.matchAll(TEST_SUITE_NAME_REGEX);
-
-    for (const match of matches) {
-      parseTestSuitesNames(match).forEach((testMethod) => {
-        testSuitesNames.add(testMethod);
-      });
+    if (!hasAnnotation) {
+      warnings.push(`File "${fileName}" does not contain @tests, @testsuites, or @istest annotations`);
     }
   };
 
-  // initialize the processor with the names of files we want to process
   const testClassNameProcessor = queue((f: string, cb: (error?: Error | undefined) => void) => {
     testClassNameHandler(f);
-    testSuiteNameHandler(f);
     cb();
   }, getConcurrencyThreshold());
 
-  // initialize the processor with the names of files we want to process
   await testClassNameProcessor.push(apexFiles);
 
-  // make sure no dangling process is left before continuing
   if (testClassNameProcessor.length() > 0) {
     await testClassNameProcessor.drain();
   }
 
-  // return the list of apex tests, sorted
-  return { classes: Array.from(testClassesNames), testSuites: Array.from(testSuitesNames) };
+  return {
+    classes: Array.from(testClassesNames),
+    testSuites: Array.from(testSuitesNames),
+    warnings,
+  };
 }

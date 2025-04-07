@@ -22,6 +22,20 @@ describe('tests of the searchDirectoryForTestClasses fn', () => {
     expect(result).to.deep.equal({
       classes: ['SampleTest', 'SuperSampleTest'],
       testSuites: ['SampleSuite'],
+      warnings: [],
+    });
+  });
+});
+
+describe('tests of the searchDirectoryForTestClasses fn with no annotations', () => {
+  it('should read the NoAnnotations.cls class in the classes directory and return no tests with a warning', async () => {
+    const classesPath = './samples/classes';
+    const result = await searchDirectoryForTestClasses(classesPath, ['ApexClass:NoAnnotations']);
+
+    expect(result).to.deep.equal({
+      classes: [],
+      testSuites: [],
+      warnings: ['File "NoAnnotations.cls" does not contain @tests, @testsuites, or @istest annotations'],
     });
   });
 });

@@ -15,6 +15,7 @@ A plugin that generates a list of tests that your automated process should run, 
   - [3. `@isTest` (Apex Annotation)](#3-istest-apex-annotation)
 - [Running the Tool](#running-the-tool)
   - [Handling Missing Tests](#handling-missing-tests)
+  - [Handling Missing Annotations](#handling-missing-annotations)
 - [Command Reference](#command-reference)
 - [Issues](#issues)
 - [License](#license)
@@ -95,6 +96,12 @@ The final deployment command would look like:
 sf project deploy start --tests SampleTest SuperSampleTest Sample2Test SuperSample2Test SampleTriggerTest
 ```
 
+If no annotations are found, the command output will be empty and will present this warning:
+
+```sh
+No test methods found
+```
+
 ### Handling Missing Tests
 
 By default, this tool does **not** verify if the tests specified in `@Tests:` or `@TestSuites:` exist in the project. To enable warnings for missing tests, use:
@@ -105,11 +112,25 @@ sf apextests list --ignore-missing-tests
 
 This will print warnings for missing tests and exclude them from the output.
 
+### Handling Missing Annotations
+
+By default, the tool will print a warning for each file scanned that is missing any annotation.
+
+```sh
+File "Sample.cls" does not contain @tests, @testsuites, or @istest annotations
+```
+
+To remove these warnings from the terminal, use:
+
+```sh
+sf apextests list --no-warnings
+```
+
 ## Command Reference
 
 ```
 USAGE
-  $ sf apextests list -f <value> -x <value> -s -d <value> [--json]
+  $ sf apextests list -f <value> -x <value> -s -n -d <value> [--json]
 
 FLAGS
   -f, --format=<value>            Output format. Available options:
@@ -117,6 +138,7 @@ FLAGS
                                     - `csv`: Comma-separated values
   -x, --manifest=<value>          Manifest XML file (package.xml) to filter test annotations.
   -s, --ignore-missing-tests      [default: false] Ignore test methods that are not found in any local package directories.
+  -n, --no-warnings               [default: false] Do not print warnings for each file missing annotations.
   -d, --ignore-package-directory  Ignore a package directory when looking for test annotations.
                                   Should match how they are declared in "sfdx-project.json".
                                   Can be declared multiple times.
@@ -144,6 +166,10 @@ EXAMPLES
   Exclude annotations found in the "force-app" directory:
 
     $ sf apextests list -d "force-app"
+
+  List test annotations without printing warnings for each file missing annotations:
+
+    $ sf apextests list -n
 ```
 
 ## Issues

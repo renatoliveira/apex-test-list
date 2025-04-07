@@ -19,7 +19,7 @@ export async function validateTests(
 
   for (const { test, testPath } of results) {
     if (testPath === undefined) {
-      warnings.push(`The test method ${test}.cls was not found in any package directory.`);
+      warnings.push(`The test method ${test}.cls was not found in any package directory`);
     } else {
       validatedTests.push(test);
     }
