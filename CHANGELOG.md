@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/renatoliveira/apex-test-list/compare/v1.10.2...v1.11.0) (2025-04-07)
+
+
+### Features
+
+* provide warnings for missing annotations ([#186](https://github.com/renatoliveira/apex-test-list/issues/186)) ([6df6cb9](https://github.com/renatoliveira/apex-test-list/commit/6df6cb9e9a9ea12db87339436579b95746364a25))
+
 ## [1.10.2](https://github.com/renatoliveira/apex-test-list/compare/v1.10.1...v1.10.2) (2025-04-06)
 
 
