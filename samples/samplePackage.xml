@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 In this sample file, the Sample class exists but SampleTest does not. In this
 scenario, it might just be that someone modified the Sample class but did not
 make any changes to the test class. So the plugin will return the files in the
 annotation instead of returning SampleTest.
 -->
-<?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
   <types>
     <members>Sample</members>
