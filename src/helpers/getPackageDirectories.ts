@@ -18,12 +18,12 @@ export async function getPackageDirectories(ignoreDirs: string[]): Promise<strin
   const sfdxProjectRaw: string = await readFile(dxConfigFilePath, 'utf-8');
   const sfdxProject: SfdxProject = JSON.parse(sfdxProjectRaw) as SfdxProject;
   const packageDirectories = sfdxProject.packageDirectories
-  .map((directory) => resolve(repoRoot, directory.path))
-  .filter((directory) => !ignoreDirs.includes(basename(directory)));
+    .map((directory) => resolve(repoRoot, directory.path))
+    .filter((directory) => !ignoreDirs.includes(basename(directory)));
 
   const metadataPaths = (
     await Promise.all(
-      packageDirectories.map((directory) => searchForSubFolders(directory, SEARCHABLE_METADATA_FOLDERS))
+      packageDirectories.map((directory) => searchForSubFolders(directory, SEARCHABLE_METADATA_FOLDERS)),
     )
   ).flat();
 
@@ -45,7 +45,7 @@ async function searchForSubFolders(dxDirectory: string, subDirectoryNames: strin
         return searchForSubFolders(filePath, subDirectoryNames);
       }
       return [];
-    })
+    }),
   );
 
   for (const paths of subfolderChecks) {

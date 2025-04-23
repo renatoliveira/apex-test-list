@@ -105,7 +105,10 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
 
     // If ignore-missing-tests is true, validate the test methods
     if (ignoreMissingTests) {
-      const { validatedTests, warnings: validationWarnings } = await validateTests(finalTestMethods, packageDirectories);
+      const { validatedTests, warnings: validationWarnings } = await validateTests(
+        finalTestMethods,
+        packageDirectories,
+      );
       finalTestMethods = validatedTests;
 
       if (validationWarnings.length > 0) {

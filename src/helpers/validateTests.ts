@@ -14,7 +14,7 @@ export async function validateTests(
     unvalidatedTests.map(async (unvalidatedTest) => {
       const testPath = await findFilePath(`${unvalidatedTest}.cls`, packageDirectories);
       return { test: unvalidatedTest, testPath };
-    })
+    }),
   );
 
   for (const { test, testPath } of results) {
@@ -30,9 +30,7 @@ export async function validateTests(
 
 export async function findFilePath(fileName: string, packageDirectories: string[]): Promise<string | undefined> {
   // Run searchRecursively for all directories concurrently
-  const results = await Promise.all(
-    packageDirectories.map((directory) => searchRecursively(fileName, directory))
-  );
+  const results = await Promise.all(packageDirectories.map((directory) => searchRecursively(fileName, directory)));
 
   return results.find((result) => result !== undefined);
 }
@@ -51,7 +49,7 @@ async function searchRecursively(fileName: string, dxDirectory: string): Promise
         return filePath;
       }
       return undefined;
-    })
+    }),
   );
 
   return results.find((result) => result !== undefined);

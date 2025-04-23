@@ -42,8 +42,8 @@ export async function extractTypeNamesFromManifestFile(manifestFile: string): Pr
             name,
             members,
           })),
-          version: resolvedManifest.apiVersion
-        }
+          version: resolvedManifest.apiVersion,
+        },
       };
 
       parsed.Package.types.forEach((type: { name: string; members: string[] }) => {
