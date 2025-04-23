@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 'use strict';
 
 import { existsSync } from 'node:fs';
@@ -5,7 +9,7 @@ import { ManifestResolver, PackageManifestObject } from '@salesforce/source-depl
 import { Parser } from 'xml2js';
 
 /**
- * Given a certai nmanifest file, reads that file and returns the classes,
+ * Given a certain manifest file, reads that file and returns the classes,
  * triggers and test suites members with their types as prefix.
  *
  * For example, as ApexClass:MyClass.
