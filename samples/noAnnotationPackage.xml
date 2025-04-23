@@ -1,8 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 In this sample file, the NoAnnotations class exists but no annotations are in the class.
 The plugin should return an empty output with a warning.
 -->
-<?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
   <types>
     <members>NoAnnotations</members>

@@ -1,6 +1,7 @@
 'use strict';
 
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
+import { ManifestResolver, PackageManifestObject } from '@salesforce/source-deploy-retrieve';
 import { Parser } from 'xml2js';
 
 /**
@@ -19,9 +20,28 @@ export async function extractTypeNamesFromManifestFile(manifestFile: string): Pr
     return result;
   }
 
-  await new Parser()
-    .parseStringPromise(readFileSync(manifestFile, 'utf-8'))
-    .then((parsed: { Package: { types: Array<{ name: string; members: string[] }> } }) => {
+  await new ManifestResolver()
+    .resolve(manifestFile)
+    .then((resolvedManifest) => {
+      const metadataTypes = new Map<string, string[]>(); // Type -> Full Names
+
+      for (const component of resolvedManifest.components) {
+        if (!metadataTypes.has(component.type.name)) {
+          metadataTypes.set(component.type.name, []);
+        }
+        metadataTypes.get(component.type.name)!.push(component.fullName);
+      }
+
+      const parsed: PackageManifestObject = {
+        Package: {
+          types: Array.from(metadataTypes.entries()).map(([name, members]) => ({
+            name,
+            members,
+          })),
+          version: resolvedManifest.apiVersion
+        }
+      };
+
       parsed.Package.types.forEach((type: { name: string; members: string[] }) => {
         const typeName = String(type.name);
         const typeNameLower = typeName.toLowerCase();

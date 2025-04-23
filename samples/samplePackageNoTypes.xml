@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+In this sample file, no metadata types are included. In this scenario, it might just be that
+someone used a plugin like sfdx-git-delta to generate a delta package, but forgot to commit
+the changes. So the plugin will return an empty list.
+-->
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+  <version>62.0</version>
+</Package>
