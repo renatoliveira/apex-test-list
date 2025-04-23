@@ -1,6 +1,15 @@
 import { readFileSync } from 'node:fs';
 import { expect } from 'chai';
-import { parseTestsNames, parseTestSuiteFile, parseTestSuitesNames } from '../../src/helpers/parsers.js';
+import { extractTypeNamesFromManifestFile, parseTestsNames, parseTestSuiteFile, parseTestSuitesNames } from '../../src/helpers/parsers.js';
+
+describe('tests of the extractTypeNamesFromManifestFile fn', () => {
+  it('should read an empty manifest', async () => {
+    const manifestPath = './samples/samplePackageNoTypes.xml';
+    const result = await extractTypeNamesFromManifestFile(manifestPath);
+
+    expect(result).to.deep.equal([]);
+  });
+});
 
 describe('tests of the parseTestSuiteFile fn', () => {
   it('should read the sample suite', async () => {
