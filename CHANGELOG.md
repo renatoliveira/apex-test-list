@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.1](https://github.com/renatoliveira/apex-test-list/compare/v1.12.0...v1.12.1) (2025-05-13)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/core from 8.10.0 to 8.10.3 ([#207](https://github.com/renatoliveira/apex-test-list/issues/207)) ([81267df](https://github.com/renatoliveira/apex-test-list/commit/81267dff5867aee8f1844562ac149744b08c5611))
+
 ## [1.12.0](https://github.com/renatoliveira/apex-test-list/compare/v1.11.1...v1.12.0) (2025-04-23)
 
 
