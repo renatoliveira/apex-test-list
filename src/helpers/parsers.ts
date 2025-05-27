@@ -5,7 +5,7 @@
 'use strict';
 
 import { existsSync } from 'node:fs';
-import { ManifestResolver, PackageManifestObject } from '@salesforce/source-deploy-retrieve';
+import { ComponentSet  } from '@salesforce/source-deploy-retrieve';
 import { Parser } from 'xml2js';
 
 /**
@@ -24,51 +24,13 @@ export async function extractTypeNamesFromManifestFile(manifestFile: string): Pr
     return result;
   }
 
-  await new ManifestResolver()
-    .resolve(manifestFile)
-    .then((resolvedManifest) => {
-      const metadataTypes = new Map<string, string[]>(); // Type -> Full Names
-
-      for (const component of resolvedManifest.components) {
-        if (!metadataTypes.has(component.type.name)) {
-          metadataTypes.set(component.type.name, []);
-        }
-        metadataTypes.get(component.type.name)!.push(component.fullName);
-      }
-
-      const parsed: PackageManifestObject = {
-        Package: {
-          types: Array.from(metadataTypes.entries()).map(([name, members]) => ({
-            name,
-            members,
-          })),
-          version: resolvedManifest.apiVersion,
-        },
-      };
-
-      parsed.Package.types.forEach((type: { name: string; members: string[] }) => {
-        const typeName = String(type.name);
-        const typeNameLower = typeName.toLowerCase();
-
-        let normalizedTypeName = '';
-        if (typeNameLower === 'apexclass') {
-          normalizedTypeName = 'ApexClass';
-        } else if (typeNameLower === 'apextrigger') {
-          normalizedTypeName = 'ApexTrigger';
-        } else if (typeNameLower === 'apextestsuite') {
-          normalizedTypeName = 'ApexTestSuite';
-        }
-
-        if (normalizedTypeName) {
-          type.members.forEach((member) => {
-            result.push(`${normalizedTypeName}:${member}`);
-          });
-        }
-      });
-    })
-    .catch((error) => {
-      throw error;
-    });
+  const componentSet: ComponentSet = await ComponentSet.fromManifest({manifestPath: manifestFile});
+  for (const component of componentSet) {
+    const typeName = component.type.name;
+    if (['ApexClass', 'ApexTrigger', 'ApexTestSuite'].includes(typeName)) {
+      result.push(`${typeName}:${component.fullName}`);
+    }
+  }
 
   return result.sort((a, b) => a.localeCompare(b));
 }

@@ -9,6 +9,12 @@ describe('tests of the extractTypeNamesFromManifestFile fn', () => {
 
     expect(result).to.deep.equal([]);
   });
+  it('should read a non-existent manifest', async () => {
+    const manifestPath = './samples/invalid.xml';
+    const result = await extractTypeNamesFromManifestFile(manifestPath);
+
+    expect(result).to.deep.equal([]);
+  });
 });
 
 describe('tests of the parseTestSuiteFile fn', () => {
