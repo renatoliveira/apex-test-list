@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.2](https://github.com/renatoliveira/apex-test-list/compare/v1.12.1...v1.12.2) (2025-05-28)
+
+
+### Bug Fixes
+
+* switch to ComponentSet when parsing manifest files ([#218](https://github.com/renatoliveira/apex-test-list/issues/218)) ([d42b76b](https://github.com/renatoliveira/apex-test-list/commit/d42b76b914026052f506103a6388b2437074b401))
+
 ## [1.12.1](https://github.com/renatoliveira/apex-test-list/compare/v1.12.0...v1.12.1) (2025-05-13)
 
 
