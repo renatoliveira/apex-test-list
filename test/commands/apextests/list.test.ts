@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import ApextestsList from '../../../src/commands/apextests/list.js';
 
-import { SFDX_PROJECT_FILE_NAME } from '../../../src/helpers/constants.js';
+import { SFDX_PROJECT_FILE_NAME } from '../../../src/utils/constants.js';
 
 // only tests which exist in the samples directory
 const VALIDATED_TEST_LIST = [
