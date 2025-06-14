@@ -3,7 +3,7 @@ import * as path from 'node:path';
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 
-import { SFDX_PROJECT_FILE_NAME } from '../../../src/helpers/constants.js';
+import { SFDX_PROJECT_FILE_NAME } from '../../../src/utils/constants.js';
 
 // only tests which exist in the samples directory
 const VALIDATED_TEST_LIST = [

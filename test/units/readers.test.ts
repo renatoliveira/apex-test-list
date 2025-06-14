@@ -1,9 +1,8 @@
 import { expect } from 'chai';
-import {
-  matchWildcard,
-  searchDirectoryForTestClasses,
-  searchDirectoryForTestNamesInTestSuites,
-} from '../../src/helpers/readers.js';
+
+import { matchWildcard } from '../../src/utils/matchWildcard.js';
+import { searchDirectoryForTestClasses } from '../../src/readers/directorySearcher.js';
+import { searchDirectoryForTestNamesInTestSuites } from '../../src/readers/testSuiteSearcher.js';
 
 describe('tests of the searchDirectoryForTestNamesInTestSuites fn', () => {
   it('should read the sample suite from the file', async () => {

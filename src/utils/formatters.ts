@@ -1,5 +1,5 @@
 'use strict';
-import { ApextestsListResult } from '../commands/apextests/list.js';
+import { ApextestsListResult } from '../utils/types.js';
 
 export async function formatList(format: string, tests: string[]): Promise<ApextestsListResult> {
   switch (format) {
