@@ -178,4 +178,17 @@ describe('apextests list', () => {
       .join('\n');
     expect(warnings).to.include('No test methods found');
   });
+  it('runs list with the metadata filter and manifest selected', async () => {
+    await ApextestsList.run(['--manifest', 'samples/metadataFilterPackage.xml', '-m', '-d', ignoreDir]);
+    const output = sfCommandStubs.log
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join(' ');
+    expect(output).to.equal('--tests SampleTest');
+    const warnings = sfCommandStubs.warn
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join('\n');
+    expect(warnings).to.include('');
+  });
 });

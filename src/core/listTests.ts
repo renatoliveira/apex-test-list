@@ -1,4 +1,6 @@
 /* eslint-disable no-await-in-loop */
+import { resolve } from 'node:path';
+
 import { getPackageDirectories } from '../utils/getPackageDirectories.js';
 import { validateTests } from '../utils/validateTests.js';
 import { extractTypeNamesFromManifestFile } from '../parsers/manifestParser.js';
@@ -6,6 +8,8 @@ import { formatList } from '../utils/formatters.js';
 import { searchDirectoryForTestClasses } from '../readers/directorySearcher.js';
 import { searchDirectoryForTestNamesInTestSuites } from '../readers/testSuiteSearcher.js';
 import { SearchResult, ListTestsOptions, ApextestsListResult } from '../utils/types.js';
+import { METADATA_FILTER_CONFIG } from '../utils/constants.js';
+import { loadTestMetadataDependencies, selectRelevantTests } from '../parsers/metadataFilterParser.js';
 
 export async function listTests({
   format = 'sf',
@@ -13,6 +17,7 @@ export async function listTests({
   ignoreMissingTests = false,
   ignoreDirs = [],
   noWarnings = false,
+  filterByMetadata = false,
   warn = (): void => {},
 }: ListTestsOptions): Promise<ApextestsListResult> {
   let testClassesNames: string[] | null = null;
@@ -20,11 +25,17 @@ export async function listTests({
   const allTestClasses: string[] = [];
   const warnings: string[] = [];
 
-  const packageDirectories = await getPackageDirectories(ignoreDirs);
+  const { metadataPaths: packageDirectories, repoRoot } = await getPackageDirectories(ignoreDirs);
 
   if (manifest) {
     const manifestMetadata = await extractTypeNamesFromManifestFile(manifest);
     testClassesNames = manifestMetadata.filter((name) => !name.endsWith('testSuite-meta.xml'));
+    if (filterByMetadata) {
+      const ymlConfigPath = resolve(repoRoot, METADATA_FILTER_CONFIG);
+      const testMap = await loadTestMetadataDependencies(ymlConfigPath);
+      const testsToRun = selectRelevantTests(testMap, manifestMetadata);
+      return formatList(format, testsToRun);
+    }
   }
 
   for (const directory of packageDirectories) {

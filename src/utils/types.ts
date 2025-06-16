@@ -21,5 +21,8 @@ export type ListTestsOptions = {
   ignoreMissingTests?: boolean;
   ignoreDirs?: string[];
   noWarnings?: boolean;
+  filterByMetadata?: boolean;
   warn?: (msg: string) => void;
 };
+
+export type TestMetadataMap = Record<string, string[]>;

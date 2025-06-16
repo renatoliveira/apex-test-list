@@ -23,9 +23,7 @@ export async function extractTypeNamesFromManifestFile(manifestFile: string): Pr
   const componentSet: ComponentSet = await ComponentSet.fromManifest({manifestPath: manifestFile});
   for (const component of componentSet) {
     const typeName = component.type.name;
-    if (['ApexClass', 'ApexTrigger', 'ApexTestSuite'].includes(typeName)) {
-      result.push(`${typeName}:${component.fullName}`);
-    }
+    result.push(`${typeName}:${component.fullName}`);
   }
 
   return result.sort((a, b) => a.localeCompare(b));

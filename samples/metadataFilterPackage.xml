@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+In this sample file, we will parse the metadata filter YAML file to determine tests to run based on
+metadata.
+-->
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+  <types>
+    <members>OpportunityFlowX</members>
+    <name>Flow</name>
+  </types>
+  <version>62.0</version>
+</Package>
