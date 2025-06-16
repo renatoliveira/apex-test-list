@@ -34,23 +34,25 @@ export async function listTests({
       const ymlConfigPath = resolve(repoRoot, METADATA_FILTER_CONFIG);
       const testMap = await loadTestMetadataDependencies(ymlConfigPath);
       const testsToRun = selectRelevantTests(testMap, manifestMetadata);
-      return formatList(format, testsToRun);
+      allTestClasses.push(...testsToRun);
     }
   }
 
-  for (const directory of packageDirectories) {
-    const searchResult: SearchResult = await searchDirectoryForTestClasses(directory, testClassesNames);
-    allTestClasses.push(...searchResult.classes);
-    testSuitesNames.push(...searchResult.testSuites);
-    if (searchResult.warnings?.length) {
-      warnings.push(...searchResult.warnings);
+  if (!filterByMetadata) {
+    for (const directory of packageDirectories) {
+      const searchResult: SearchResult = await searchDirectoryForTestClasses(directory, testClassesNames);
+      allTestClasses.push(...searchResult.classes);
+      testSuitesNames.push(...searchResult.testSuites);
+      if (searchResult.warnings?.length) {
+        warnings.push(...searchResult.warnings);
+      }
     }
-  }
 
-  if (testSuitesNames.length > 0) {
-    for (const directory of packageDirectories.filter((dir) => dir.includes('testSuites'))) {
-      const testNames = await searchDirectoryForTestNamesInTestSuites(directory, packageDirectories);
-      allTestClasses.push(...testNames);
+    if (testSuitesNames.length > 0) {
+      for (const directory of packageDirectories.filter((dir) => dir.includes('testSuites'))) {
+        const testNames = await searchDirectoryForTestNamesInTestSuites(directory, packageDirectories);
+        allTestClasses.push(...testNames);
+      }
     }
   }
 
@@ -63,9 +65,6 @@ export async function listTests({
     );
     finalTestMethods = validatedTests;
     warnings.push(...validationWarnings);
-    if (validatedTests.length === 0) {
-      warnings.push('No test methods declared in your annotations were found in your package directories');
-    }
   }
 
   if (!noWarnings && warnings.length > 0) {
