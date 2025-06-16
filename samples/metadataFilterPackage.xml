@@ -8,5 +8,9 @@ metadata.
     <members>OpportunityFlowX</members>
     <name>Flow</name>
   </types>
+  <types>
+    <members>Account.AccountName__c</members>
+    <name>CustomField</name>
+  </types>
   <version>62.0</version>
 </Package>

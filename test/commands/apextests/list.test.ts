@@ -184,7 +184,7 @@ describe('apextests list', () => {
       .getCalls()
       .flatMap((c) => c.args)
       .join(' ');
-    expect(output).to.equal('--tests SampleTest');
+    expect(output).to.equal('--tests SampleTest SuperSampleTest');
     const warnings = sfCommandStubs.warn
       .getCalls()
       .flatMap((c) => c.args)
