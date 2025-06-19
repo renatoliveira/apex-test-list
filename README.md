@@ -126,7 +126,7 @@ The final deployment command would look like:
 sf project deploy start --tests SampleTest SuperSampleTest Sample2Test SuperSample2Test SampleTriggerTest
 ```
 
-If no annotations are found, the command output will be empty and will present this warning:
+If no test methods are found, the command output will be empty and will present this warning:
 
 ```sh
 No test methods found
@@ -134,7 +134,7 @@ No test methods found
 
 ### Handling Missing Tests
 
-By default, this tool does **not** verify if the tests specified in `@Tests:` or `@TestSuites:` exist in the project. To enable warnings for missing tests, use:
+By default, this tool does **not** verify if the test methods found exist in the project. To enable warnings for missing tests, use:
 
 ```sh
 sf apextests list --ignore-missing-tests
