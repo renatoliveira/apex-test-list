@@ -48,7 +48,7 @@ Do not print warnings for each Apex file missing annotations.
 
 # flags.filter-by-metadata.summary
 
-Only include tests that explicitly declare metadata dependencies matching changed metadat.a
+Only include tests that explicitly declare metadata dependencies matching changed metadata.
 
 # flags.filter-by-metadata.description
 
