@@ -46,6 +46,14 @@ Do not print warnings for each Apex file missing annotations.
 
 Do not print warnings for each Apex file missing annotations.
 
+# flags.filter-by-metadata.summary
+
+Only include tests that explicitly declare metadata dependencies matching changed metadata.
+
+# flags.filter-by-metadata.description
+
+When enabled with `manifest`, test selection is based on metadata changes (e.g., Flow, CustomObject) rather than Apex annotations.
+
 # examples
 
 - <%= config.bin %> <%= command.id %> --format csv

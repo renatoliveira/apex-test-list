@@ -49,6 +49,13 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       required: false,
       default: false,
     }),
+    'filter-by-metadata': Flags.boolean({
+      summary: messages.getMessage('flags.filter-by-metadata.summary'),
+      description: messages.getMessage('flags.filter-by-metadata.description'),
+      char: 'm',
+      required: false,
+      default: false,
+    }),
   };
 
 
@@ -61,6 +68,7 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
       ignoreMissingTests: flags['ignore-missing-tests'],
       ignoreDirs: flags['ignore-package-directory'],
       noWarnings: flags['no-warnings'],
+      filterByMetadata: flags['filter-by-metadata'],
       warn: this.warn.bind(this),
     });
 

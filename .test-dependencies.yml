@@ -1,0 +1,6 @@
+SampleTest:
+  - Flow:OpportunityFlowX
+  - ValidationRule:Account.RequiredEmail
+
+SuperSampleTest:
+  - CustomField:Account.*
