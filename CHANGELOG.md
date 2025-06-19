@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/renatoliveira/apex-test-list/compare/v1.12.4...v1.13.0) (2025-06-19)
+
+
+### Features
+
+* add metadata filter option via yaml ([#234](https://github.com/renatoliveira/apex-test-list/issues/234)) ([1ccaf7b](https://github.com/renatoliveira/apex-test-list/commit/1ccaf7b445feb75c20770879289d1f3d5e1a2ae6))
+
 ## [1.12.4](https://github.com/renatoliveira/apex-test-list/compare/v1.12.3...v1.12.4) (2025-06-14)
 
 
