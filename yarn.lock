@@ -1368,10 +1368,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@oclif/core@4.3.3", "@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.3.2":
-  version "4.3.3"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.3.3.tgz#a527536b62ef202c58d2b69ce9cd1e64eb3a94b1"
-  integrity sha512-A0mk4nlVE+r34fl91OdglXVPwhhfzM59IhSxnOigqMkwxFgT8z3i2WlUgzmazzvzSccs2KM4N2HkTS3NEvW96g==
+"@oclif/core@4.4.0", "@oclif/core@^4", "@oclif/core@^4.0.27", "@oclif/core@^4.3.2":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-4.4.0.tgz#82fb972822270c8e585587bd1c8a01ffbac588e2"
+  integrity sha512-wH5g3SLmbRutnr7UzQBSozRFEAZ7U9YGB/wFuBRr0ZghTgv5DE+KQaf6ZtU7iFb9pvkvoVRnT5XheNAtbjRDaQ==
   dependencies:
     ansi-escapes "^4.3.2"
     ansis "^3.17.0"
@@ -6647,7 +6647,15 @@ srcset@^5.0.0:
   version "5.0.1"
   resolved "https://registry.npmjs.org/srcset/-/srcset-5.0.1.tgz"
 
-"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0":
+  version "4.2.3"
+  resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
+
+string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz"
   dependencies:
@@ -6715,7 +6723,13 @@ stringify-entities@^4.0.0:
     character-entities-html4 "^2.0.0"
     character-entities-legacy "^3.0.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@6.0.1, strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz"
+  dependencies:
+    ansi-regex "^5.0.1"
+
+strip-ansi@6.0.1, strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz"
   dependencies:
@@ -7275,7 +7289,7 @@ workerpool@^6.5.1:
   version "6.5.1"
   resolved "https://registry.npmjs.org/workerpool/-/workerpool-6.5.1.tgz"
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
   version "7.0.0"
   resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz"
   dependencies:
@@ -7286,6 +7300,14 @@ workerpool@^6.5.1:
 wrap-ansi@^6.2.0:
   version "6.2.0"
   resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-6.2.0.tgz"
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz"
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"
