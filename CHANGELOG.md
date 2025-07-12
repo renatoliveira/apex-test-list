@@ -5,6 +5,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.2](https://github.com/renatoliveira/apex-test-list/compare/v1.13.1...v1.13.2) (2025-07-12)
+
+
+### Bug Fixes
+
+* **deps:** bump @oclif/core from 4.4.1 to 4.5.0 ([#249](https://github.com/renatoliveira/apex-test-list/issues/249)) ([bb6016a](https://github.com/renatoliveira/apex-test-list/commit/bb6016a4ea000eef8e2050ae4ee78d235209998a))
+* **deps:** bump @salesforce/core from 8.15.0 to 8.18.1 ([#247](https://github.com/renatoliveira/apex-test-list/issues/247)) ([116cb3c](https://github.com/renatoliveira/apex-test-list/commit/116cb3c6ba01087d20bc0550449faa5b53a30cef))
+* **deps:** bump @salesforce/source-deploy-retrieve ([#251](https://github.com/renatoliveira/apex-test-list/issues/251)) ([bc79799](https://github.com/renatoliveira/apex-test-list/commit/bc7979930c07415ad5bb8c4f06aaec8622c255fb))
+
 ## [1.13.1](https://github.com/renatoliveira/apex-test-list/compare/v1.13.0...v1.13.1) (2025-07-12)
 
 
