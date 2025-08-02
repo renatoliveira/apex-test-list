@@ -2248,8 +2248,9 @@
   resolved "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.4.tgz"
 
 "@types/async@^3.2.24":
-  version "3.2.24"
-  resolved "https://registry.npmjs.org/@types/async/-/async-3.2.24.tgz"
+  version "3.2.25"
+  resolved "https://registry.yarnpkg.com/@types/async/-/async-3.2.25.tgz#8439f7cde2627e34a15897eb80878835dbea2421"
+  integrity sha512-O6Th/DI18XjrL9TX8LO9F/g26qAz5vynmQqlXt/qLGrskvzCKXKc5/tATz3G2N6lM8eOf3M8/StB14FncAmocg==
 
 "@types/cacheable-request@^6.0.1":
   version "6.0.3"
