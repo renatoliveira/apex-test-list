@@ -5,6 +5,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.4](https://github.com/renatoliveira/apex-test-list/compare/v1.13.3...v1.13.4) (2025-08-19)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/source-deploy-retrieve ([#270](https://github.com/renatoliveira/apex-test-list/issues/270)) ([d7f23d3](https://github.com/renatoliveira/apex-test-list/commit/d7f23d3e4c406d64b33dbe8286e05b485658937e))
+
 ## [1.13.3](https://github.com/renatoliveira/apex-test-list/compare/v1.13.2...v1.13.3) (2025-08-01)
 
 
