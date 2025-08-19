@@ -59,10 +59,7 @@ export async function listTests({
   let finalTestMethods = Array.from(new Set(allTestClasses.map((test) => test.trim())));
 
   if (ignoreMissingTests) {
-    const { validatedTests, warnings: validationWarnings } = await validateTests(
-      finalTestMethods,
-      packageDirectories,
-    );
+    const { validatedTests, warnings: validationWarnings } = await validateTests(finalTestMethods, packageDirectories);
     finalTestMethods = validatedTests;
     warnings.push(...validationWarnings);
   }
