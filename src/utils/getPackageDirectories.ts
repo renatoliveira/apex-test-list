@@ -7,7 +7,9 @@ import { getRepoRoot } from './getRepoRoot.js';
 import { SfdxProject } from './types.js';
 import { SEARCHABLE_METADATA_FOLDERS } from './constants.js';
 
-export async function getPackageDirectories(ignoreDirs: string[]): Promise<{metadataPaths: string[]; repoRoot: string}> {
+export async function getPackageDirectories(
+  ignoreDirs: string[],
+): Promise<{ metadataPaths: string[]; repoRoot: string }> {
   const { repoRoot, dxConfigFilePath } = await getRepoRoot();
 
   if (!repoRoot || !dxConfigFilePath) {

@@ -8,7 +8,6 @@ import { getConcurrencyThreshold } from '../utils/concurrencyThreshold.js';
 import { matchWildcard } from '../utils/matchWildcard.js';
 import { searchDirectoryForTestClasses } from './directorySearcher.js';
 
-
 /**
  * Given a certain directory, search its contents for files that end with
  * '.testSuite-meta.xml' and extract the class names mentioned in the test

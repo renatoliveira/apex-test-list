@@ -1,6 +1,6 @@
 # summary
 
-List
+Use the Apex Tests List tool to list specific tests on your Salesforce DX repository. If no tests are found, all classes with the `@IsTest` annotation will be included in the list. The tests you want listed must meet some criteria, such as having a specific comment to annotate them to show up on this list. Please refer to the documentation on the project's GitHub page for more information if needed.
 
 # description
 

@@ -58,7 +58,6 @@ export default class ApextestsList extends SfCommand<ApextestsListResult> {
     }),
   };
 
-
   public async run(): Promise<ApextestsListResult> {
     const { flags } = await this.parse(ApextestsList);
 

@@ -1,8 +1,7 @@
-
 'use strict';
 
 import { existsSync } from 'node:fs';
-import { ComponentSet  } from '@salesforce/source-deploy-retrieve';
+import { ComponentSet } from '@salesforce/source-deploy-retrieve';
 
 /**
  * Given a certain manifest file, reads that file and returns the classes,
@@ -20,7 +19,7 @@ export async function extractTypeNamesFromManifestFile(manifestFile: string): Pr
     return result;
   }
 
-  const componentSet: ComponentSet = await ComponentSet.fromManifest({manifestPath: manifestFile});
+  const componentSet: ComponentSet = await ComponentSet.fromManifest({ manifestPath: manifestFile });
   for (const component of componentSet) {
     const typeName = component.type.name;
     result.push(`${typeName}:${component.fullName}`);
