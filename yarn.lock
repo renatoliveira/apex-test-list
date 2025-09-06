@@ -1376,10 +1376,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@jsforce/jsforce-node@^3.10.1":
-  version "3.10.3"
-  resolved "https://registry.yarnpkg.com/@jsforce/jsforce-node/-/jsforce-node-3.10.3.tgz#76ac09cfc9565ccc953928c86733c787e4908928"
-  integrity sha512-Q6kgPNP/xiP8gzZLwquTLFKNUC9AbDIxrC9bhRsK1YgyDF4V64V/muxHVeCHR4rtXre658eLOgz6kRgoeBHTVg==
+"@jsforce/jsforce-node@^3.10.4":
+  version "3.10.5"
+  resolved "https://registry.yarnpkg.com/@jsforce/jsforce-node/-/jsforce-node-3.10.5.tgz#dcb7eec4520bcc0e2d8754d71a68a3ecf17054b4"
+  integrity sha512-0nAxqKlLWxb9EY2ZJRdIh9qkFV85JUZL9wOGgLVYnKqRKF8iUWEMDy6CvOU7OwQEMgkY1micZON6IrUlPLIM8w==
   dependencies:
     "@sindresorhus/is" "^4"
     base64url "^3.0.1"
@@ -1568,18 +1568,18 @@
     ts-retry-promise "^0.8.1"
 
 "@salesforce/core@^8.18.5", "@salesforce/core@^8.19.1", "@salesforce/core@^8.5.1", "@salesforce/core@^8.8.0":
-  version "8.20.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.20.0.tgz#3a63ae04a9fd70ac10123013d3cbf7488a798033"
-  integrity sha512-WZoab9aHDbYXUh4nO+91PNLHpiPfK408qjn3l6Sbgck2d0bzYkW5wOmuv5D5yWrEybs9kGosrW/e9liKPGmgng==
+  version "8.23.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.23.0.tgz#19e9effb2175507538157255d969e08925f91f76"
+  integrity sha512-njdJlo+SYtmuCBE1p8lwbcQF6oRsE1ZkcEQUElpu4WhB+DT/0mv7oN3eeYfh9Ss9Px95sSgzPJhEFLsZLwGJ4w==
   dependencies:
-    "@jsforce/jsforce-node" "^3.10.1"
+    "@jsforce/jsforce-node" "^3.10.4"
     "@salesforce/kit" "^3.2.2"
-    "@salesforce/schemas" "^1.9.1"
+    "@salesforce/schemas" "^1.10.0"
     "@salesforce/ts-types" "^2.0.11"
     ajv "^8.17.1"
     change-case "^4.1.2"
     fast-levenshtein "^3.0.0"
-    faye "^1.4.0"
+    faye "^1.4.1"
     form-data "^4.0.4"
     js2xmlparser "^4.0.1"
     jsonwebtoken "9.0.2"
@@ -1637,10 +1637,10 @@
   version "0.0.3"
   resolved "https://registry.npmjs.org/@salesforce/prettier-config/-/prettier-config-0.0.3.tgz"
 
-"@salesforce/schemas@^1.9.1":
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.9.1.tgz#ea843c732068c4ac2dadbe1d22b44e714cfe661d"
-  integrity sha512-9I8kZBYT7HFXsbz2ukkSyZDRPjSsfRyx3pKGCsjWe2av8wuNm6tYUnmuXzMH5JoVSu3MvtOeIlwp5fFURdsNjg==
+"@salesforce/schemas@^1.10.0":
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.10.3.tgz#52c867fdd60679cf216110aa49542b7ad391f5d1"
+  integrity sha512-FKfvtrYTcvTXE9advzS25/DEY9yJhEyLvStm++eQFtnAaX1pe4G3oGHgiQ0q55BM5+0AlCh0+0CVtQv1t4oJRA==
 
 "@salesforce/sf-plugins-core@^11.3.12":
   version "11.3.12"
@@ -4132,9 +4132,10 @@ faye-websocket@>=0.9.1:
   dependencies:
     websocket-driver ">=0.5.1"
 
-faye@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.npmjs.org/faye/-/faye-1.4.0.tgz"
+faye@^1.4.0, faye@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/faye/-/faye-1.4.1.tgz#fd2f84e21d62b1cced1bd34968925b466d44a381"
+  integrity sha512-Cg/khikhqlvumHO3efwx2tps2ZgQRjUMrO24G0quz7MMzRYYaEjU224YFXOeuPIvanRegIchVxj6pmHK1W0ikA==
   dependencies:
     asap "*"
     csprng "*"
