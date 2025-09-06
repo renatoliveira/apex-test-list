@@ -67,15 +67,24 @@ describe('apextests list', () => {
       .getCalls()
       .flatMap((c) => c.args)
       .join(' ');
-    expect(output).to.equal(`--tests ${TEST_LIST.join(' ')}`);
+    expect(output).to.equal(`--tests ${TEST_LIST.join(' --tests ')}`);
   });
 
   it('runs list with --json', async () => {
     const result = await ApextestsList.run(['-d', ignoreDir]);
-    expect(result.command).to.equal(`--tests ${TEST_LIST.sort((a, b) => a.localeCompare(b)).join(' ')}`);
+    expect(result.command).to.equal(`--tests ${TEST_LIST.sort((a, b) => a.localeCompare(b)).join(' --tests ')}`);
   });
 
   it('runs list --format csv', async () => {
+    await ApextestsList.run(['--format', 'csv', '-d', ignoreDir]);
+    const output = sfCommandStubs.log
+      .getCalls()
+      .flatMap((c) => c.args)
+      .join(' ');
+    expect(output).to.equal(TEST_LIST.sort((a, b) => a.localeCompare(b)).join(','));
+  });
+
+  it('runs list --format sfdx', async () => {
     await ApextestsList.run(['--format', 'csv', '-d', ignoreDir]);
     const output = sfCommandStubs.log
       .getCalls()
@@ -90,7 +99,7 @@ describe('apextests list', () => {
       .getCalls()
       .flatMap((c) => c.args)
       .join(' ');
-    expect(output).to.equal(`--tests ${VALIDATED_TEST_LIST.join(' ')}`);
+    expect(output).to.equal(`--tests ${VALIDATED_TEST_LIST.join(' --tests ')}`);
     const warnings = sfCommandStubs.warn
       .getCalls()
       .flatMap((c) => c.args)
@@ -100,7 +109,7 @@ describe('apextests list', () => {
 
   it('runs list with --json and validates tests exist', async () => {
     const result = await ApextestsList.run(['--ignore-missing-tests', '-d', ignoreDir]);
-    expect(result.command).to.equal(`--tests ${VALIDATED_TEST_LIST.sort((a, b) => a.localeCompare(b)).join(' ')}`);
+    expect(result.command).to.equal(`--tests ${VALIDATED_TEST_LIST.sort((a, b) => a.localeCompare(b)).join(' --tests ')}`);
   });
 
   it('runs list --format csv and validates tests exist', async () => {
@@ -184,7 +193,7 @@ describe('apextests list', () => {
       .getCalls()
       .flatMap((c) => c.args)
       .join(' ');
-    expect(output).to.equal('--tests SampleTest SuperSampleTest');
+    expect(output).to.equal('--tests SampleTest --tests SuperSampleTest');
     const warnings = sfCommandStubs.warn
       .getCalls()
       .flatMap((c) => c.args)
