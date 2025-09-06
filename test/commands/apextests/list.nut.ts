@@ -37,7 +37,7 @@ describe('apextests list NUTs', () => {
     packageDirectories: [{ path: 'samples', default: true }],
     namespace: '',
     sfdcLoginUrl: 'https://login.salesforce.com',
-    sourceApiVersion: '58.0',
+    sourceApiVersion: '64.0',
   };
   const configJsonString = JSON.stringify(configFile, null, 2);
   const ignoreDir = 'ignore';
@@ -67,7 +67,7 @@ describe('apextests list NUTs', () => {
     const command = `apextests list -d ${ignoreDir}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
-    expect(output.replace('\n', '')).to.equal(`--tests ${TEST_LIST.join(' ')}`);
+    expect(output.replace('\n', '')).to.equal(`--tests ${TEST_LIST.join(' --tests ')}`);
   });
 
   it('runs list with --json', async () => {
@@ -75,7 +75,7 @@ describe('apextests list NUTs', () => {
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    expect(JSON.parse(output).result.command).to.equal(`--tests ${TEST_LIST.join(' ')}`);
+    expect(JSON.parse(output).result.command).to.equal(`--tests ${TEST_LIST.join(' --tests ')}`);
   });
 
   it('runs list --format csv', async () => {
@@ -90,7 +90,7 @@ describe('apextests list NUTs', () => {
     const command = `apextests list --ignore-missing-tests -d ${ignoreDir}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
-    expect(output.replace('\n', '')).to.equal(`--tests ${VALIDATED_TEST_LIST.join(' ')}`);
+    expect(output.replace('\n', '')).to.equal(`--tests ${VALIDATED_TEST_LIST.join(' --tests ')}`);
   });
 
   it('runs list with --json and validates tests exist', async () => {
@@ -98,7 +98,7 @@ describe('apextests list NUTs', () => {
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    expect(JSON.parse(output).result.command).to.equal(`--tests ${VALIDATED_TEST_LIST.join(' ')}`);
+    expect(JSON.parse(output).result.command).to.equal(`--tests ${VALIDATED_TEST_LIST.join(' --tests ')}`);
   });
 
   it('runs list --format csv and validates tests exist', async () => {
