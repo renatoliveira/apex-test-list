@@ -198,10 +198,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/renatoliveira/apex-test-list"
+    "url": "https://github.com/wisefoxme/apex-test-list"
   },
   "bugs": {
-    "url": "https://github.com/renatoliveira/apex-test-list"
+    "url": "https://github.com/wisefoxme/apex-test-list"
   },
   "exports": "./lib/index.js",
   "type": "module",
